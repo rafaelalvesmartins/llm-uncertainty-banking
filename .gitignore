@@ -72,3 +72,9 @@ site/
 # only barrier, and a later deletion does not erase content from public history.
 DESIGN_DECISIONS_PERSONALIZATION_WORKSHEET.md
 planning/root_archive_2026-07-11/DESIGN_DECISIONS_PERSONALIZATION_WORKSHEET.md
+
+# Pre-publication BRB review inventory — quotes verbatim the employer-internal
+# architecture details and affiliation passages that the files above (and the
+# pre-publication cleanup) exist to keep out of the public repository. Publishing
+# the cleanup record would republish the content the cleanup removed.
+scripts/BRB_MENTIONS_DECISION_INVENTORY.md
