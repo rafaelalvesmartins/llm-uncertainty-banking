@@ -1,0 +1,48 @@
+===============================================
+!! SUPERSEDED — DO NOT CITE !!
+===============================================
+This file captures a PRE-test-suite-reorg run. Three lines below
+contradict current reality:
+  - Line 11: "78 errors in 22 files"  — was caused by the truncated
+    pyproject.toml (restored later same day; mypy now green on 3.11).
+  - Line 18: "732 passed"  — reorg split into 718 unit + 32 integration
+    = 750 total. 732 is the pre-reorg count.
+  - Line 21: coverage read failure  — same truncated-pyproject cause.
+
+Canonical CI record for 2026-04-22 is CI_REPORT_2026-04-22.md (same
+folder). Delete this .txt after the next COMMIT_AND_VERIFY.ps1 run
+regenerates fresh output.
+
+===============================================
+FINAL CI PASS — llm-uncertainty-banking (pre-reorg — superseded)
+Run date: 2026-04-22T21:41:17+00:00
+===============================================
+
+=== 1. RUFF (lint) ===
+
+=== 2. MYPY (strict, py3.11) ===
+src/lub/cli/inspect.py:103: error: Module "lub.reports.crosswalk" has no attribute "regimes"; maybe "Regime"?  [attr-defined]
+src/lub/cli/benchmark.py:8: error: Cannot find implementation or library stub for module named "tomllib"  [import-not-found]
+Found 78 errors in 22 files (checked 86 source files)
+
+=== 3. IMPORT-LINTER (architecture contracts) ===
+
+=== 4. PYTEST (732 hermetic tests) + COVERAGE ===
+........................................................................ [ 98%]
+............                                                             [100%]
+732 passed in 10.14s
+
+=== 5. COVERAGE SUMMARY ===
+Couldn't read config file pyproject.toml: Unterminated string (at end of document)
+
+=== 6. BUILD (hatchling) ===
+-rwx------ 1 magical-modest-lovelace magical-modest-lovelace  214745 Apr 22 21:28 dist/llm_uncertainty_banking-0.0.1-py3-none-any.whl
+-rwx------ 1 magical-modest-lovelace magical-modest-lovelace 1329188 Apr 22 21:28 dist/llm_uncertainty_banking-0.0.1.tar.gz
+
+=== 7. MKDOCS BUILD ===
+/tmp/mkdocs_site/api/index.html
+/tmp/mkdocs_site/index.html
+
+===============================================
+ALL CHECKS GREEN
+===============================================

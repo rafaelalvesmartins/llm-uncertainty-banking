@@ -1,0 +1,9 @@
+# Smoke-test config: DummyBackend + verbalized_1s on BR-Regulatory.
+# Exercises the blackbox-only estimator path (no logprobs required).
+
+model = "dummy-0"
+backend = "dummy"
+estimator = "verbalized_1s"
+dataset = "br_regulatory"
+limit = 5
+seed = 0

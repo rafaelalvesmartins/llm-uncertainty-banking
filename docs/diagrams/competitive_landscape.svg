@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">competitive landscape — lub vs market</title>
+  <desc id="desc">Three quadrants showing competitor projects in LLM uncertainty quantification, regulatory compliance, and OSCAL output, converging on lub which combines all three.</desc>
+
+  <style>
+    .h1 { font-size: 17px; font-weight: 700; fill: #1c1917; }
+    .h2 { font-size: 14px; font-weight: 700; fill: #1c1917; }
+    .h3 { font-size: 12px; font-weight: 600; fill: #1c1917; }
+    .body { font-size: 11px; fill: #44403c; }
+    .small { font-size: 10px; fill: #78716c; }
+    .uq { fill: #fae8ff; stroke: #c026d3; stroke-width: 1; }
+    .comp { fill: #fee2e2; stroke: #ef4444; stroke-width: 1; }
+    .oscal { fill: #cffafe; stroke: #06b6d4; stroke-width: 1; }
+    .lub { fill: #d1fae5; stroke: #16a34a; stroke-width: 2; }
+    .gap { fill: #ffedd5; stroke: #f97316; stroke-width: 1.5; }
+    .arrow { stroke: #44403c; stroke-width: 1.5; fill: none; }
+    .mono { font-family: ui-monospace, Menlo, monospace; font-size: 10px; fill: #44403c; }
+  </style>
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#44403c"/>
+    </marker>
+  </defs>
+
+  <text x="440" y="26" text-anchor="middle" class="h1">competitive landscape — what already exists, what doesn't</text>
+  <text x="440" y="44" text-anchor="middle" class="body">Three pre-existing categories. lub is the first OSS tool sitting at the intersection.</text>
+
+  <rect x="20" y="80" width="260" height="170" rx="10" class="uq"/>
+  <text x="150" y="104" text-anchor="middle" class="h2">LLM Uncertainty Quantification</text>
+  <text x="150" y="120" text-anchor="middle" class="small">research-grade, OSS, no compliance hooks</text>
+  <text x="40" y="146" class="h3">UQLM</text>
+  <text x="100" y="146" class="small">CVS Health · Apache 2.0</text>
+  <text x="40" y="166" class="h3">LM-Polygraph</text>
+  <text x="135" y="166" class="small">research toolkit · MIT</text>
+  <text x="40" y="186" class="h3">TruthTorchLM</text>
+  <text x="40" y="206" class="h3">polygraphLLM</text>
+  <text x="135" y="206" class="small">Cisco · academic</text>
+  <text x="40" y="232" class="mono">22 estimators across these · zero map regimes</text>
+
+  <rect x="310" y="80" width="260" height="170" rx="10" class="comp"/>
+  <text x="440" y="104" text-anchor="middle" class="h2">Regulatory Compliance</text>
+  <text x="440" y="120" text-anchor="middle" class="small">closed-source SaaS, banking-aware</text>
+  <text x="330" y="146" class="h3">ValidMind</text>
+  <text x="410" y="146" class="small">closed · seat-priced</text>
+  <text x="330" y="166" class="h3">Credo AI</text>
+  <text x="395" y="166" class="small">closed · regulator-facing</text>
+  <text x="330" y="186" class="h3">Monitaur</text>
+  <text x="330" y="206" class="small">closed · model risk SaaS</text>
+  <text x="330" y="232" class="mono">all 3 are closed · zero open the calibration kernel</text>
+
+  <rect x="600" y="80" width="260" height="170" rx="10" class="oscal"/>
+  <text x="730" y="104" text-anchor="middle" class="h2">OSCAL machine-readable</text>
+  <text x="730" y="120" text-anchor="middle" class="small">tabular ML only, not for LLMs</text>
+  <text x="620" y="146" class="h3">Venturalítica SDK</text>
+  <text x="620" y="166" class="small">tabular ML provenance · OSS</text>
+  <text x="620" y="186" class="small">No LLM-specific UQ</text>
+  <text x="620" y="206" class="small">No banking regimes</text>
+  <text x="620" y="232" class="mono">handles OSCAL · misses LLM scope</text>
+
+  <polygon points="440,310 360,360 440,410 520,360" class="gap"/>
+  <text x="440" y="350" text-anchor="middle" class="h3">No one else</text>
+  <text x="440" y="367" text-anchor="middle" class="small">combines all three</text>
+
+  <rect x="280" y="450" width="320" height="100" rx="10" class="lub"/>
+  <text x="440" y="474" text-anchor="middle" class="h1" fill="#16a34a">llm-uncertainty-banking (lub)</text>
+  <text x="440" y="492" text-anchor="middle" class="body">Apache 2.0 · 22 estimators · 14 metrics · 6 regimes · OSCAL JSON</text>
+  <text x="440" y="510" text-anchor="middle" class="mono">SR 11-7 mapping · governance runtime · 38 MCP tools</text>
+  <text x="440" y="530" text-anchor="middle" class="small">first OSS tool that fills the gap</text>
+
+  <path d="M 150 250 L 410 320" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 440 250 L 440 310" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 730 250 L 470 320" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 440 410 L 440 450" class="arrow" marker-end="url(#ah)" stroke="#16a34a" stroke-width="2"/>
+
+  <text x="40" y="572" class="small">Sources: 2026-04-18 18-vendor sweep (`market_research/14b_Market_Research_2026-04-18.md`). Three "first and only" claims survived to the petition narrative.</text>
+</svg>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 760" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">estimator selection — which UQ method for which use case</title>
+  <desc id="desc">Decision tree to pick one of lub's 22 uncertainty estimators based on backend access (logprobs vs blackbox), inference budget, and whether SR 11-7 coverage guarantee is required.</desc>
+
+  <style>
+    .h2 { font-size: 14px; font-weight: 700; fill: #1c1917; }
+    .h3 { font-size: 11px; font-weight: 600; fill: #1c1917; }
+    .body { font-size: 11px; fill: #44403c; }
+    .small { font-size: 10px; fill: #78716c; }
+    .tiny { font-size: 9px; fill: #78716c; }
+    .mono { font-family: ui-monospace, Menlo, monospace; font-size: 10px; fill: #44403c; }
+    .start { fill: #dbeafe; stroke: #3b82f6; stroke-width: 1.5; }
+    .diamond { fill: #ffedd5; stroke: #f97316; stroke-width: 1.5; }
+    .leaf-bb { fill: #f3f4f6; stroke: #6b7280; stroke-width: 1; }
+    .leaf-wb { fill: #ecfccb; stroke: #84cc16; stroke-width: 1; }
+    .leaf-conf { fill: #fee2e2; stroke: #ef4444; stroke-width: 1.5; }
+    .leaf-special { fill: #fae8ff; stroke: #c026d3; stroke-width: 1; }
+    .arrow { stroke: #44403c; stroke-width: 1.5; fill: none; }
+    .lbl { font-size: 10px; fill: #78716c; }
+  </style>
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#44403c"/>
+    </marker>
+  </defs>
+
+  <text x="540" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1917">estimator selection — which of the 22 UQ methods?</text>
+  <text x="540" y="42" text-anchor="middle" class="body">Three diamonds: backend type, inference budget, coverage guarantee.</text>
+
+  <ellipse cx="540" cy="80" rx="220" ry="22" class="start"/>
+  <text x="540" y="86" text-anchor="middle" class="h3">Which estimator should I use?</text>
+
+  <polygon points="540,130 380,180 540,230 700,180" class="diamond"/>
+  <text x="540" y="174" text-anchor="middle" class="h3">Backend exposes logprobs?</text>
+  <text x="540" y="192" text-anchor="middle" class="small">(HF/vLLM yes; OpenAI/Anthropic limited)</text>
+
+  <rect x="20" y="270" width="340" height="180" rx="8" class="leaf-bb"/>
+  <text x="190" y="290" text-anchor="middle" class="h2">Blackbox API path</text>
+  <text x="190" y="306" text-anchor="middle" class="small">no logprobs · 1–5 forward passes only</text>
+  <line x1="35" y1="314" x2="345" y2="314" stroke="#9ca3af"/>
+  <text x="40" y="334" class="h3">verbalized_1s · verbalized_2s</text>
+  <text x="40" y="350" class="tiny">Tian et al. 2023 · 1 extra pass · cheapest</text>
+  <text x="40" y="376" class="h3">self_consistency (k=5)</text>
+  <text x="40" y="392" class="tiny">Wang et al. 2023 · 5 forwards · strong baseline</text>
+  <text x="40" y="418" class="h3">p(True) (k=2)</text>
+  <text x="40" y="434" class="tiny">Kadavath et al. 2022 · self-eval prompt</text>
+
+  <polygon points="730,290 580,340 730,390 880,340" class="diamond"/>
+  <text x="730" y="334" text-anchor="middle" class="h3">Inference budget?</text>
+  <text x="730" y="350" text-anchor="middle" class="small">(white-box has logprobs)</text>
+
+  <rect x="450" y="430" width="280" height="138" rx="8" class="leaf-wb"/>
+  <text x="590" y="450" text-anchor="middle" class="h2">Single forward pass</text>
+  <text x="590" y="466" text-anchor="middle" class="small">cheapest · 1 generation</text>
+  <line x1="465" y1="474" x2="715" y2="474" stroke="#84cc16"/>
+  <text x="470" y="492" class="h3">token_logprob</text>
+  <text x="470" y="506" class="tiny">fastest · overconfident on OOD</text>
+  <text x="470" y="524" class="h3">token_sar / sentence_sar</text>
+  <text x="470" y="538" class="tiny">Duan et al. 2023 · 49% lower ECE vs logprob</text>
+  <text x="470" y="556" class="h3">perplexity</text>
+  <text x="470" y="565" class="tiny">sequence-level · same ECE as logprob</text>
+
+  <polygon points="900,430 750,480 900,530 1050,480" class="diamond"/>
+  <text x="900" y="474" text-anchor="middle" class="h3">SR 11-7 coverage?</text>
+  <text x="900" y="492" text-anchor="middle" class="small">(distribution-free guarantee)</text>
+
+  <rect x="450" y="600" width="280" height="150" rx="8" class="leaf-wb"/>
+  <text x="590" y="620" text-anchor="middle" class="h2">Diversity-based · multi-sample</text>
+  <text x="590" y="636" text-anchor="middle" class="small">no formal guarantee · best-effort UQ</text>
+  <line x1="465" y1="644" x2="715" y2="644" stroke="#84cc16"/>
+  <text x="470" y="662" class="h3">self_consistency (k=5)</text>
+  <text x="470" y="676" class="tiny">best cost/accuracy ratio</text>
+  <text x="470" y="694" class="h3">semantic_entropy</text>
+  <text x="470" y="708" class="tiny">Kuhn et al. 2023 · clusters by meaning</text>
+  <text x="470" y="724" class="h3">eigenscore</text>
+  <text x="470" y="738" class="tiny">attention eigenvalues · needs hidden states</text>
+
+  <rect x="760" y="600" width="290" height="150" rx="8" class="leaf-conf"/>
+  <text x="905" y="620" text-anchor="middle" class="h2" fill="#dc2626">Conformal · 5 variants</text>
+  <text x="905" y="636" text-anchor="middle" class="small">Vovk et al. 2005 · coverage guarantee</text>
+  <line x1="775" y1="644" x2="1035" y2="644" stroke="#ef4444"/>
+  <text x="780" y="662" class="h3">split_conformal · adaptive_conformal</text>
+  <text x="780" y="676" class="tiny">zero overhead · handles distribution shift</text>
+  <text x="780" y="694" class="h3">mondrian_conformal</text>
+  <text x="780" y="708" class="tiny">per-group thresholds · ECOA fair lending</text>
+  <text x="780" y="724" class="h3">conformal_sampling · CCP</text>
+  <text x="780" y="738" class="tiny">set-valued / claim-level fact checking</text>
+
+  <rect x="20" y="600" width="340" height="150" rx="8" class="leaf-special"/>
+  <text x="190" y="620" text-anchor="middle" class="h2">Special cases</text>
+  <text x="190" y="636" text-anchor="middle" class="small">specific evidence requirements</text>
+  <line x1="35" y1="644" x2="345" y2="644" stroke="#c026d3"/>
+  <text x="40" y="662" class="h3">mc_dropout · mahalanobis · graph_laplacian</text>
+  <text x="40" y="676" class="tiny">epistemic/aleatoric split, OOD detection</text>
+  <text x="40" y="694" class="h3">claim_level · ensemble</text>
+  <text x="40" y="708" class="tiny">long-form fact-checking, deep ensembles</text>
+  <text x="40" y="726" class="h3">lmpolygraph compat layer</text>
+  <text x="40" y="740" class="tiny">multi-signal research baseline</text>
+
+  <path d="M 540 102 L 540 130" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 380 180 L 250 270" class="arrow" marker-end="url(#ah)"/>
+  <text x="290" y="225" class="lbl">No · blackbox</text>
+  <path d="M 700 180 L 800 290" class="arrow" marker-end="url(#ah)"/>
+  <text x="730" y="232" class="lbl">Yes · whitebox</text>
+  <path d="M 580 340 L 590 430" class="arrow" marker-end="url(#ah)"/>
+  <text x="540" y="395" class="lbl">minimal</text>
+  <path d="M 880 340 L 900 430" class="arrow" marker-end="url(#ah)"/>
+  <text x="900" y="395" class="lbl">k = 3–10</text>
+  <path d="M 750 480 L 690 600" class="arrow" marker-end="url(#ah)"/>
+  <text x="700" y="555" class="lbl">No</text>
+  <path d="M 1050 480 L 1000 600" class="arrow" marker-end="url(#ah)"/>
+  <text x="1010" y="555" class="lbl">Yes (banking)</text>
+  <path d="M 540 230 Q 300 400 200 600" class="arrow" marker-end="url(#ah)" stroke-dasharray="4 3"/>
+  <text x="180" y="450" class="lbl">special</text>
+</svg>

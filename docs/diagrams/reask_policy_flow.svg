@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">REASK policy flow — confidence-gated retry</title>
+  <desc id="desc">Top-down decision flow: user prompt enters first pass, confidence is checked against threshold, low-confidence triggers reask with corrective prefix, retry confidence checked again, success returns reask answer with policy decision REASK, failure abstains.</desc>
+
+  <style>
+    .h2 { font-size: 14px; font-weight: 700; fill: #1c1917; }
+    .h3 { font-size: 11px; font-weight: 600; fill: #1c1917; }
+    .body { font-size: 11px; fill: #44403c; }
+    .small { font-size: 10px; fill: #78716c; }
+    .mono { font-family: ui-monospace, Menlo, monospace; font-size: 10px; fill: #44403c; }
+    .input { fill: #dbeafe; stroke: #3b82f6; stroke-width: 1; }
+    .pass1 { fill: #cffafe; stroke: #06b6d4; stroke-width: 1; }
+    .diamond { fill: #ffedd5; stroke: #f97316; stroke-width: 1.5; }
+    .reask { fill: #fae8ff; stroke: #c026d3; stroke-width: 1; }
+    .succ { fill: #d1fae5; stroke: #16a34a; stroke-width: 1.5; }
+    .fail { fill: #fee2e2; stroke: #ef4444; stroke-width: 1.5; }
+    .arrow { stroke: #44403c; stroke-width: 1.5; fill: none; }
+    .lbl { font-size: 10px; fill: #78716c; }
+  </style>
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#44403c"/>
+    </marker>
+  </defs>
+
+  <text x="440" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1917">REASK policy — confidence-gated retry</text>
+  <text x="440" y="42" text-anchor="middle" class="body">Low first-pass confidence triggers a corrective re-prompt. Two thresholds, three terminal states.</text>
+
+  <ellipse cx="440" cy="80" rx="170" ry="22" class="input"/>
+  <text x="440" y="86" text-anchor="middle" class="h3">User prompt</text>
+
+  <rect x="320" y="130" width="240" height="86" rx="8" class="pass1"/>
+  <text x="440" y="150" text-anchor="middle" class="h2">First pass</text>
+  <text x="440" y="170" text-anchor="middle" class="small">backend.generate(prompt)</text>
+  <text x="440" y="186" text-anchor="middle" class="small">estimator.score(...)</text>
+  <text x="440" y="204" text-anchor="middle" class="mono">→ confidence = 0.30</text>
+
+  <polygon points="440,250 320,300 440,350 560,300" class="diamond"/>
+  <text x="440" y="294" text-anchor="middle" class="h3">confidence ≥ threshold?</text>
+  <text x="440" y="312" text-anchor="middle" class="small">(default τ = 0.50)</text>
+
+  <rect x="60" y="380" width="240" height="100" rx="8" class="reask"/>
+  <text x="180" y="400" text-anchor="middle" class="h2">REASK</text>
+  <text x="180" y="418" text-anchor="middle" class="small">add corrective prefix</text>
+  <text x="180" y="434" text-anchor="middle" class="small">retry generation</text>
+  <text x="180" y="450" text-anchor="middle" class="small">recalculate confidence</text>
+  <text x="180" y="468" text-anchor="middle" class="mono">→ confidence = 0.85</text>
+
+  <polygon points="180,510 60,560 180,610 300,560" class="diamond"/>
+  <text x="180" y="554" text-anchor="middle" class="h3">retry passed?</text>
+  <text x="180" y="570" text-anchor="middle" class="small">(same τ)</text>
+
+  <rect x="40" y="640" width="240" height="60" rx="8" class="succ"/>
+  <text x="160" y="660" text-anchor="middle" class="h3">PolicyOutcome.REASK</text>
+  <text x="160" y="676" text-anchor="middle" class="small">return retry answer + audit log</text>
+  <text x="160" y="692" text-anchor="middle" class="mono">passed = True</text>
+
+  <rect x="320" y="640" width="240" height="60" rx="8" class="fail"/>
+  <text x="440" y="660" text-anchor="middle" class="h3" fill="#dc2626">PolicyOutcome.ABSTAIN</text>
+  <text x="440" y="676" text-anchor="middle" class="small">return abstain marker</text>
+  <text x="440" y="692" text-anchor="middle" class="mono">passed = False</text>
+
+  <rect x="600" y="380" width="240" height="100" rx="8" class="succ"/>
+  <text x="720" y="400" text-anchor="middle" class="h2">PASSTHROUGH</text>
+  <text x="720" y="420" text-anchor="middle" class="small">first-pass confidence</text>
+  <text x="720" y="436" text-anchor="middle" class="small">already sufficient</text>
+  <text x="720" y="454" text-anchor="middle" class="mono">PolicyOutcome.PASSTHROUGH</text>
+  <text x="720" y="470" text-anchor="middle" class="small">return first answer</text>
+
+  <path d="M 440 102 L 440 130" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 440 216 L 440 250" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 320 300 L 200 380" class="arrow" marker-end="url(#ah)"/>
+  <text x="240" y="338" class="lbl" fill="#dc2626">No (0.30 &lt; 0.50)</text>
+  <path d="M 560 300 L 660 380" class="arrow" marker-end="url(#ah)"/>
+  <text x="595" y="338" class="lbl" fill="#16a34a">Yes</text>
+  <path d="M 180 480 L 180 510" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 130 595 L 130 640" class="arrow" marker-end="url(#ah)"/>
+  <text x="80" y="618" class="lbl" fill="#16a34a">Yes</text>
+  <path d="M 280 580 Q 380 610 380 640" class="arrow" marker-end="url(#ah)"/>
+  <text x="320" y="618" class="lbl" fill="#dc2626">No</text>
+
+  <text x="40" y="720" class="small">Every state writes one row to `lub.ledger.policy_decisions` so an auditor can replay every refusal-vs-passthrough decision after the fact.</text>
+</svg>

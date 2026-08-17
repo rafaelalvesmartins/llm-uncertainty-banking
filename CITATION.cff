@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+title: "llm-uncertainty-banking: Calibrated LLMs for Regulated Banking"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Alves"
+    given-names: "Rafael Martins"
+    affiliation: "Banco de Brasília"
+repository-code: "https://github.com/rafaelalvesmartins/llm-uncertainty-banking"
+url: "https://github.com/rafaelalvesmartins/llm-uncertainty-banking"
+abstract: "An open-source Python framework unifying 22 UQ estimators for uncertainty quantification in financial LLM deployments, with six-regime regulatory compliance reporting (NIST AI 600-1 GenAI Profile of AI RMF 1.0, EU AI Act 2024/1689, BCBS 239, BCB Resolução 4.893/2021, ISO/IEC 23894:2023, and ISO/IEC 42001:2023) and governance layers. SR 11-7 three-pillar mapping cross-referenced separately."
+keywords:
+  - "uncertainty-quantification"
+  - "large-language-models"
+  - "calibration"
+  - "regulatory-compliance"
+  - "model-risk-management"
+  - "financial-nlp"
+  - "nist-ai-rmf"
+  - "nist-ai-600-1"
+  - "sr-11-7"
+  - "eu-ai-act"
+  - "bcbs-239"
+  - "bcb-resolucao-4893"
+  - "iso-iec-23894"
+  - "iso-iec-42001"
+  - "oscal"
+license: "Apache-2.0"
+version: "0.1.0"
+date-released: "2026-04-17"
+references:
+  - type: paper
+    title: "Calibrated LLMs for Regulated Banking"
+    authors:
+      - family-names: "Alves"
+        given-names: "Rafael Martins"
+    year: 2026
+    journal: "arXiv"
+    comment: "Preprint — arXiv ID pending"

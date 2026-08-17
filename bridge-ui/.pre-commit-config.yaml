@@ -1,0 +1,101 @@
+repos:
+  # ---------------------------------------------------------------------------
+  # Ruff: lint + format (mirrors the repo-root .pre-commit-config.yaml style).
+  # Scoped to bridge-ui/backend Python files.
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+        files: ^bridge-ui/backend/
+      - id: ruff-format
+        files: ^bridge-ui/backend/
+
+  # ---------------------------------------------------------------------------
+  # Safety smoke: fast local hook — pytest -q on the safety-smoke suite only.
+  # This replicates the intent of the missing .githooks/pre-commit (no
+  # core.hooksPath or .githooks directory was found in the repo; this hook IS
+  # the authoritative local gate). Catches 6-spot-sync breaks before push.
+  #
+  # Requires: pytest + lub installed in the active Python env (the same env
+  # that has fastapi/pydantic from bridge-ui/backend/requirements.txt).
+  # Run `uv pip install -e ".[dev]" && pip install -r bridge-ui/backend/requirements.txt`
+  # once to set up the env, then `pre-commit install` from the repo root.
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: safety-smoke
+        name: Safety smoke (6-spot-sync regression)
+        language: system
+        # Run from backend dir so the relative import in test_safety_smoke.py
+        # resolves (it does sys.path.insert for its own directory).
+        entry: bash -c 'cd bridge-ui/backend && pytest -q test_safety_smoke.py'
+        pass_filenames: false
+        # Only run when backend Python files change — keeps the hook fast on
+        # frontend-only commits.
+        files: ^bridge-ui/backend/.*\.py$
+        stages: [pre-commit]
+
+  # ---------------------------------------------------------------------------
+  # Secret scan: detect-secrets prevents credentials, API keys, and tokens
+  # from being committed. Mirrors B3 of ENGINEERING_HARDENING_PLAN.md.
+  # First-time setup: run `detect-secrets scan > .secrets.baseline` from the
+  # repo root and commit the baseline file before enabling this hook.
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+        # NOTE: .secrets.baseline must exist; run `detect-secrets scan >
+        # .secrets.baseline` once to create it. Until then this hook fails on
+        # a fresh clone — create the baseline on first use (B3/HARDENING_PLAN).
+
+  # ---------------------------------------------------------------------------
+  # R3 residual (ENGINEERING_HARDENING_PLAN.md A3): grep that fails if
+  # server.py references a proxied scalar as a BARE name (i.e. not qualified
+  # via _audit_state_mod. or _runtime_state_mod.). Bare-name reads bypass the
+  # __getattr__ proxy and bind the stale module-level copy instead of the live
+  # sub-module value — the exact gotcha documented at server.py:1974.
+  #
+  # Proxied scalars (from _PROXIED_ATTRS registration):
+  #   audit:   _AUDIT_SEQ  _AUDIT_LAST_HASH  _AUDIT_DB  _audit_db
+  #   runtime: _DRIFT_BASELINE  _DRIFT_LAST_AUTO_REBASELINE_AT_QUERY
+  #            _DRIFT_AUTO_REBASELINE_EVERY
+  #
+  # Pattern logic: match lines that contain the bare name BUT do NOT qualify
+  # it with the owning module prefix. We use a negative-lookahead-via-grep-v
+  # approach: grep for the bare name, then pipe to grep -v to exclude
+  # legitimate qualified references and the registration lines themselves.
+  #
+  # This is intentionally conservative (may have occasional false positives
+  # on comments that happen to mention the bare name) — review failures before
+  # suppressing. The hook is fast: a single grep over one file.
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: no-bare-proxied-scalars
+        name: "R3: no bare proxied-scalar reads in server.py"
+        language: system
+        entry: >-
+          bash -c '
+          FILE=bridge-ui/backend/server.py;
+          PATTERN="_AUDIT_SEQ\|_AUDIT_LAST_HASH\|_AUDIT_DB\|_audit_db\|_DRIFT_BASELINE\|_DRIFT_LAST_AUTO_REBASELINE_AT_QUERY\|_DRIFT_AUTO_REBASELINE_EVERY";
+          # Exclude lines that are: qualified refs, registration/loop lines,
+          # comments, string literals in assert messages, import lines.
+          HITS=$(grep -n "$PATTERN" "$FILE" \
+            | grep -v "_audit_state_mod\.\|_runtime_state_mod\." \
+            | grep -v "_PROXIED_ATTRS\|for _audit_proxied\|for _runtime_proxied\|for _pname" \
+            | grep -v "^\s*#\|^\s*f\"\|^\s*\"" \
+            | grep -v "from state\|from backend\.state");
+          if [ -n "$HITS" ]; then
+            echo "ERROR: bare proxied-scalar reference found in server.py:";
+            echo "$HITS";
+            echo "Use _audit_state_mod.<name> or _runtime_state_mod.<name> instead.";
+            exit 1;
+          fi
+          '
+        pass_filenames: false
+        files: ^bridge-ui/backend/server\.py$
+        stages: [pre-commit]

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bridge — The AI control plane for banking</title>
+<meta name="description" content="Bridge is the layer between your bank's AI and your customers: plug in any model, run it across chat and voice, ground it in your data, govern every answer, and see everything — in one platform." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --brand:#4f46e5; --brand-2:#7c3aed;
+    --ink:#0f172a; --ink-2:#475569; --ink-3:#94a3b8;
+    --bg:#ffffff; --bg-soft:#f8fafc; --bg-muted:#f1f5f9;
+    --border:#e2e8f0; --border-2:#cbd5e1;
+    --ok:#059669; --ok-soft:#ecfdf5;
+    --amber:#b45309; --amber-soft:#fffbeb;
+    --grad:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);
+    --shadow-sm:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.05);
+    --shadow:0 14px 34px -14px rgba(15,23,42,.20),0 6px 14px -8px rgba(15,23,42,.10);
+    --shadow-lg:0 36px 70px -22px rgba(79,70,229,.30),0 14px 28px -18px rgba(15,23,42,.20);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15.5px;padding:14px 24px;border-radius:12px;border:1px solid transparent;cursor:pointer;transition:transform .15s,box-shadow .2s,border-color .2s,background .2s;white-space:nowrap}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 24px -8px rgba(79,70,229,.6)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 32px -10px rgba(79,70,229,.7)}
+  .btn-ghost{background:#fff;color:var(--ink);border-color:var(--border-2)}
+  .btn-ghost:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-2px)}
+  .btn-sm{padding:10px 18px;font-size:14.5px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+  header.scrolled{border-color:var(--border);box-shadow:var(--shadow-sm)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+  .logo{width:34px;height:34px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800;box-shadow:0 6px 14px -6px rgba(124,58,237,.7)}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a{font-size:14.5px;font-weight:500;color:var(--ink-2);transition:color .15s}
+  .nav-links a:hover{color:var(--ink)}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;padding:80px 0 64px}
+  .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(55% 50% at 8% 0%,rgba(79,70,229,.10),transparent 60%),radial-gradient(50% 50% at 96% 6%,rgba(124,58,237,.11),transparent 60%),linear-gradient(180deg,#fff,#f8fafc)}
+  .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:46px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:6px 13px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-sm);margin-bottom:22px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--brand-2);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+  h1{font-size:clamp(33px,4.6vw,52px);line-height:1.06;letter-spacing:-.035em;font-weight:800}
+  h1 .hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:18px;color:var(--ink-2);margin-top:22px;max-width:540px}
+  .hero-cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+  .hero-note{margin-top:18px;font-size:13.5px;color:var(--ink-3)}
+  .hub-svg{width:100%;height:auto;display:block;filter:drop-shadow(0 24px 40px rgba(79,70,229,.14))}
+
+  section.block{padding:84px 0}
+  .sec-head{max-width:680px;margin:0 auto 52px;text-align:center}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:13px}
+  h2{font-size:clamp(29px,3.6vw,42px);line-height:1.12;letter-spacing:-.03em;font-weight:800}
+  .sec-sub{font-size:18px;color:var(--ink-2);margin-top:15px}
+
+  /* stat band */
+  .statband{padding:54px 0;background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .statc{text-align:center;position:relative}
+  .statc:not(:last-child)::after{content:"";position:absolute;right:-12px;top:18%;height:64%;width:1px;background:var(--border)}
+  .statc .n{font-size:clamp(38px,5vw,54px);font-weight:800;letter-spacing:-.035em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .statc .l{margin-top:11px;font-size:14.5px;color:var(--ink);font-weight:700}
+  .statc .s{display:block;margin-top:3px;font-size:12px;color:var(--ink-3);font-weight:500}
+
+  /* capability grid */
+  .cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .cap{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s,border-color .2s}
+  .cap:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#d6d9f5}
+  .cap .ic{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,#eef2ff,#f5f3ff);border:1px solid #e0e7ff;display:grid;place-items:center;margin-bottom:17px}
+  .cap .ic svg{width:24px;height:24px;stroke:var(--brand);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .cap h3{font-size:17.5px;letter-spacing:-.01em;margin-bottom:8px}
+  .cap p{font-size:14px;color:var(--ink-2)}
+  .cap .tag{display:inline-block;margin-top:13px;font-size:11.5px;font-weight:600;color:var(--brand);background:#eef2ff;border:1px solid #e0e7ff;padding:3px 10px;border-radius:7px}
+
+  /* hook */
+  .hook{background:var(--ink);color:#fff;text-align:center;padding:54px 0}
+  .hook p{font-size:clamp(22px,2.8vw,30px);font-weight:700;letter-spacing:-.02em;max-width:780px;margin:0 auto;line-height:1.3}
+  .hook p .u{background:linear-gradient(180deg,transparent 62%,rgba(124,58,237,.55) 62%)}
+
+  /* flow */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .fstep{position:relative;background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px 22px;box-shadow:var(--shadow-sm)}
+  .fstep .ic{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,#eef2ff,#f5f3ff);border:1px solid #e0e7ff;display:grid;place-items:center;margin-bottom:18px}
+  .fstep .ic svg{width:24px;height:24px;stroke:var(--brand);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .fstep .num{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--brand-2)}
+  .fstep h3{font-size:17.5px;margin:5px 0 8px;letter-spacing:-.01em}
+  .fstep p{font-size:14px;color:var(--ink-2)}
+  .fstep .arr{position:absolute;right:-13px;top:50%;transform:translateY(-50%);z-index:2;color:var(--border-2);background:var(--bg);border-radius:50%}
+  .fstep:last-child .arr{display:none}
+  .flow-note{text-align:center;font-size:13.5px;color:var(--ink-3);margin-top:30px}
+  .flow-note .mono{color:var(--ink-2)}
+
+  /* value cards (gains) */
+  .ben-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .ben{display:flex;gap:18px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s}
+  .ben:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+  .ben .ic{flex:0 0 auto;width:50px;height:50px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#eef2ff,#f5f3ff);border:1px solid #e0e7ff}
+  .ben .ic svg{width:25px;height:25px;stroke:var(--brand);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .vt{display:inline-block;margin-bottom:9px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--brand);background:#eef2ff;border:1px solid #e0e7ff;padding:3px 11px;border-radius:8px}
+  .ben h3{font-size:18px;letter-spacing:-.01em;margin-bottom:7px}
+  .ben p{font-size:14.5px;color:var(--ink-2)}
+
+  /* connect strip */
+  .connect{margin-top:46px;background:var(--bg-soft);border:1px solid var(--border);border-radius:18px;padding:32px;text-align:center}
+  .connect h4{font-size:16px;color:var(--ink);margin-bottom:18px}
+  .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+  .chip{background:#fff;border:1px solid var(--border);border-radius:10px;padding:9px 15px;font-size:14px;font-weight:600;color:var(--ink-2);box-shadow:var(--shadow-sm)}
+  .chip b{color:var(--brand)}
+  .connect .small{margin-top:18px;font-size:13px;color:var(--ink-3)}
+
+  /* cta */
+  .cta{background:var(--ink);border-radius:26px;padding:62px;text-align:center;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 120% at 50% 0%,rgba(124,58,237,.42),transparent 60%)}
+  .cta h2{color:#fff;position:relative;max-width:640px;margin:0 auto}
+  .cta p{color:#cbd5e1;font-size:18px;margin:16px auto 0;max-width:520px;position:relative}
+  .cta .hero-cta{justify-content:center;position:relative;margin-top:32px}
+  .cta .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+  .cta .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:#fff;color:#fff}
+  .cta .small{position:relative;margin-top:18px;font-size:13px;color:#94a3b8}
+
+  footer{border-top:1px solid var(--border);background:var(--bg-soft);padding:46px 0 34px}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot .links{display:flex;gap:22px;font-size:14px;color:var(--ink-2)}
+  .foot .links a:hover{color:var(--brand)}
+  .disclaimer{margin-top:24px;font-size:12.5px;color:var(--ink-3);line-height:1.55;max-width:780px}
+
+  /* product screenshots (recreated Bridge console) */
+  .shots{display:flex;flex-direction:column;gap:22px}
+  .shot{background:#0f172a;border:1px solid #2d3c5e;border-radius:14px;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .shot-bar{display:flex;align-items:center;gap:8px;padding:11px 15px;background:#0b1324;border-bottom:1px solid #2d3c5e}
+  .shot-bar .d{display:flex;gap:6px}
+  .shot-bar .d i{width:11px;height:11px;border-radius:50%;display:block}
+  .shot-bar .d i:nth-child(1){background:#ef4444}.shot-bar .d i:nth-child(2){background:#f59e0b}.shot-bar .d i:nth-child(3){background:#22c55e}
+  .shot-bar span{margin-left:6px;font-size:12.5px;color:#94a3b8;font-family:'JetBrains Mono',monospace}
+  .shot-img{display:block;width:100%;height:auto;border-top:1px solid #2d3c5e}
+  .console{display:grid;grid-template-columns:184px 1fr}
+  .c-rail{background:#0b1324;border-right:1px solid #2d3c5e;padding:15px 11px}
+  .c-brand{display:flex;align-items:center;gap:9px;color:#e2e8f0;font-weight:800;font-size:15px;margin:0 6px 16px}
+  .c-brand .lg{width:25px;height:25px;border-radius:7px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:13px}
+  .c-rail a{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;font-size:12.5px;color:#94a3b8;margin-bottom:1px}
+  .c-rail a.active{background:#1e2547;color:#c7d2fe}
+  .c-rail a svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+  .c-main{padding:20px;min-width:0}
+  .c-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:12px}
+  .c-top h4{color:#e2e8f0;font-size:16px;font-weight:700}
+  .c-top .sub{font-size:12px;color:#64748b;margin-top:2px}
+  .c-status{display:inline-flex;gap:7px;align-items:center;font-size:12px;color:#94a3b8;border:1px solid #2d3c5e;background:#1e293b;padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .c-status i{width:8px;height:8px;border-radius:50%;background:#22c55e}
+  .c-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+  .c-metric{background:#1e293b;border-radius:10px;padding:11px 13px}
+  .c-metric .l{font-size:11px;color:#94a3b8;margin-bottom:5px}
+  .c-metric .v{font-size:19px;font-weight:700;color:#e2e8f0;letter-spacing:-.01em}
+  .c-metric .v.pass{color:#86efac}
+  .c-mlabel{font-size:11px;color:#64748b;margin:0 0 8px;text-transform:uppercase;letter-spacing:.06em}
+  .c-bar{display:flex;height:12px;border-radius:6px;overflow:hidden}
+  .c-bar i{display:block;height:100%}
+  .c-leg{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 18px;font-size:11.5px;color:#94a3b8}
+  .c-leg span{display:inline-flex;align-items:center;gap:6px}
+  .c-leg b{width:9px;height:9px;border-radius:3px;display:inline-block}
+  .c-trace{display:flex;gap:8px;overflow:hidden}
+  .c-stage{flex:1 1 0;min-width:0;background:#1e293b;border:1px solid #233048;border-top:2px solid #22c55e;border-radius:8px;padding:9px 10px}
+  .c-stage.reask{border-top-color:#8b5cf6}
+  .c-stage .t{font-size:11.5px;color:#e2e8f0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .c-stage .m{font-size:10px;color:#64748b;margin-top:2px;font-family:'JetBrains Mono',monospace}
+  .c-badge{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:5px 11px;border-radius:7px;margin-top:14px}
+  .c-badge.pass{background:#14532d;color:#86efac}
+  .c-rows{display:flex;flex-direction:column;gap:8px}
+  .c-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#1e293b;border:1px solid #233048;border-radius:9px;padding:10px 13px}
+  .c-row .nm{font-size:13px;color:#e2e8f0;font-weight:600}
+  .c-row .md{font-size:11.5px;color:#64748b;font-family:'JetBrains Mono',monospace;margin-left:8px}
+  .c-pill{font-size:10.5px;font-family:'JetBrains Mono',monospace;padding:3px 9px;border-radius:6px;white-space:nowrap}
+  .c-pill.on{background:#14532d;color:#86efac}.c-pill.info{background:#1e3a5f;color:#93c5fd}.c-pill.off{background:#233048;color:#64748b}
+  .shot-cap{text-align:center;font-size:13px;color:var(--ink-3);margin-top:22px}
+
+  /* open source / github */
+  .os{background:var(--bg-soft);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .os-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center}
+  .os-stats{display:flex;flex-wrap:wrap;gap:26px;margin-top:24px}
+  .os-stats div{display:flex;flex-direction:column}
+  .os-stats b{font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+  .os-stats span{font-size:12.5px;color:var(--ink-3);font-weight:500}
+  .repo{display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s}
+  .repo:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:#d6d9f5}
+  .repo-top{display:flex;align-items:center;gap:10px;font-size:15.5px;color:var(--ink)}
+  .repo-top svg{width:22px;height:22px;fill:var(--ink);flex:0 0 auto}
+  .repo-name b{font-weight:700}
+  .repo-desc{font-size:14px;color:var(--ink-2);margin:14px 0 16px}
+  .repo-meta{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--ink-2);align-items:center}
+  .repo-meta .lang{display:inline-flex;align-items:center;gap:6px}
+  .repo-meta .lang i{width:11px;height:11px;border-radius:50%;background:var(--brand);display:inline-block}
+  .repo-cta{display:inline-block;margin-top:18px;font-size:14px;font-weight:600;color:var(--brand)}
+  /* lead form */
+  .demo-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:40px;align-items:center;text-align:left;position:relative}
+  .demo-grid h2{max-width:none;margin:0;text-align:left}
+  .demo-list{list-style:none;margin:22px 0 0;display:flex;flex-direction:column;gap:13px}
+  .demo-list li{display:flex;gap:11px;color:#cbd5e1;font-size:15px}
+  .demo-list svg{flex:0 0 auto;width:20px;height:20px;stroke:#a78bfa;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+  .demo-or{margin-top:22px;font-size:13.5px;color:#94a3b8}
+  .demo-or a{color:#c4b5fd;text-decoration:underline}
+  .form-card{background:#fff;border-radius:16px;padding:26px;box-shadow:var(--shadow-lg);text-align:left}
+  .form-card .fh{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:3px}
+  .form-card .fsub{font-size:13px;color:var(--ink-3);margin-bottom:17px}
+  .field{margin-bottom:13px}
+  .field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-2);margin-bottom:5px}
+  .field input,.field select{width:100%;padding:11px 13px;border:1px solid var(--border-2);border-radius:10px;font-family:inherit;font-size:14.5px;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(79,70,229,.15)}
+  .form-card button{width:100%;justify-content:center;margin-top:6px}
+  .privacy{margin-top:12px;font-size:11.5px;color:var(--ink-3);text-align:center}
+  .form-ok{display:none;background:#fff;border-radius:16px;padding:40px 26px;box-shadow:var(--shadow-lg);text-align:center}
+  .form-ok svg{width:48px;height:48px;stroke:var(--ok);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-bottom:14px}
+  .form-ok h4{font-size:18px;color:var(--ink);margin-bottom:6px}
+  .form-ok p{font-size:14px;color:var(--ink-2)}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:38px}
+    .stats{grid-template-columns:1fr 1fr;gap:30px 24px}
+    .statc:not(:last-child)::after{display:none}
+    .cap-grid{grid-template-columns:1fr 1fr}
+    .flow{grid-template-columns:1fr 1fr}
+    .ben-grid{grid-template-columns:1fr}
+    .os-grid,.demo-grid{grid-template-columns:1fr;gap:32px}
+    .console{grid-template-columns:1fr}
+    .c-rail{display:none}
+    .c-metrics{grid-template-columns:1fr 1fr}
+    .c-trace{flex-wrap:wrap}
+    .c-stage{flex:1 1 28%}
+    .fstep .arr{display:none}
+    section.block{padding:62px 0}
+    .cta{padding:44px 26px}
+  }
+  @media(max-width:540px){.cap-grid,.flow{grid-template-columns:1fr}}
+</style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<style id="print-override">
+.reveal{opacity:1 !important;transform:none !important}
+@page{size:A4;margin:11mm}
+header{position:static !important;box-shadow:none !important;border-bottom:1px solid #e2e8f0}
+h1 .hl,.statc .n{background:none !important;color:#6d28d9 !important;-webkit-text-fill-color:#6d28d9 !important}
+section.block{padding:46px 0 !important}
+.hook{padding:40px 0 !important}
+.cap,.ben,.fstep,.statc,.repo,.form-card,.shot{break-inside:avoid}
+img,.shot-img{max-width:100% !important;height:auto !important}
+.hub-svg{max-width:440px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="logo">B</span> Bridge</a>
+    <nav class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#how">How it works</a>
+      <a href="#gains">Gains</a>
+      <a href="#opensource">Open source</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#demo">Book a demo</a>
+  </div>
+</header>
+<a id="top"></a>
+
+<!-- ===== ATTENTION ===== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow"><span class="dot"></span> The AI control plane for banking &middot; Preview</span>
+      <h1>Connect any AI. <span class="hl">Govern every answer.</span> Across every channel.</h1>
+      <p class="lede">Bridge is the layer between your bank's AI and your customers — plug in any model, run it across chat and voice, ground it in your data, check every answer, and see everything in one place.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#demo">Book a demo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#platform">See the platform</a>
+      </div>
+      <p class="hero-note">One platform between your AI and your customers — connect, govern, observe.</p>
+    </div>
+
+    <div class="reveal">
+      <svg class="hub-svg" viewBox="0 0 540 446" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bridge connects models, channels, voice, data, governance and analytics">
+        <defs>
+          <linearGradient id="hubg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4f46e5"/><stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+        </defs>
+        <!-- spokes -->
+        <g stroke="#c7cbe6" stroke-width="1.6" stroke-dasharray="4 4">
+          <line x1="270" y1="222" x2="92" y2="58"/>
+          <line x1="270" y1="222" x2="448" y2="58"/>
+          <line x1="270" y1="222" x2="78" y2="222"/>
+          <line x1="270" y1="222" x2="462" y2="222"/>
+          <line x1="270" y1="222" x2="92" y2="388"/>
+          <line x1="270" y1="222" x2="448" y2="388"/>
+        </g>
+        <!-- nodes -->
+        <g font-family="Inter, sans-serif">
+          <!-- Models -->
+          <g><rect x="22" y="31" width="140" height="54" rx="11" fill="#fff" stroke="#e2e8f0"/><circle cx="40" cy="58" r="4.5" fill="#4f46e5"/><text x="54" y="54" font-size="13" font-weight="700" fill="#0f172a">Models</text><text x="54" y="70" font-size="10" fill="#94a3b8">OpenAI · Claude · Azure · local</text></g>
+          <!-- Channels -->
+          <g><rect x="378" y="31" width="140" height="54" rx="11" fill="#fff" stroke="#e2e8f0"/><circle cx="396" cy="58" r="4.5" fill="#7c3aed"/><text x="410" y="54" font-size="13" font-weight="700" fill="#0f172a">Channels</text><text x="410" y="70" font-size="10" fill="#94a3b8">WhatsApp · app · web</text></g>
+          <!-- Voice -->
+          <g><rect x="8" y="195" width="140" height="54" rx="11" fill="#fff" stroke="#e2e8f0"/><circle cx="26" cy="222" r="4.5" fill="#4f46e5"/><text x="40" y="218" font-size="13" font-weight="700" fill="#0f172a">Voice</text><text x="40" y="234" font-size="10" fill="#94a3b8">call center · transcription</text></g>
+          <!-- Data -->
+          <g><rect x="392" y="195" width="140" height="54" rx="11" fill="#fff" stroke="#e2e8f0"/><circle cx="410" cy="222" r="4.5" fill="#7c3aed"/><text x="424" y="218" font-size="13" font-weight="700" fill="#0f172a">Your data</text><text x="424" y="234" font-size="10" fill="#94a3b8">manuals · policies (RAG)</text></g>
+          <!-- Governance -->
+          <g><rect x="22" y="361" width="140" height="54" rx="11" fill="#fff" stroke="#e2e8f0"/><circle cx="40" cy="388" r="4.5" fill="#059669"/><text x="54" y="384" font-size="13" font-weight="700" fill="#0f172a">Governance</text><text x="54" y="400" font-size="10" fill="#94a3b8">guard · PII · audit</text></g>
+          <!-- Analytics -->
+          <g><rect x="378" y="361" width="140" height="54" rx="11" fill="#fff" stroke="#e2e8f0"/><circle cx="396" cy="388" r="4.5" fill="#059669"/><text x="410" y="384" font-size="13" font-weight="700" fill="#0f172a">Analytics</text><text x="410" y="400" font-size="10" fill="#94a3b8">metrics · AI visibility</text></g>
+          <!-- HUB -->
+          <rect x="195" y="190" width="150" height="64" rx="15" fill="url(#hubg)"/>
+          <text x="270" y="217" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">Bridge</text>
+          <text x="270" y="235" font-size="10.5" font-weight="500" fill="#e9d5ff" text-anchor="middle">AI control plane</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===== value numbers ===== -->
+<div class="statband">
+  <div class="wrap stats reveal">
+    <div class="statc"><div class="n">83%<span style="font-size:.45em;vertical-align:super">*</span></div><div class="l">Questions auto-resolved</div><span class="s">* design target</span></div>
+    <div class="statc"><div class="n">30&times;</div><div class="l">Cheaper per simple query</div><span class="s">up to — via smart routing</span></div>
+    <div class="statc"><div class="n">100%</div><div class="l">Answers pass the guard</div><span class="s">chat and voice alike</span></div>
+    <div class="statc"><div class="n">6</div><div class="l">Regulatory regimes</div><span class="s">audit evidence, automated</span></div>
+  </div>
+</div>
+
+<!-- ===== INTEREST hook ===== -->
+<div class="hook">
+  <div class="wrap reveal">
+    <p>Your AI shouldn't be a dozen disconnected tools. Bridge is the <span class="u">one layer</span> every answer passes through — typed or spoken.</p>
+  </div>
+</div>
+
+<!-- ===== PLATFORM (breadth) ===== -->
+<section class="block" id="platform">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">The platform</div>
+      <h2>Everything between your model and your customer</h2>
+      <p class="sec-sub">One pipeline does the whole job — connect, ground, govern, deliver and observe.</p>
+    </div>
+    <div class="cap-grid">
+      <div class="cap reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <h3>Connect any AI</h3>
+        <p>OpenAI, Anthropic, Azure or a local model. Swap providers anytime — nothing downstream changes.</p>
+        <span class="tag">model-agnostic</span>
+      </div>
+      <div class="cap reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.4 8.4 0 01-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.4 8.4 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+        <h3>Every channel</h3>
+        <p>WhatsApp, the app, web chat and the call center — all running through one governed pipeline.</p>
+        <span class="tag">omnichannel</span>
+      </div>
+      <div class="cap reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 00-3 3v6a3 3 0 006 0V5a3 3 0 00-3-3z"/><path d="M19 10v1a7 7 0 01-14 0v-1M12 18v4M8 22h8"/></svg></div>
+        <h3>Voice &amp; transcription</h3>
+        <p>Take phone calls, transcribe speech to text, then answer or route. Voice gets the exact same guard as chat.</p>
+        <span class="tag">speech → text</span>
+      </div>
+      <div class="cap reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+        <h3>Grounded in your data</h3>
+        <p>Answers cite your manuals, policies and regulations (RAG) — not the model's guesswork.</p>
+        <span class="tag">RAG · citations</span>
+      </div>
+      <div class="cap reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Governed &amp; audited</h3>
+        <p>An uncertainty guard on every answer, PII masked before the model (LGPD), and an append-only audit trail (BCB) mapped to SR 11-7.</p>
+        <span class="tag">guard · LGPD · audit</span>
+      </div>
+      <div class="cap reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></svg></div>
+        <h3>See everything</h3>
+        <p>Live metrics, per-stage traces of every request, and AI-visibility monitoring of how your brand shows up across the models.</p>
+        <span class="tag">metrics · visibility</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEE IT IN ACTION (UI examples) ===== -->
+<section class="block" id="product" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">See it in action</div>
+      <h2>The actual console, running today</h2>
+      <p class="sec-sub">Not a mockup — real screenshots of Bridge: live metrics, the customer pipeline, and your model &amp; channel connections.</p>
+    </div>
+    <div class="shots">
+
+      <div class="shot reveal">
+        <div class="shot-bar"><span class="d"><i></i><i></i><i></i></span><span>Bridge console &mdash; Atendimento (live customer pipeline)</span></div>
+        <img class="shot-img" src="screens/atendimento.png" alt="Bridge console today: live metrics, customer query panel, the 12-stage pipeline trace and guard controls" loading="lazy" />
+      </div>
+
+      <div class="shot reveal">
+        <div class="shot-bar"><span class="d"><i></i><i></i><i></i></span><span>Bridge console &mdash; Integra&ccedil;&otilde;es (model &amp; channel connections)</span></div>
+        <img class="shot-img" src="screens/integracoes.png" alt="Bridge console today: LLM provider connections — FakeBackend active, Ollama reachable, OpenAI and Anthropic adapters" loading="lazy" />
+      </div>
+
+    </div>
+    <p class="shot-cap">Real screenshots of the Bridge console today (Next.js + FastAPI), shown in its Portuguese demo mode. The orange demo banner is cropped; everything else is the live UI.</p>
+  </div>
+</section>
+
+<!-- ===== INTEREST (flow) ===== -->
+<section class="block" id="how" style="background:var(--bg-soft)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">The flow</div>
+      <h2>How a request flows through Bridge</h2>
+      <p class="sec-sub">From a customer's question — typed or spoken — to a safe answer, in one pass.</p>
+    </div>
+    <div class="flow">
+      <div class="fstep reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.4 8.4 0 01-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.4 8.4 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+        <div class="num">Step 1</div>
+        <h3>Customer reaches out</h3>
+        <p>A message or phone call comes in — WhatsApp, app, web or the call center. Voice is transcribed to text.</p>
+        <div class="arr"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="fstep reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="num">Step 2</div>
+        <h3>Bridge prepares it</h3>
+        <p>Personal data is masked, the question is grounded in your documents, and it's routed to the right-sized model.</p>
+        <div class="arr"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="fstep reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/><path d="M12 7v5l3 2"/></svg></div>
+        <div class="num">Step 3</div>
+        <h3>The guard decides</h3>
+        <p>Confident → reply. Unsure → ask again or hand off to a human. No guessing in front of a customer.</p>
+        <div class="arr"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="fstep reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></div>
+        <div class="num">Step 4</div>
+        <h3>Everything is logged</h3>
+        <p>Each step becomes a reproducible, audit-ready record your risk team can file — automatically.</p>
+        <div class="arr"></div>
+      </div>
+    </div>
+    <p class="flow-note">Under the hood: <span class="mono">12 audited stages</span> — data quality, governance, cache, routing, retrieval, the guard and the audit trail — each one a real, tested module.</p>
+  </div>
+</section>
+
+<!-- ===== DESIRE (gains) ===== -->
+<section class="block" id="gains">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">The gains</div>
+      <h2>Your gains — in numbers</h2>
+      <p class="sec-sub">The values your risk, operations and finance teams can point to.</p>
+    </div>
+    <div class="ben-grid">
+      <div class="ben reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div><span class="vt">100% gated</span><h3>No answer reaches a customer ungated</h3><p>Every low-confidence answer — chat or voice — is held back or escalated instead of bluffed. Your AI stays quiet when it isn't sure.</p></div>
+      </div>
+      <div class="ben reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/><path d="M9 8v8M9 8h4a2 2 0 010 4H9"/></svg></div>
+        <div><span class="vt">83% resolved*</span><h3>Most questions answered without a human</h3><p>Routine queries are handled instantly; only the genuinely hard ones reach your team — so headcount goes to the cases that need judgment. <span style="color:var(--ink-3)">*design target</span></p></div>
+      </div>
+      <div class="ben reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h3.3a1.7 1.7 0 010 3.4H10a1.7 1.7 0 000 3.4h3.5"/></svg></div>
+        <div><span class="vt">up to 30&times; cheaper</span><h3>Stop overpaying per question</h3><p>Easy questions go to cheap models, repeats are served from cache, and only the complex ones reach a premium model. You stop paying top price for "what's my balance?".</p></div>
+      </div>
+      <div class="ben reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l2 2 4-4"/></svg></div>
+        <div><span class="vt">6 regimes &middot; automatic</span><h3>Audit-ready without the busywork</h3><p>Every answer is filed as SR 11-7 and EU AI Act evidence — PII masked (LGPD), append-only trail (BCB). No folder of screenshots.</p></div>
+      </div>
+    </div>
+
+    <div class="connect reveal">
+      <h4>Plugs into your stack — nothing answers without passing the guard</h4>
+      <div class="chips">
+        <span class="chip"><b>Models:</b> OpenAI</span>
+        <span class="chip">Anthropic</span>
+        <span class="chip">Azure OpenAI</span>
+        <span class="chip">Local (Ollama)</span>
+        <span class="chip"><b>Channels:</b> WhatsApp</span>
+        <span class="chip">App</span>
+        <span class="chip">Web</span>
+        <span class="chip">Voice / call center</span>
+      </div>
+      <p class="small">Built on the open-source <span class="mono">lub</span> engine — 22 calibration methods, 732 tests, Apache 2.0.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OPEN SOURCE / GITHUB ===== -->
+<section class="block os" id="opensource">
+  <div class="wrap os-grid">
+    <div class="reveal">
+      <div class="kicker">Built in the open</div>
+      <h2>The engine is open source. Audit it, run it, build on it.</h2>
+      <p class="sec-sub">Bridge runs on <span class="mono">lub</span> — our Apache-2.0 calibration engine. No black box: every estimator and metric is in the repo, with the tests to prove it.</p>
+      <div class="os-stats">
+        <div><b>22</b><span>calibration methods</span></div>
+        <div><b>732</b><span>tests passing</span></div>
+        <div><b>93%</b><span>code coverage</span></div>
+        <div><b>Apache 2.0</b><span>license</span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <a class="repo" href="https://github.com/rafaelmartinsalves/llm-uncertainty-banking" target="_blank" rel="noopener">
+        <div class="repo-top">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.9 1.2 1.9 1.2 3.2 0 4.6-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          <span class="repo-name">rafaelmartinsalves / <b>llm-uncertainty-banking</b></span>
+        </div>
+        <p class="repo-desc">Turn LLM uncertainty into auditor-ready regulatory evidence — the calibration engine under Bridge.</p>
+        <div class="repo-meta">
+          <span class="lang"><i></i> Python</span>
+          <span>Apache-2.0</span>
+          <span id="ghstars">&starf; Star</span>
+        </div>
+        <span class="repo-cta">View on GitHub &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACTION (lead capture) ===== -->
+<section class="block" id="demo" style="padding-top:30px">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="demo-grid">
+        <div>
+          <div class="kicker" style="color:#a5b4fc">Book a demo</div>
+          <h2>See Bridge run on your own data.</h2>
+          <ul class="demo-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> A 30-minute walkthrough on your channels and models</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Your documents, your guard thresholds</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Runs on a local model — no API keys to start</li>
+          </ul>
+          <p class="demo-or">Prefer email? <a href="mailto:rafael@llm-uncertainty-banking.dev?subject=Bridge%20demo">Write to us directly</a>.</p>
+        </div>
+        <div>
+          <form class="form-card" id="leadForm" novalidate>
+            <div class="fh">Request a demo</div>
+            <div class="fsub">Tell us where to reach you — we'll follow up within a day.</div>
+            <div class="field"><label for="lf-name">Full name</label><input id="lf-name" name="name" required autocomplete="name" /></div>
+            <div class="field"><label for="lf-email">Work email</label><input id="lf-email" name="email" type="email" required autocomplete="email" placeholder="you@bank.com" /></div>
+            <div class="field"><label for="lf-company">Bank / company</label><input id="lf-company" name="company" required autocomplete="organization" /></div>
+            <div class="field"><label for="lf-use">What do you want to use Bridge for?</label><select id="lf-use" name="use"><option>Customer chat</option><option>Voice / call center</option><option>Model risk &amp; audit</option><option>Everything</option></select></div>
+            <button class="btn btn-primary" type="submit">Request a demo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="privacy">We'll only use this to contact you about Bridge. Preview — no API keys required to try it.</p>
+          </form>
+          <div class="form-ok" id="leadOk">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <h4>Thanks — we'll be in touch.</h4>
+            <p>Your demo request is on its way.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="#top"><span class="logo">B</span> Bridge</a>
+      <div class="links">
+        <a href="#platform">Platform</a>
+        <a href="#how">How it works</a>
+        <a href="https://github.com/rafaelmartinsalves/llm-uncertainty-banking" target="_blank" rel="noopener">GitHub</a>
+        <a href="#demo">Book a demo</a>
+      </div>
+    </div>
+    <p class="disclaimer">Bridge is the AI control plane built on the open-source lub engine (Apache 2.0). It is currently in preview and runs on a local model out of the box. Nothing here is legal, regulatory or model-validation advice, and Bridge does not by itself establish compliance with any framework. Figures, connection states and confidence scores shown on this page are illustrative.</p>
+  </div>
+</footer>
+
+<script>
+  const hdr = document.getElementById('hdr');
+  addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 8));
+  const io = new IntersectionObserver((es) => {
+    es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // live GitHub star count (hidden gracefully if repo is private/unavailable)
+  fetch('https://api.github.com/repos/rafaelmartinsalves/llm-uncertainty-banking')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(d => { if (typeof d.stargazers_count === 'number') document.getElementById('ghstars').textContent = '★ ' + d.stargazers_count.toLocaleString(); })
+    .catch(() => {});
+
+  // lead-capture form.  To collect leads in a dashboard, paste your form endpoint
+  // (e.g. Formspree "https://formspree.io/f/XXXX" or a Getform URL) below.
+  // Left blank, the form opens the visitor's email client pre-filled with their details.
+  const LEAD_ENDPOINT = "";
+  const CONTACT_EMAIL = "rafael@llm-uncertainty-banking.dev";
+  const form = document.getElementById('leadForm');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      const d = Object.fromEntries(new FormData(form).entries());
+      const done = () => { form.style.display = 'none'; document.getElementById('leadOk').style.display = 'block'; };
+      if (LEAD_ENDPOINT) {
+        try {
+          await fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(form) });
+          done(); return;
+        } catch (_) { /* fall through to email */ }
+      }
+      const body = encodeURIComponent('Name: ' + (d.name||'') + '\nWork email: ' + (d.email||'') + '\nCompany: ' + (d.company||'') + '\nUse: ' + (d.use||''));
+      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=Bridge%20demo%20request&body=' + body;
+      done();
+    });
+  }
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            

@@ -1,0 +1,182 @@
+{# Copyright 2026 Rafael Martins Alves — Apache-2.0 #}
+# AI RMF Report — {{ title or "llm-uncertainty-banking evaluation" }}
+
+_Generated: {{ generated_at }}_
+
+## Executive Summary
+
+{% if findings_reports %}This report evaluates **{{ results | length }}** LLM pipeline configuration(s) across **{{ results[0].n }}** examples.
+{% if findings_reports[0].worst.value == "finding" %}
+**Action required:** {{ findings_reports[0].findings | length }} material finding(s) detected — remediation is needed before production approval under SR 11-7.
+{% elif findings_reports[0].worst.value == "observation" %}
+**Conditional pass:** No material findings, but {{ findings_reports[0].observations | length }} observation(s) flagged for follow-up. The model may proceed to production with monitoring.
+{% else %}
+**Pass:** All metrics within expected bounds. No material findings or observations.
+{% endif %}
+
+| | count |
+|---|---|
+| Runs evaluated | {{ results | length }} |
+| Findings (material) | {{ findings_reports[0].findings | length }} |
+| Observations (non-material) | {{ findings_reports[0].observations | length }} |
+| Passes | {{ findings_reports[0].passes | length }} |
+| Regulatory frameworks covered | 6 (NIST AI RMF, NIST AI 600-1, EU AI Act, BCBS 239, BCB, ISO 42001) |
+{% else %}This report evaluates **{{ results | length }}** LLM pipeline configuration(s).
+{% endif %}
+
+## Metadata
+
+| field | value |
+|-------|-------|
+| Report version | {{ report_version }} |
+| Number of runs | {{ results | length }} |
+| Python | {{ python_version | default("n/a") }} |
+| Library | llm-uncertainty-banking {{ repo_version | default("n/a") }} |
+
+## Govern
+
+This report documents model-risk evidence for LLM-based QA systems evaluated
+under the `llm-uncertainty-banking` library. Each run below is a reproducible
+`BenchmarkResult` with a dataset hash and full dependency fingerprint, so that
+reviewers can independently re-run and verify the numbers.
+
+- **MANAGE 4.1** — change management: every run records its git SHA and
+  `package_versions` dict, enabling point-in-time reproduction.
+- **GOVERN 1.2** — accountability: the backend, estimator, and dataset used
+  are first-class fields of every benchmark record.
+
+## Map
+
+- **Intended use:** uncertainty-aware QA for regulated banking workflows
+  where answer-level confidence gates downstream automation.
+- **Operational context:** offline evaluation only; no live customer data
+  and no production inference is performed by this report.
+- **Out of scope:** training, fine-tuning, retrieval-augmented generation
+  pipelines, and agentic tool use.
+
+## Measure
+
+{% for result in results %}
+### Run {{ loop.index }} — {{ result.backend }} / {{ result.estimator }} / {{ result.dataset }}
+
+| metric | value | AI RMF sub-category | trust dimension | notes |
+|--------|-------|---------------------|------------------|-------|
+| Accuracy | {{ "%.4f" | format(result.accuracy) }} | {{ rmf.accuracy.subcategory }} | {{ rmf.accuracy.trust_dimension }} | {{ rmf.accuracy.description }} |
+| ECE | {{ "%.4f" | format(result.ece) }} | {{ rmf.ece.subcategory }} | {{ rmf.ece.trust_dimension }} | {{ rmf.ece.description }} |
+| Refusal AUROC | {{ "%.4f" | format(result.refusal_auroc) }} | {{ rmf.refusal_auroc.subcategory }} | {{ rmf.refusal_auroc.trust_dimension }} | {{ rmf.refusal_auroc.description }} |
+{% if result.miscalibration_area is not none %}| Miscalibration Area | {{ "%.4f" | format(result.miscalibration_area) }} | {{ rmf.miscalibration_area.subcategory }} | {{ rmf.miscalibration_area.trust_dimension }} | {{ rmf.miscalibration_area.description }} |
+{% endif %}{% if result.sharpness is not none %}| Sharpness | {{ "%.4f" | format(result.sharpness) }} | {{ rmf.sharpness.subcategory }} | {{ rmf.sharpness.trust_dimension }} | {{ rmf.sharpness.description }} |
+{% endif %}{% if result.missing_ratio is not none %}| Missing Ratio | {{ "%.4f" | format(result.missing_ratio) }} | {{ rmf.missing_ratio.subcategory }} | {{ rmf.missing_ratio.trust_dimension }} | {{ rmf.missing_ratio.description }} |
+{% endif %}{% if result.prr is not none %}| PRR | {{ "%.4f" | format(result.prr) }} | {{ rmf.prr.subcategory }} | {{ rmf.prr.trust_dimension }} | {{ rmf.prr.description }} |
+{% endif %}{% if result.metrics.get('brier') is not none %}| Brier | {{ "%.4f" | format(result.metrics.brier) }} | {{ rmf.brier.subcategory }} | {{ rmf.brier.trust_dimension }} | {{ rmf.brier.description }} |
+{% endif %}{% if result.metrics.get('rmsce') is not none %}| RMSCE | {{ "%.4f" | format(result.metrics.rmsce) }} | {{ rmf.rmsce.subcategory }} | {{ rmf.rmsce.trust_dimension }} | {{ rmf.rmsce.description }} |
+{% endif %}{% if result.metrics.get('reversed_pairs_proportion') is not none %}| RPP | {{ "%.4f" | format(result.metrics.reversed_pairs_proportion) }} | {{ rmf.reversed_pairs_proportion.subcategory }} | {{ rmf.reversed_pairs_proportion.trust_dimension }} | {{ rmf.reversed_pairs_proportion.description }} |
+{% endif %}{% if result.metrics.get('spearman') is not none %}| Spearman ρ | {{ "%.4f" | format(result.metrics.spearman) }} | {{ rmf.spearman.subcategory }} | {{ rmf.spearman.trust_dimension }} | {{ rmf.spearman.description }} |
+{% endif %}{% if result.metrics.get('kendall_tau') is not none %}| Kendall τ | {{ "%.4f" | format(result.metrics.kendall_tau) }} | {{ rmf.kendall_tau.subcategory }} | {{ rmf.kendall_tau.trust_dimension }} | {{ rmf.kendall_tau.description }} |
+{% endif %}{% if result.metrics.get('aurc') is not none %}| AURC | {{ "%.4f" | format(result.metrics.aurc) }} | {{ rmf.aurc.subcategory }} | {{ rmf.aurc.trust_dimension }} | {{ rmf.aurc.description }} |
+{% endif %}{% if result.metrics.get('auucc') is not none %}| AUUCC | {{ "%.4f" | format(result.metrics.auucc) }} | {{ rmf.auucc.subcategory }} | {{ rmf.auucc.trust_dimension }} | {{ rmf.auucc.description }} |
+{% endif %}{% if result.metrics.get('crps_from_confidence') is not none %}| CRPS | {{ "%.4f" | format(result.metrics.crps_from_confidence) }} | {{ rmf.crps_from_confidence.subcategory }} | {{ rmf.crps_from_confidence.trust_dimension }} | {{ rmf.crps_from_confidence.description }} |
+{% endif %}{% if result.metrics.get('negative_log_likelihood') is not none %}| NLL | {{ "%.4f" | format(result.metrics.negative_log_likelihood) }} | {{ rmf.negative_log_likelihood.subcategory }} | {{ rmf.negative_log_likelihood.trust_dimension }} | {{ rmf.negative_log_likelihood.description }} |
+{% endif %}| n | {{ result.n }} | — | — | number of examples scored |
+| Dataset hash | `{{ result.dataset_hash[:16] }}…` | {{ rmf.dataset_hash.subcategory }} | {{ rmf.dataset_hash.trust_dimension }} | {{ rmf.dataset_hash.description }} |
+| Git SHA | `{{ result.git_sha | default("n/a") }}` | {{ rmf.git_sha.subcategory }} | {{ rmf.git_sha.trust_dimension }} | {{ rmf.git_sha.description }} |
+| Timestamp | {{ result.timestamp }} | — | — | UTC ISO-8601 |
+
+{% if reliability_png_b64 and reliability_png_b64[loop.index0] %}
+**Reliability diagram**
+
+![reliability diagram run {{ loop.index }}](data:image/png;base64,{{ reliability_png_b64[loop.index0] }})
+{% endif %}
+
+{% endfor %}
+
+{% if findings_reports %}
+## Findings Triage (OCC 2011-12 / SR 11-7)
+
+For each run, every metric is classified as **FINDING** (material
+deviation requiring remediation), **OBSERVATION** (non-material note),
+or **PASS** (within expected bounds) using configurable thresholds
+derived from common banking model-validation heuristics.
+
+{% for fr in findings_reports %}
+### Run {{ loop.index }} — severity: {{ fr.worst | upper }}
+
+| metric | value | severity | threshold band |
+|--------|-------|----------|----------------|
+{% for cm in fr.classified %}| {{ cm.name }} | {{ "%.4f" | format(cm.value) }} | {{ cm.severity | upper }} | {% if cm.threshold %}obs={{ cm.threshold.observation }}, find={{ cm.threshold.finding }}{% else %}—{% endif %} |
+{% endfor %}
+
+{% endfor %}
+{% endif %}
+
+## SR 11-7 Validation Mapping
+
+This section maps the evaluation evidence above to the three pillars of
+model validation under Federal Reserve SR 11-7 / OCC 2011-12.
+
+| SR 11-7 Pillar | Evidence in this report | Status |
+|---|---|---|
+| **Conceptual Soundness** — Is the uncertainty estimator theoretically justified? | Estimator: `{{ results[0].estimator }}` — published, peer-reviewed method with known properties. Backend: `{{ results[0].backend }}`. | Documented |
+| **Outcomes Analysis** — Does the model perform as expected on representative data? | Accuracy={{ "%.4f" | format(results[0].accuracy) }}, ECE={{ "%.4f" | format(results[0].ece) }}, AUROC={{ "%.4f" | format(results[0].refusal_auroc) }} on `{{ results[0].dataset }}` (n={{ results[0].n }}, seed={{ results[0].seed }}). {% if findings_reports %}Worst severity: {{ findings_reports[0].worst | upper }}.{% endif %} | Evaluated |
+| **Ongoing Monitoring** — Can performance be tracked over time? | Dataset hash: `{{ results[0].dataset_hash[:16] }}...`, git SHA: `{{ results[0].git_sha | default("n/a") }}`, full dependency fingerprint recorded. Adaptive conformal coverage and PRR trending available via `lub benchmark` re-runs. | Infrastructure ready |
+
+{% if subgroup_results %}
+## Subgroup Analysis (NIST MEASURE 2.6 / Fairness)
+
+Worst-case ECE across randomly sampled subgroups, per Zhao et al. 2021.
+A gap between overall ECE and adversarial-group ECE indicates the model
+is systematically less calibrated on some subpopulation.
+
+{% for sg in subgroup_results %}
+### Run {{ loop.index }}
+
+| metric | overall | worst subgroup |
+|--------|---------|----------------|
+| ECE | {{ "%.4f" | format(sg.overall_ece) }} | {{ "%.4f" | format(sg.adversarial_ece) }} |
+{% endfor %}
+{% endif %}
+
+## Regulatory Coverage (Multi-Regime Crosswalk)
+
+Every metric in this report is mapped to controls across six regulatory
+frameworks via the `lub.reports.crosswalk` module. A single benchmark
+run produces evidence applicable to all six simultaneously.
+
+| Framework | Jurisdiction | Key controls evidenced |
+|---|---|---|
+| **NIST AI RMF 1.0** | US (voluntary) | MEASURE 2.3, 2.5, 2.6, 2.7, 2.8, 2.9; MANAGE 4.1 |
+| **NIST AI 600-1** (GenAI Profile) | US (voluntary) | MS-2.3 through MS-2.11; MG-4.1 |
+| **EU AI Act** (Reg. 2024/1689) | EU (binding Aug 2026) | Art. 9, 10, 13, 14, 15 |
+| **BCBS 239** | International (Basel) | Principles 1, 3, 5 (risk data aggregation & reporting) |
+| **BCB Res. 4.893** | Brazil | Art. 5, 7; Circ. 3.978 Art. 3 |
+| **ISO/IEC 42001:2023** | International (certifiable) | Clauses 6.1.2, 8.2, 8.4, 9.1; Annex A.5.4–A.7.3 |
+
+Machine-readable OSCAL Component Definitions and Assessment Results for
+all six regimes are available via `lub report --report-type oscal`.
+
+## Manage
+
+- **Refusal policy.** Answers whose estimator confidence falls below the
+  configured refusal threshold are withheld rather than returned. The
+  refusal AUROC above measures how well confidence separates correct from
+  incorrect answers — values near 0.5 indicate the refusal gate is not
+  informative and should not be relied on.
+- **Change management.** Any change to backend, estimator, refusal
+  threshold, or calibration dataset invalidates the evidence in this
+  report and requires a fresh run.
+- **Incident handling.** Material miscalibration (e.g. ECE above an
+  institutionally set tolerance) should be triaged as a model-risk
+  finding, not a latent feature request.
+
+{% if jsonld_context %}
+## Data Provenance (JSON-LD)
+
+Every metric value in this report is tagged with a machine-readable
+identifier linking it to the underlying benchmark run. The JSON-LD
+context below can be embedded in the HTML head or served alongside
+the report so GRC tools can programmatically verify provenance.
+
+```json
+{{ jsonld_context }}
+```
+{% endif %}

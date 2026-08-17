@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">llm-uncertainty-banking - five-layer architecture (post-ADR-002: ruflo as orchestration core)</title>
+  <desc id="desc">Architecture diagram showing 5 LLM backends feeding the L1-L5 core pipeline (wrappers, uncertainty, calibration, benchmarks, reports), with v0.2 governance runtime (orchestration, ledger, evidence, governance, mcp) and v0.2 beta agents and v0.3 challenge scaffolds layered above. Per ADR-002 (2026-04-25), ruflo (ruvnet/ruflo, npm claude-flow, MIT) is the recommended primary orchestration layer; LUB modules below are calibrated workers run by the swarm. The L1-L5 internal layering shown here is unchanged by ADR-002 - only the recommended outer topology shifted.</desc>
+
+  <style>
+    .h1 { font-size: 18px; font-weight: 700; fill: #1c1917; }
+    .h2 { font-size: 14px; font-weight: 700; fill: #1c1917; }
+    .h3 { font-size: 12px; font-weight: 600; fill: #1c1917; }
+    .body { font-size: 11px; fill: #44403c; }
+    .small { font-size: 10px; fill: #78716c; }
+    .lane { font-size: 11px; font-weight: 700; fill: #78716c; letter-spacing: 0.05em; }
+    .input { fill: #f5f5f4; stroke: #d6d3d1; stroke-width: 1; }
+    .l1 { fill: #fef9c3; stroke: #fde047; stroke-width: 1; }
+    .l2 { fill: #ecfccb; stroke: #bef264; stroke-width: 1; }
+    .l3 { fill: #d1fae5; stroke: #6ee7b7; stroke-width: 1; }
+    .l4 { fill: #cffafe; stroke: #67e8f9; stroke-width: 1; }
+    .l5 { fill: #dbeafe; stroke: #93c5fd; stroke-width: 1; }
+    .runtime { fill: #fef3c7; stroke: #fbbf24; stroke-width: 1; }
+    .agents { fill: #fae8ff; stroke: #d8b4fe; stroke-width: 1; }
+    .challenge { fill: #fce7f3; stroke: #f9a8d4; stroke-width: 1; }
+    .output { fill: #dcfce7; stroke: #86efac; stroke-width: 1; }
+    .arrow { stroke: #44403c; stroke-width: 1.5; fill: none; }
+  </style>
+
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#44403c"/>
+    </marker>
+  </defs>
+
+  <text x="440" y="28" text-anchor="middle" class="h1">llm-uncertainty-banking — architecture (pass 30, 2026-04-26)</text>
+  <text x="440" y="46" text-anchor="middle" class="body">orchestrator swarm (ruflo / langgraph / crewai / autogen — ADR-002) → calibrated workers → core L1-L5 (22 estimators · 14 metrics · 6 regimes) → governance + MCP</text>
+
+  <text x="40" y="78" class="lane">INPUTS — LLM BACKENDS</text>
+  <rect x="40" y="90" width="148" height="42" rx="6" class="input"/>
+  <text x="114" y="109" text-anchor="middle" class="h3">HuggingFace</text>
+  <text x="114" y="123" text-anchor="middle" class="small">transformers</text>
+  <rect x="198" y="90" width="148" height="42" rx="6" class="input"/>
+  <text x="272" y="109" text-anchor="middle" class="h3">OpenAI</text>
+  <text x="272" y="123" text-anchor="middle" class="small">chat + logprobs</text>
+  <rect x="356" y="90" width="148" height="42" rx="6" class="input"/>
+  <text x="430" y="109" text-anchor="middle" class="h3">Anthropic</text>
+  <text x="430" y="123" text-anchor="middle" class="small">messages API</text>
+  <rect x="514" y="90" width="148" height="42" rx="6" class="input"/>
+  <text x="588" y="109" text-anchor="middle" class="h3">vLLM</text>
+  <text x="588" y="123" text-anchor="middle" class="small">local serving</text>
+  <rect x="672" y="90" width="148" height="42" rx="6" class="input"/>
+  <text x="746" y="109" text-anchor="middle" class="h3">DummyBackend</text>
+  <text x="746" y="123" text-anchor="middle" class="small">deterministic, hermetic</text>
+
+  <text x="30" y="166" class="lane">L1</text>
+  <rect x="60" y="150" width="540" height="50" rx="6" class="l1"/>
+  <text x="78" y="170" class="h2">lub.wrappers</text>
+  <text x="78" y="187" class="body">Backend adapters — generate(prompt, n_samples) → list[Generation], 5 backends</text>
+
+  <text x="30" y="234" class="lane">L2</text>
+  <rect x="60" y="218" width="540" height="64" rx="6" class="l2"/>
+  <text x="78" y="238" class="h2">lub.uncertainty — 22 estimators in 7 families</text>
+  <text x="78" y="255" class="small">Token logprob · Self-consistency · Semantic entropy · MC dropout · 5× conformal</text>
+  <text x="78" y="270" class="small">P(true) · Verbalized · Eigenscore · Mahalanobis · Graph Laplacian · Ensemble · SAR · …</text>
+
+  <text x="30" y="316" class="lane">L3</text>
+  <rect x="60" y="300" width="540" height="50" rx="6" class="l3"/>
+  <text x="78" y="320" class="h2">lub.calibration — 14 metrics</text>
+  <text x="78" y="337" class="small">ECE · Brier · NLL · CRPS · refusal AUROC · reliability diagrams · drift detector</text>
+
+  <text x="30" y="384" class="lane">L4</text>
+  <rect x="60" y="368" width="540" height="50" rx="6" class="l4"/>
+  <text x="78" y="388" class="h2">lub.benchmarks — 8 datasets</text>
+  <text x="78" y="405" class="small">FinQA · ConvFinQA · TAT-QA · BR-Regulatory · Credit · FPB · FiQA-SA</text>
+
+  <text x="30" y="452" class="lane">L5</text>
+  <rect x="60" y="436" width="540" height="50" rx="6" class="l5"/>
+  <text x="78" y="456" class="h2">lub.reports — 6 regulatory regimes (OSCAL JSON · MD · HTML)</text>
+  <text x="78" y="473" class="small">NIST AI 600-1 · EU AI Act · BCBS 239 · BCB 4.893 · ISO 23894 · ISO 42001</text>
+
+  <text x="700" y="166" class="lane">v0.2 GOVERNANCE RUNTIME</text>
+  <rect x="640" y="150" width="220" height="336" rx="6" class="runtime"/>
+  <text x="750" y="178" text-anchor="middle" class="h2">Parallel modules</text>
+
+  <rect x="652" y="190" width="196" height="42" rx="5" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="662" y="207" class="h3">lub.orchestration</text>
+  <text x="662" y="222" class="small">router · swarm · hooks</text>
+
+  <rect x="652" y="240" width="196" height="42" rx="5" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="662" y="257" class="h3">lub.ledger</text>
+  <text x="662" y="272" class="small">SQLite WAL — 5 tables</text>
+
+  <rect x="652" y="290" width="196" height="42" rx="5" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="662" y="307" class="h3">lub.evidence</text>
+  <text x="662" y="322" class="small">k-NN attribution store</text>
+
+  <rect x="652" y="340" width="196" height="42" rx="5" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="662" y="357" class="h3">lub.governance</text>
+  <text x="662" y="372" class="small">ADRs · drift · contexts</text>
+
+  <rect x="652" y="390" width="196" height="42" rx="5" fill="#fffbeb" stroke="#f59e0b"/>
+  <text x="662" y="407" class="h3">lub.mcp</text>
+  <text x="662" y="422" class="small">38 tools + ruflo plugins</text>
+
+  <rect x="652" y="440" width="196" height="42" rx="5" class="challenge"/>
+  <text x="662" y="457" class="h3">lub.challenge (v0.3)</text>
+  <text x="662" y="472" class="small">CEC · drift reasoning</text>
+
+  <text x="40" y="520" class="lane">v0.2 BETA · scaffold pre-v0.3</text>
+  <rect x="60" y="532" width="540" height="40" rx="6" class="agents"/>
+  <text x="78" y="552" class="h3">lub.agents</text>
+  <text x="78" y="567" class="small">CalibratedAgent · RefusalPolicy · ReportingAgent · adapters/{langgraph, crewai, autogen, ruflo}</text>
+
+  <text x="40" y="600" class="lane">OUTPUTS — auditor-ready evidence</text>
+  <rect x="60" y="612" width="180" height="76" rx="6" class="output"/>
+  <text x="150" y="632" text-anchor="middle" class="h3">AI-RMF reports</text>
+  <text x="75" y="650" class="small">Markdown · HTML · OSCAL JSON</text>
+  <text x="75" y="664" class="small">6 regimes · SR 11-7 cross-ref</text>
+
+  <rect x="248" y="612" width="180" height="76" rx="6" class="output"/>
+  <text x="338" y="632" text-anchor="middle" class="h3">Calibration evidence</text>
+  <text x="263" y="650" class="small">Reliability diagrams · refusal</text>
+  <text x="263" y="664" class="small">AUROC · drift dashboards</text>
+
+  <rect x="436" y="612" width="180" height="76" rx="6" class="output"/>
+  <text x="526" y="632" text-anchor="middle" class="h3">Auditor receipts</text>
+  <text x="451" y="650" class="small">Ledger queries · k-NN trails</text>
+  <text x="451" y="664" class="small">SR 11-7 / BCB 4.893 crosswalks</text>
+
+  <rect x="624" y="612" width="180" height="76" rx="6" class="output"/>
+  <text x="714" y="632" text-anchor="middle" class="h3">CLI + MCP surface</text>
+  <text x="639" y="650" class="small">lub answer · benchmark · drift</text>
+  <text x="639" y="664" class="small">~5 hand-written + estimator/metric tools (deliberately narrow)</text>
+
+  <path d="M 114 132 L 114 150" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 272 132 L 272 150" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 430 132 L 430 150" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 588 132 L 588 150" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 746 132 L 746 150" class="arrow" marker-end="url(#ah)"/>
+
+  <path d="M 330 200 L 330 218" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 330 282 L 330 300" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 330 350 L 330 368" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 330 418 L 330 436" class="arrow" marker-end="url(#ah)"/>
+
+  <path d="M 600 240 L 640 240" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 600 290 L 640 290" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 600 340 L 640 340" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 600 460 L 640 460" class="arrow" marker-end="url(#ah)"/>
+
+  <path d="M 150 486 L 150 532" class="arrow" marker-end="url(#ah)"/>
+
+  <path d="M 150 572 L 150 612" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 338 572 L 338 612" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 526 572 L 526 612" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 714 482 Q 714 580 714 612" class="arrow" marker-end="url(#ah)"/>
+
+  <text x="40" y="710" class="small">Apache 2.0 - Import direction enforced by import-linter - v0.1 frozen surface (732 tests / 93% / 86 mod / 22 estimators / 14 metrics / 6 regimes) - ruflo as orch core per ADR-002 (pass 30, 2026-04-26)</text>
+</svg>

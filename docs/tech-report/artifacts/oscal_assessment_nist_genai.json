@@ -1,0 +1,1296 @@
+{
+  "assessment-results": {
+    "uuid": "addc999f-d4e3-41d1-9428-71a4e00339e1",
+    "metadata": {
+      "title": "LUB Assessment \u2014 dummy/token_logprob on br_regulatory",
+      "last-modified": "2026-04-17T03:12:00+00:00",
+      "version": "0.0.1",
+      "oscal-version": "1.1.2"
+    },
+    "results": [
+      {
+        "uuid": "3f01521e-ebd3-451a-b688-5e6b3fb1361b",
+        "title": "Assessment of dummy/token_logprob on br_regulatory across NIST_AI_600-1",
+        "start": "2026-04-17T03:11:50.618665+00:00",
+        "end": "2026-04-17T03:12:00+00:00",
+        "findings": [
+          {
+            "uuid": "4b407fcc-d393-4efe-a16f-602552d4f37e",
+            "title": "MS-2.3-001 assessment",
+            "description": "Control MS-2.3-001: FINDING \u2014 based on 1 metric observation(s). Remediation required.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "MS-2.3-001",
+              "status": {
+                "state": "not-satisfied"
+              }
+            },
+            "related-observations": [
+              {
+                "observation-uuid": "7928b0dc-d6d1-46ae-87b4-e5c4aae9a5b2"
+              }
+            ],
+            "props": [
+              {
+                "name": "severity",
+                "value": "finding",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "43dd6e32-a828-482a-9e1a-ea75f044ee40",
+            "title": "MS-2.5-001 assessment",
+            "description": "Control MS-2.5-001: FINDING \u2014 based on 3 metric observation(s). Remediation required.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "MS-2.5-001",
+              "status": {
+                "state": "not-satisfied"
+              }
+            },
+            "related-observations": [
+              {
+                "observation-uuid": "ab54cc57-68e4-46fe-8204-f160b85d38c1"
+              },
+              {
+                "observation-uuid": "6be150a2-2f65-4c6c-b6b2-ce8ab119ec01"
+              },
+              {
+                "observation-uuid": "91237c0e-aa81-461c-a2bb-c523f3e8b39d"
+              }
+            ],
+            "props": [
+              {
+                "name": "severity",
+                "value": "finding",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "0bc466fe-95c0-426f-82ab-334786627a25",
+            "title": "MS-2.6-001 assessment",
+            "description": "Control MS-2.6-001: FINDING \u2014 based on 7 metric observation(s). Remediation required.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "MS-2.6-001",
+              "status": {
+                "state": "not-satisfied"
+              }
+            },
+            "related-observations": [
+              {
+                "observation-uuid": "456f0c29-165f-4977-ab8f-5df258f5b965"
+              },
+              {
+                "observation-uuid": "f990e3d5-f77b-4189-8d54-9bd6dd0e3395"
+              },
+              {
+                "observation-uuid": "1681e458-f519-4d07-b649-d83074e22eef"
+              },
+              {
+                "observation-uuid": "1cbeaaf1-b29b-47f8-9652-a4eccf69b332"
+              },
+              {
+                "observation-uuid": "8f308c36-daa5-46f4-94e6-0b6909a33ac6"
+              },
+              {
+                "observation-uuid": "c9642229-dde1-4fca-bebe-cfd3e02ef196"
+              },
+              {
+                "observation-uuid": "cf357089-78f9-4f15-b282-59275253b59a"
+              }
+            ],
+            "props": [
+              {
+                "name": "severity",
+                "value": "finding",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "82f75718-9e32-4d30-a6f2-1b868754e30f",
+            "title": "MS-2.7-001 assessment",
+            "description": "Control MS-2.7-001: FINDING \u2014 based on 4 metric observation(s). Remediation required.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "MS-2.7-001",
+              "status": {
+                "state": "not-satisfied"
+              }
+            },
+            "related-observations": [
+              {
+                "observation-uuid": "dc29e21f-b4db-4e44-b94f-dde505f3a3c7"
+              },
+              {
+                "observation-uuid": "dc801d29-4789-48e8-bd53-32d219175da9"
+              },
+              {
+                "observation-uuid": "02487505-3168-4704-938f-e15f2e76e07b"
+              },
+              {
+                "observation-uuid": "1f607b35-b3b4-40f8-9679-568ffbd98ad8"
+              }
+            ],
+            "props": [
+              {
+                "name": "severity",
+                "value": "finding",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "02b36728-0d3b-41ba-90c9-d3a1f152806d",
+            "title": "MS-2.9-001 assessment",
+            "description": "Control MS-2.9-001: FINDING \u2014 based on 1 metric observation(s). Remediation required.",
+            "target": {
+              "type": "objective-id",
+              "target-id": "MS-2.9-001",
+              "status": {
+                "state": "not-satisfied"
+              }
+            },
+            "related-observations": [
+              {
+                "observation-uuid": "96d4f6fa-6c65-43cd-9f5f-735542cd722c"
+              }
+            ],
+            "props": [
+              {
+                "name": "severity",
+                "value": "finding",
+                "ns": null
+              }
+            ]
+          }
+        ],
+        "observations": [
+          {
+            "uuid": "7928b0dc-d6d1-46ae-87b4-e5c4aae9a5b2",
+            "title": "accuracy \u2192 MS-2.3-001",
+            "description": "Metric 'accuracy' = 0.000000 evaluated against control MS-2.3-001 (GenAI System Performance) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.3: Assess AI system performance including accuracy on domain-specific evaluation sets, with documentation of methods, metrics, and results (NIST AI 600-1 \u00a7MS-2.3).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "accuracy",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.000000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Efficacy",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.3-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "456f0c29-165f-4977-ab8f-5df258f5b965",
+            "title": "ece \u2192 MS-2.6-001",
+            "description": "Metric 'ece' = 0.367879 evaluated against control MS-2.6-001 (GenAI Calibration and Reliability) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 \u00a7MS-2.6).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "ece",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.367879",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.6-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "f990e3d5-f77b-4189-8d54-9bd6dd0e3395",
+            "title": "brier \u2192 MS-2.6-001",
+            "description": "Metric 'brier' = 0.135335 evaluated against control MS-2.6-001 (GenAI Calibration and Reliability) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 \u00a7MS-2.6).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "brier",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.135335",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "pass",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.6-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "dc29e21f-b4db-4e44-b94f-dde505f3a3c7",
+            "title": "refusal_auroc \u2192 MS-2.7-001",
+            "description": "Metric 'refusal_auroc' = 0.500000 evaluated against control MS-2.7-001 (GenAI Safety and Refusal) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.7: Measure the AI system's ability to safely abstain or refuse when confidence is insufficient, using refusal AUROC and selective-prediction metrics (NIST AI 600-1 \u00a7MS-2.7).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "refusal_auroc",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.500000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.7-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "1681e458-f519-4d07-b649-d83074e22eef",
+            "title": "miscalibration_area \u2192 MS-2.6-001",
+            "description": "Metric 'miscalibration_area' = 0.386273 evaluated against control MS-2.6-001 (GenAI Calibration and Reliability) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 \u00a7MS-2.6).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "miscalibration_area",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.386273",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.6-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "ab54cc57-68e4-46fe-8204-f160b85d38c1",
+            "title": "sharpness \u2192 MS-2.5-001",
+            "description": "Metric 'sharpness' = 0.000000 evaluated against control MS-2.5-001 (GenAI Uncertainty and Confidence) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.5: Quantify and report prediction confidence and uncertainty bounds for generative AI outputs, ensuring that uncertainty information is available for downstream decisions (NIST AI 600-1 \u00a7MS-2.5).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "sharpness",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.000000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Efficacy",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.5-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "dc801d29-4789-48e8-bd53-32d219175da9",
+            "title": "missing_ratio \u2192 MS-2.7-001",
+            "description": "Metric 'missing_ratio' = 1.000000 evaluated against control MS-2.7-001 (GenAI Safety and Refusal) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.7: Measure the AI system's ability to safely abstain or refuse when confidence is insufficient, using refusal AUROC and selective-prediction metrics (NIST AI 600-1 \u00a7MS-2.7).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "missing_ratio",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "1.000000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.7-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "02487505-3168-4704-938f-e15f2e76e07b",
+            "title": "prr \u2192 MS-2.7-001",
+            "description": "Metric 'prr' = 0.000000 evaluated against control MS-2.7-001 (GenAI Safety and Refusal) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.7: Measure the AI system's ability to safely abstain or refuse when confidence is insufficient, using refusal AUROC and selective-prediction metrics (NIST AI 600-1 \u00a7MS-2.7).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "prr",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.000000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.7-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "6be150a2-2f65-4c6c-b6b2-ce8ab119ec01",
+            "title": "spearman \u2192 MS-2.5-001",
+            "description": "Metric 'spearman' = 1.000000 evaluated against control MS-2.5-001 (GenAI Uncertainty and Confidence) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.5: Quantify and report prediction confidence and uncertainty bounds for generative AI outputs, ensuring that uncertainty information is available for downstream decisions (NIST AI 600-1 \u00a7MS-2.5).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "spearman",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "1.000000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "pass",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Efficacy",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.5-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "91237c0e-aa81-461c-a2bb-c523f3e8b39d",
+            "title": "kendall_tau \u2192 MS-2.5-001",
+            "description": "Metric 'kendall_tau' = 0.000000 evaluated against control MS-2.5-001 (GenAI Uncertainty and Confidence) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.5: Quantify and report prediction confidence and uncertainty bounds for generative AI outputs, ensuring that uncertainty information is available for downstream decisions (NIST AI 600-1 \u00a7MS-2.5).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "kendall_tau",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.000000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Efficacy",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.5-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "1cbeaaf1-b29b-47f8-9652-a4eccf69b332",
+            "title": "reversed_pairs_proportion \u2192 MS-2.6-001",
+            "description": "Metric 'reversed_pairs_proportion' = 0.500000 evaluated against control MS-2.6-001 (GenAI Calibration and Reliability) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 \u00a7MS-2.6).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "reversed_pairs_proportion",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.500000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.6-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "8f308c36-daa5-46f4-94e6-0b6909a33ac6",
+            "title": "rmsce \u2192 MS-2.6-001",
+            "description": "Metric 'rmsce' = 0.367879 evaluated against control MS-2.6-001 (GenAI Calibration and Reliability) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 \u00a7MS-2.6).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "rmsce",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.367879",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.6-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "96d4f6fa-6c65-43cd-9f5f-735542cd722c",
+            "title": "aurc \u2192 MS-2.9-001",
+            "description": "Metric 'aurc' = 0.950000 evaluated against control MS-2.9-001 (GenAI Robustness Under Shift) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.9: Evaluate robustness of AI outputs under distribution shift, including adaptive conformal coverage and temporal calibration stability (NIST AI 600-1 \u00a7MS-2.9).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "aurc",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.950000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.9-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "1f607b35-b3b4-40f8-9679-568ffbd98ad8",
+            "title": "auucc \u2192 MS-2.7-001",
+            "description": "Metric 'auucc' = 0.000000 evaluated against control MS-2.7-001 (GenAI Safety and Refusal) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.7: Measure the AI system's ability to safely abstain or refuse when confidence is insufficient, using refusal AUROC and selective-prediction metrics (NIST AI 600-1 \u00a7MS-2.7).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "auucc",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.000000",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "finding",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.7-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "c9642229-dde1-4fca-bebe-cfd3e02ef196",
+            "title": "crps_from_confidence \u2192 MS-2.6-001",
+            "description": "Metric 'crps_from_confidence' = 0.135335 evaluated against control MS-2.6-001 (GenAI Calibration and Reliability) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 \u00a7MS-2.6).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "crps_from_confidence",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.135335",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "pass",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.6-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          },
+          {
+            "uuid": "cf357089-78f9-4f15-b282-59275253b59a",
+            "title": "negative_log_likelihood \u2192 MS-2.6-001",
+            "description": "Metric 'negative_log_likelihood' = 0.458675 evaluated against control MS-2.6-001 (GenAI Calibration and Reliability) under regime NIST_AI_600-1.",
+            "methods": [
+              "TEST"
+            ],
+            "collected": "2026-04-17T03:12:00+00:00",
+            "relevant-evidence": [
+              {
+                "description": "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 \u00a7MS-2.6).",
+                "props": [
+                  {
+                    "name": "metric",
+                    "value": "negative_log_likelihood",
+                    "ns": null
+                  },
+                  {
+                    "name": "value",
+                    "value": "0.458675",
+                    "ns": null
+                  },
+                  {
+                    "name": "severity",
+                    "value": "pass",
+                    "ns": null
+                  },
+                  {
+                    "name": "trust_dimension",
+                    "value": "Robustness",
+                    "ns": null
+                  },
+                  {
+                    "name": "regime",
+                    "value": "NIST_AI_600-1",
+                    "ns": null
+                  },
+                  {
+                    "name": "control_id",
+                    "value": "MS-2.6-001",
+                    "ns": null
+                  }
+                ]
+              }
+            ],
+            "props": [
+              {
+                "name": "regime",
+                "value": "NIST_AI_600-1",
+                "ns": null
+              },
+              {
+                "name": "backend",
+                "value": "dummy",
+                "ns": null
+              },
+              {
+                "name": "estimator",
+                "value": "token_logprob",
+                "ns": null
+              },
+              {
+                "name": "dataset",
+                "value": "br_regulatory",
+                "ns": null
+              }
+            ]
+          }
+        ],
+        "props": [
+          {
+            "name": "backend",
+            "value": "dummy",
+            "ns": null
+          },
+          {
+            "name": "estimator",
+            "value": "token_logprob",
+            "ns": null
+          },
+          {
+            "name": "dataset",
+            "value": "br_regulatory",
+            "ns": null
+          },
+          {
+            "name": "n_observations",
+            "value": "16",
+            "ns": null
+          },
+          {
+            "name": "n_findings",
+            "value": "5",
+            "ns": null
+          },
+          {
+            "name": "worst_severity",
+            "value": "finding",
+            "ns": null
+          }
+        ]
+      }
+    ]
+  }
+}

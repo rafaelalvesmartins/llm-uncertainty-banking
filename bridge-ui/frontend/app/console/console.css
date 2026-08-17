@@ -1,0 +1,239 @@
+/* Bridge Console — firewall/NOC-style theme.
+ *
+ * EVERY rule is scoped under `.bridge-console` so it cannot bleed into the
+ * legacy app, even though Next.js bundles this as a global stylesheet. Colors
+ * reuse the existing dark palette (#0f172a / #1e293b / #334155) plus the same
+ * status families as the legacy badges, so the console stays cohesive and the
+ * PASSTHROUGH/FLAG/REASK/ESCALATE color language matches the rest of the app.
+ */
+
+.bridge-console {
+  --bc-bg: #0f172a;
+  --bc-rail: #0b1324;
+  --bc-surface: #1e293b;
+  --bc-surface-2: #172033;
+  --bc-border: #2d3c5e;
+  --bc-border-soft: #233048;
+  --bc-text: #e2e8f0;
+  --bc-text-dim: #94a3b8;
+  --bc-text-mute: #8b9bb4; /* raised from #64748b to clear WCAG AA (4.5:1) on bg+surface — carries the "What this does" narration */
+  --bc-accent: #6366f1;
+  --bc-accent-bg: #1e2547;
+
+  --bc-pass: #14532d;       --bc-pass-text: #86efac;   --bc-pass-line: #22c55e;
+  --bc-flag: #422006;       --bc-flag-text: #fde68a;   --bc-flag-line: #f59e0b;
+  --bc-reask: #4c1d95;      --bc-reask-text: #c4b5fd;  --bc-reask-line: #8b5cf6;
+  --bc-block: #7f1d1d;      --bc-block-text: #fecaca;  --bc-block-line: #ef4444;
+  --bc-info-line: #60a5fa;
+
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  min-height: 100vh;
+  background: var(--bc-bg);
+  color: var(--bc-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ---- Left rail ---- */
+.bridge-console .bc-rail {
+  background: var(--bc-rail);
+  border-right: 1px solid var(--bc-border);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding: 12px 8px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+.bridge-console .bc-rail-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bc-accent);
+  text-align: center;
+  padding: 6px 0 14px;
+}
+.bridge-console .bc-rail-group {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--bc-text-mute);
+  text-align: center;
+  padding: 11px 0 3px;
+}
+.bridge-console .bc-rail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 4px;
+  border: none;
+  background: transparent;
+  color: var(--bc-text-dim);
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.1;
+  text-align: center;
+}
+.bridge-console .bc-rail-item:hover { background: var(--bc-surface-2); color: var(--bc-text); }
+.bridge-console .bc-rail-item.active { background: var(--bc-accent-bg); color: #c7d2fe; }
+.bridge-console .bc-rail-item { cursor: pointer; }
+.bridge-console .bc-rail-item:focus-visible { outline: 2px solid var(--bc-accent); outline-offset: 2px; }
+/* Consistent keyboard focus ring across every interactive element in the console. */
+.bridge-console :is(button, [role="button"], [role="tab"], input, select, textarea, a, [tabindex="0"]):focus-visible {
+  outline: 2px solid var(--bc-accent);
+  outline-offset: 2px;
+}
+/* Respect the OS reduced-motion preference for transitions/animations
+   (e.g. the New-connection highlight flash) and smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+  .bridge-console *, .bridge-console *::before, .bridge-console *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+.bridge-console .bc-rail-item svg { width: 22px; height: 22px; stroke-width: 1.7; }
+
+/* ---- Main column ---- */
+.bridge-console .bc-main { min-width: 0; display: flex; flex-direction: column; }
+.bridge-console .bc-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--bc-border);
+  background: var(--bc-surface-2);
+}
+.bridge-console .bc-topbar h1 { margin: 0; font-size: 18px; font-weight: 600; }
+.bridge-console .bc-topbar .bc-sub { font-size: 12px; color: var(--bc-text-dim); margin-top: 2px; }
+.bridge-console .bc-topbar-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.bridge-console .bc-content { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+
+/* ---- Chips / dots / badges ---- */
+.bridge-console .bc-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--bc-border); color: var(--bc-text-dim);
+  background: var(--bc-surface);
+}
+.bridge-console .bc-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: 0 0 auto; background: var(--bc-text-mute); }
+.bridge-console .bc-dot.pass { background: var(--bc-pass-line); }
+.bridge-console .bc-dot.flag { background: var(--bc-flag-line); }
+.bridge-console .bc-dot.reask { background: var(--bc-reask-line); }
+.bridge-console .bc-dot.block { background: var(--bc-block-line); }
+.bridge-console .bc-dot.info { background: var(--bc-info-line); }
+
+.bridge-console .bc-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 6px;
+  background: var(--bc-surface); color: var(--bc-text-dim);
+}
+.bridge-console .bc-badge.pass { background: var(--bc-pass); color: var(--bc-pass-text); }
+.bridge-console .bc-badge.flag { background: var(--bc-flag); color: var(--bc-flag-text); }
+.bridge-console .bc-badge.reask { background: var(--bc-reask); color: var(--bc-reask-text); }
+.bridge-console .bc-badge.block { background: var(--bc-block); color: var(--bc-block-text); }
+
+/* ---- Cards & grids ---- */
+.bridge-console .bc-card {
+  background: var(--bc-surface);
+  border: 1px solid var(--bc-border-soft);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.bridge-console .bc-card-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.bridge-console .bc-card-h h2, .bridge-console .bc-card-h h3 { margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+/* Harmonize the LEGACY `.card` panels (Observability / Config / Governance sub-panels)
+   to the console look — same surface, radius, padding, and normal-case heading — so the
+   whole console reads as one product. Scoped to .bridge-console; overrides the global
+   legacy `.card` via specificity, no markup change. */
+.bridge-console .card {
+  background: var(--bc-surface);
+  border: 1px solid var(--bc-border-soft);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.bridge-console .card h2 {
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--bc-text);
+}
+.bridge-console .card h2 .card-subtitle { color: var(--bc-text-mute); }
+.bridge-console .bc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.bridge-console .bc-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.bridge-console .bc-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+/* ---- Metric tiles ---- */
+.bridge-console .bc-metric { background: var(--bc-surface-2); border-radius: 10px; padding: 12px 14px; }
+.bridge-console .bc-metric-label { font-size: 12px; color: var(--bc-text-dim); margin-bottom: 6px; }
+.bridge-console .bc-metric-value { font-size: 24px; font-weight: 600; }
+.bridge-console .bc-metric-value.pass { color: var(--bc-pass-text); }
+.bridge-console .bc-metric-value.flag { color: var(--bc-flag-text); }
+.bridge-console .bc-metric-value.reask { color: var(--bc-reask-text); }
+.bridge-console .bc-metric-value.block { color: var(--bc-block-text); }
+
+/* ---- Inspection flow (the hero) ---- */
+.bridge-console .bc-flow { display: flex; align-items: stretch; gap: 4px; overflow-x: auto; padding-bottom: 4px; }
+.bridge-console .bc-stage {
+  flex: 1 1 0; min-width: 88px; text-align: center;
+  background: var(--bc-surface-2); border: 1px solid var(--bc-border-soft);
+  border-top: 3px solid var(--bc-text-mute); border-radius: 8px; padding: 10px 6px;
+}
+.bridge-console .bc-stage.ok { border-top-color: var(--bc-pass-line); }
+.bridge-console .bc-stage.warn { border-top-color: var(--bc-flag-line); }
+.bridge-console .bc-stage.blocked { border-top-color: var(--bc-block-line); }
+.bridge-console .bc-stage.active { outline: 2px solid var(--bc-accent); outline-offset: -1px; }
+.bridge-console .bc-stage-name { font-size: 11px; font-weight: 600; margin-top: 6px; word-break: break-word; }
+.bridge-console .bc-stage-meta { font-size: 11px; color: var(--bc-text-mute); margin-top: 2px; }
+.bridge-console .bc-arrow { align-self: center; color: var(--bc-text-mute); flex: 0 0 auto; font-size: 14px; }
+
+/* ---- Topology ---- */
+.bridge-console .bc-topo { width: 100%; height: auto; display: block; }
+.bridge-console .bc-node { background: var(--bc-surface-2); border: 1px solid var(--bc-border); border-radius: 8px; padding: 8px 10px; }
+
+/* ---- Tables ---- */
+.bridge-console .bc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.bridge-console .bc-table th { text-align: left; color: var(--bc-text-dim); font-weight: 500; padding: 8px 8px; border-bottom: 1px solid var(--bc-border); }
+.bridge-console .bc-table td { padding: 8px 8px; border-bottom: 1px solid var(--bc-border-soft); }
+.bridge-console .bc-table tr:last-child td { border-bottom: none; }
+
+/* ---- Forms / buttons ---- */
+.bridge-console .bc-input, .bridge-console .bc-textarea {
+  width: 100%; background: var(--bc-bg); color: var(--bc-text);
+  border: 1px solid var(--bc-border); border-radius: 8px; padding: 10px 12px; font-size: 14px;
+}
+.bridge-console .bc-textarea { min-height: 72px; resize: vertical; }
+.bridge-console .bc-btn {
+  background: var(--bc-accent); color: #fff; border: none; border-radius: 8px;
+  padding: 9px 16px; font-size: 14px; font-weight: 600;
+}
+.bridge-console .bc-btn:disabled { opacity: 0.5; cursor: default; }
+.bridge-console .bc-btn.ghost { background: transparent; color: var(--bc-text-dim); border: 1px solid var(--bc-border); }
+
+/* ---- States ---- */
+.bridge-console .bc-empty, .bridge-console .bc-loading { color: var(--bc-text-mute); font-size: 13px; padding: 16px 0; }
+.bridge-console .bc-error { color: var(--bc-block-text); background: var(--bc-block); border-radius: 8px; padding: 10px 12px; font-size: 13px; }
+
+/* honesty badge from the shared StateBadge (scoped copy of the legacy look) */
+.bridge-console .state-badge { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 5px; margin-left: 8px; vertical-align: middle; }
+.bridge-console .state-badge.live { background: var(--bc-pass); color: var(--bc-pass-text); }
+.bridge-console .state-badge.mock { background: var(--bc-flag); color: var(--bc-flag-text); }
+.bridge-console .state-badge.static { background: var(--bc-surface); color: var(--bc-text-dim); border: 1px solid var(--bc-border); }
+
+@media (max-width: 860px) {
+  .bridge-console { grid-template-columns: 1fr; }
+  .bridge-console .bc-rail { flex-direction: row; height: auto; position: static; overflow-x: auto; }
+  .bridge-console .bc-rail-brand { display: none; }
+  .bridge-console .bc-rail-group { display: none; }
+  .bridge-console .bc-rail-item { flex: 0 0 auto; min-width: 64px; }
+  .bridge-console .bc-grid-4 { grid-template-columns: 1fr 1fr; }
+  .bridge-console .bc-grid-2 { grid-template-columns: 1fr; }
+}

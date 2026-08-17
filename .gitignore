@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project-specific
+.cache/
+data/raw/
+data/processed/
+results/
+benchmarks/results/
+*.ckpt
+*.pt
+*.safetensors
+notebooks/.ipynb_checkpoints/
+wandb/
+mlruns/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.private
+*.p12
+*.jks
+*.keystore
+secrets.json
+secrets.yaml
+secrets.yml
+credentials.json
+service-account*.json
+
+# mkdocs build output (regenerable; a survey agent left one untracked)
+site/
+
+# Internal planning worksheets — contain employer-internal AI architecture details
+# (cloud provider, on-prem model, data-platform specifics). Must never enter the
+# public repository history: with a fresh-init publication the initial commit is the
+# only barrier, and a later deletion does not erase content from public history.
+DESIGN_DECISIONS_PERSONALIZATION_WORKSHEET.md
+planning/root_archive_2026-07-11/DESIGN_DECISIONS_PERSONALIZATION_WORKSHEET.md

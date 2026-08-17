@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>lub.dashboard — CEC + Ledger Observability (mockup)</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #161b22;
+    --panel-2: #1c232c;
+    --border: #2d3540;
+    --text: #e6edf3;
+    --muted: #9aa6b2;
+    --accent: #4493f8;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+  }
+  header {
+    padding: 18px 24px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  }
+  header h1 { font-size: 16px; font-weight: 600; margin: 0; }
+  header .meta { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+  .container { padding: 20px 24px; display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px;
+  }
+  .card h2 { font-size: 13px; font-weight: 600; margin: 0 0 12px 0; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+  .span-3 { grid-column: span 3; }
+  .span-4 { grid-column: span 4; }
+  .span-6 { grid-column: span 6; }
+  .span-8 { grid-column: span 8; }
+  .span-12 { grid-column: span 12; }
+  .stat { font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .delta-pos { color: var(--red); }
+  .delta-neg { color: var(--green); }
+  .pill {
+    display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
+    font-family: var(--mono);
+  }
+  .pill.green { background: rgba(63,185,80,.15); color: var(--green); }
+  .pill.yellow { background: rgba(210,153,34,.15); color: var(--yellow); }
+  .pill.red { background: rgba(248,81,73,.15); color: var(--red); }
+  .pill.gray { background: rgba(154,166,178,.15); color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+  td.mono { font-family: var(--mono); font-size: 12px; }
+  .rec { padding: 10px 12px; background: var(--panel-2); border-left: 3px solid var(--accent); margin-bottom: 8px; font-size: 13px; border-radius: 0 4px 4px 0; }
+  .rec.warn { border-left-color: var(--yellow); }
+  .rec.crit { border-left-color: var(--red); }
+  .rec.ok { border-left-color: var(--green); }
+  canvas { width: 100% !important; height: 240px !important; }
+  .source { font-size: 11px; color: var(--muted); margin-top: 8px; font-family: var(--mono); }
+  .badge { display: inline-block; padding: 1px 6px; border-radius: 3px; background: rgba(68,147,248,.15); color: var(--accent); font-size: 11px; font-family: var(--mono); }
+  details summary { cursor: pointer; color: var(--accent); font-size: 12px; }
+  details[open] summary { margin-bottom: 8px; }
+  .drift-hyp { font-size: 12px; color: var(--text); margin-top: 6px; padding-left: 12px; border-left: 2px solid var(--border); }
+</style>
+</head>
+<body>
+<div style="background: #fef3c7; border: 2px solid #f59e0b; padding: 14px 20px; margin: 0 0 16px; font: 13px/1.5 ui-sans-serif, system-ui, sans-serif; color: #78350f;" id="design-mockup-banner">
+  <strong style="font-size: 14px;">⚠ DESIGN MOCKUP — not the real implementation</strong><br>
+  This file is a static visual reference for the dashboard's intended look and feel.
+  The <strong>real implementation</strong> is <code>lub.reports.dashboard.build_dashboard(...)</code>
+  (see <a href="architecture.md">docs/architecture.md § Visual evidence</a>) — that module
+  takes a directory of <code>BenchmarkResult</code> JSONs and produces a single self-contained
+  offline HTML evidence dashboard. <em>Do not link to this mockup as if it were the dashboard;
+  link to <code>build_dashboard()</code>'s output instead.</em>
+</div>
+
+
+<header>
+  <div>
+    <h1>lub.dashboard <span class="pill gray">mockup</span></h1>
+    <div style="font-size:12px;color:var(--muted);margin-top:2px;">Continuous Effective Challenge · Ledger observability · Per ADR-002 (ruflo orchestration core)</div>
+  </div>
+  <div class="meta">
+    period: 2026-04-01 → 2026-04-30 · tenant: br-banking-q2 · git: a1b2c3d
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Top row: KPI cards -->
+  <div class="card span-3">
+    <h2>Decisions in window</h2>
+    <div class="stat">14,732</div>
+    <div class="stat-sub">across 6 bounded contexts · <span class="badge">br-regulatory</span> 47%</div>
+  </div>
+
+  <div class="card span-3">
+    <h2>Abstention rate</h2>
+    <div class="stat">11.4%</div>
+    <div class="stat-sub"><span class="delta-pos">+1.2pp vs. previous period</span></div>
+  </div>
+
+  <div class="card span-3">
+    <h2>Correctness (where labeled)</h2>
+    <div class="stat">93.8%</div>
+    <div class="stat-sub">2,418 outcomes recorded · 16% of decisions</div>
+  </div>
+
+  <div class="card span-3">
+    <h2>Meta-calibration ECE</h2>
+    <div class="stat">0.062</div>
+    <div class="stat-sub"><span class="pill green">healthy</span> · within 0.10 ceiling</div>
+  </div>
+
+  <!-- Replay findings -->
+  <div class="card span-8">
+    <h2>Replay findings — counterfactual model risk</h2>
+    <table>
+      <thead>
+        <tr><th>Alternative</th><th>Sample</th><th>Baseline abst.</th><th>CF abst.</th><th>Δ</th><th>Δ cost / 1k</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge">AlternativeEstimator</span> adaptive_conformal</td>
+          <td class="mono">14,732</td>
+          <td class="mono">11.4%</td>
+          <td class="mono">8.2%</td>
+          <td class="mono delta-neg">-3.2pp</td>
+          <td class="mono">+$0.04</td>
+          <td><span class="pill green">consider rollout</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge">AlternativeTier</span> sonnet (vs haiku)</td>
+          <td class="mono">14,732</td>
+          <td class="mono">11.4%</td>
+          <td class="mono">11.4%</td>
+          <td class="mono">±0.0pp</td>
+          <td class="mono delta-pos">+$2.75</td>
+          <td><span class="pill yellow">cost only, no UQ delta</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge">AlternativeThreshold</span> 0.85 (vs 0.90)</td>
+          <td class="mono">14,732</td>
+          <td class="mono">11.4%</td>
+          <td class="mono">7.1%</td>
+          <td class="mono delta-neg">-4.3pp</td>
+          <td class="mono">$0.00</td>
+          <td><span class="pill yellow">verify correctness drop</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="source">source: lub.challenge.replay.ReplayEngine · spec planning/24_CEC_Spec_2026-04-25.md §1.1</div>
+  </div>
+
+  <!-- Meta-calibration curve -->
+  <div class="card span-4">
+    <h2>Meta-calibration reliability curve</h2>
+    <canvas id="metaCal"></canvas>
+    <div class="source">CEC's own predictions vs. actual hold rate · 248 matured claims · ECE 0.062</div>
+  </div>
+
+  <!-- Drift hypotheses -->
+  <div class="card span-8">
+    <h2>Drift hypotheses (period: April 2026)</h2>
+    <table>
+      <thead>
+        <tr><th>Drift event</th><th>Domain</th><th>PSI</th><th>Severity</th><th>k-NN</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">drift-2026-04-08-003</td>
+          <td><span class="badge">br-regulatory</span></td>
+          <td class="mono">0.31</td>
+          <td><span class="pill red">significant</span></td>
+          <td class="mono">5/5 sim 0.71</td>
+          <td><details><summary>view hypothesis</summary>
+            <div class="drift-hyp">PSI=0.310 indicates a significant distributional shift on the br-regulatory domain with confidence fell by -0.08. The k-NN evidence store surfaced 5 historically similar windows (max cosine similarity 0.71), supporting the hypothesis below. Recommend an immediate calibration review and a Tier-2 spot check before letting the current threshold continue gating production answers.</div>
+          </details></td>
+        </tr>
+        <tr>
+          <td class="mono">drift-2026-04-15-001</td>
+          <td><span class="badge">retail-credit</span></td>
+          <td class="mono">0.18</td>
+          <td><span class="pill yellow">moderate</span></td>
+          <td class="mono">3/5 sim 0.52</td>
+          <td><details><summary>view hypothesis</summary>
+            <div class="drift-hyp">PSI=0.180 indicates a moderate distributional shift on the retail-credit domain with confidence rose by +0.04. The k-NN evidence store surfaced 3 historically similar windows (max cosine similarity 0.52), supporting the hypothesis below. Recommend monitoring this signal across the next two windows; if PSI remains above 0.10, escalate to a calibration review.</div>
+          </details></td>
+        </tr>
+        <tr>
+          <td class="mono">drift-2026-04-22-007</td>
+          <td><span class="badge">fraud-alerts</span></td>
+          <td class="mono">0.07</td>
+          <td><span class="pill green">none</span></td>
+          <td class="mono">0/5</td>
+          <td><details><summary>view hypothesis</summary>
+            <div class="drift-hyp">PSI=0.070 indicates no material distributional shift on the fraud-alerts domain with essentially flat confidence. No similar past drift events were found in the evidence store, so this hypothesis is based on the PSI magnitude alone. No action recommended; flagging is informational and the model is operating within OCC 2011-12 stability bounds.</div>
+          </details></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="source">source: lub.challenge.drift_reasoning.explain_drift_event · spec §1.2 · k-NN over lub.evidence</div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="card span-4">
+    <h2>Recommendations</h2>
+    <div class="rec ok">Replay finding (AlternativeEstimator): the alternative <strong>lowers</strong> abstention by -3.2 percentage points over the period — consider a Tier-2 spot check.</div>
+    <div class="rec crit">Drift event drift-2026-04-08-003: significant PSI; trigger an out-of-cycle calibration review.</div>
+    <div class="rec warn">Drift event drift-2026-04-15-001: moderate PSI; monitor across the next two periods.</div>
+    <div class="source">source: lub.challenge.reports.cec_report._generate_recommendations</div>
+  </div>
+
+  <!-- OSCAL findings -->
+  <div class="card span-6">
+    <h2>OSCAL Assessment-Results emit</h2>
+    <table>
+      <thead>
+        <tr><th>Finding UUID</th><th>Target</th><th>AIRMF Control</th><th>Observations</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">7c9a…f284</td>
+          <td>AIRMF-MANAGE-4.1</td>
+          <td><span class="badge">MANAGE 4.1</span> <span class="badge">MEASURE 2.7</span></td>
+          <td class="mono">7 (3 replay · 3 drift · 1 meta-cal)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="source">source: lub.challenge.reports.oscal_export.to_oscal_assessment_results · GRC-ingestible JSON</div>
+    <details style="margin-top:10px">
+      <summary>view raw JSON envelope</summary>
+      <pre style="font-size:11px;background:var(--panel-2);padding:10px;border-radius:4px;overflow:auto;max-height:200px;font-family:var(--mono);color:var(--muted);">{
+  "assessment-results": {
+    "uuid": "7c9a4d11-...-f284",
+    "metadata": { "title": "CEC Assessment Results", ... },
+    "results": [{
+      "title": "CEC Periodic Result",
+      "start": "2026-04-01T00:00:00",
+      "end":   "2026-04-30T23:59:59",
+      "props": [
+        {"name": "airmf-control", "value": "MANAGE 4.1", ...},
+        {"name": "report-kind", "value": "cec-periodic", ...}
+      ],
+      "observations": [...7 entries...],
+      "findings": [...1 entry...]
+    }]
+  }
+}</pre>
+    </details>
+  </div>
+
+  <!-- Recent ledger decisions -->
+  <div class="card span-6">
+    <h2>Recent ledger decisions (last 24h)</h2>
+    <table>
+      <thead>
+        <tr><th>Time</th><th>Domain</th><th>Tier</th><th>UQ</th><th>Decision</th><th>Outcome</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">23:42:11</td><td><span class="badge">br-regulatory</span></td><td class="mono">tier-2</td><td class="mono">0.93</td><td><span class="pill green">PASSTHROUGH</span></td><td>—</td></tr>
+        <tr><td class="mono">23:38:04</td><td><span class="badge">br-regulatory</span></td><td class="mono">tier-1</td><td class="mono">0.74</td><td><span class="pill yellow">FLAG</span></td><td><span class="pill green">correct</span></td></tr>
+        <tr><td class="mono">23:36:55</td><td><span class="badge">retail-credit</span></td><td class="mono">tier-1</td><td class="mono">0.42</td><td><span class="pill red">ABSTAIN</span></td><td>—</td></tr>
+        <tr><td class="mono">23:31:08</td><td><span class="badge">fraud-alerts</span></td><td class="mono">tier-2</td><td class="mono">0.88</td><td><span class="pill green">PASSTHROUGH</span></td><td><span class="pill green">correct</span></td></tr>
+        <tr><td class="mono">23:28:41</td><td><span class="badge">br-regulatory</span></td><td class="mono">tier-3</td><td class="mono">0.96</td><td><span class="pill green">PASSTHROUGH</span></td><td><span class="pill red">incorrect</span></td></tr>
+      </tbody>
+    </table>
+    <div class="source">source: lub.ledger answers ⨝ uq_scores ⨝ policy_decisions ⨝ outcomes</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="card span-12">
+    <h2>About this dashboard</h2>
+    <div style="font-size:12px;line-height:1.6;color:var(--muted)">
+      <strong style="color:var(--text)">Mockup status:</strong> static HTML with hard-coded mock data. Real implementation per <span class="badge">planning/29_Dashboard_Spec_2026-04-25.md</span> · scaffolded as <span class="badge">lub.dashboard</span> module. Live version reads <span class="badge">lub.ledger</span> sqlite directly via tiny FastAPI server (<code>lub-dashboard --port 8081</code>) and renders the same panels with real data.<br><br>
+      <strong style="color:var(--text)">Petition narrative posture:</strong> per ADR-002, this dashboard is positioned as <em>the calibrated-observability layer for ruflo-orchestrated agent swarms</em>. It does not change the 4 first-and-only claims — it makes them visible.<br><br>
+      <strong style="color:var(--text)">Upstream contribution candidate:</strong> answers <a href="https://github.com/ruvnet/ruflo/issues/1328" style="color:var(--accent)">ruvnet/ruflo issue #1328</a> ("web visualization board") — could be PR'd as <code>lub-ruflo-dashboard-pack</code>.
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+  // Meta-calibration reliability curve — mock data with 10 deciles.
+  // Each point: (predicted_confidence_midpoint, observed_hold_rate, n_in_bin).
+  // The "perfect calibration" diagonal is the reference line.
+  const ctx = document.getElementById('metaCal').getContext('2d');
+  const bins = [
+    [0.05, 0.07, 8],  [0.15, 0.18, 12], [0.25, 0.22, 14], [0.35, 0.31, 18],
+    [0.45, 0.49, 22], [0.55, 0.51, 27], [0.65, 0.71, 31], [0.75, 0.74, 38],
+    [0.85, 0.82, 44], [0.95, 0.91, 34],
+  ];
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: bins.map(b => b[0].toFixed(2)),
+      datasets: [
+        {
+          label: 'observed hold-rate',
+          data: bins.map(b => b[1]),
+          borderColor: '#4493f8', backgroundColor: 'rgba(68,147,248,.15)',
+          tension: 0.2, fill: true, pointRadius: 4, pointBackgroundColor: '#4493f8',
+        },
+        {
+          label: 'perfect calibration',
+          data: bins.map(b => b[0]),
+          borderColor: '#9aa6b2', borderDash: [4, 4], pointRadius: 0, fill: false,
+        },
+      ],
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        x: { title: { display: true, text: 'predicted confidence', color: '#9aa6b2' }, ticks: { color: '#9aa6b2', font: { size: 10 } }, grid: { color: 'rgba(45,53,64,.5)' } },
+        y: { title: { display: true, text: 'observed hold rate', color: '#9aa6b2' }, min: 0, max: 1, ticks: { color: '#9aa6b2', font: { size: 10 } }, grid: { color: 'rgba(45,53,64,.5)' } },
+      },
+      plugins: {
+        legend: { labels: { color: '#9aa6b2', font: { size: 11 }, boxWidth: 12 } },
+      },
+    },
+  });
+</script>
+
+</body>
+</html>

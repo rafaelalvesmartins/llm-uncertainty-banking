@@ -1,0 +1,267 @@
+% references.bib — llm-uncertainty-banking tech report
+% Created 2026-04-22 from the citation plan at
+% 03_Fontes_Academicas/Artigos_Referencia/README.md
+%
+% Rafael: before submitting to arXiv, verify each entry against the PDF of record,
+% and add any additional estimator / calibration citations the draft prose needs
+% (Kuhn et al. 2023, Vovk et al. 2005, Gal & Ghahramani 2016, Lakshminarayanan
+% et al. 2017, Kadavath et al. 2022, Tian et al. 2023, Fadeeva et al. 2023,
+% Kilian Weinberger's temperature scaling, etc.). The five entries below
+% cover the external banking / MRM citations identified by the
+% 2026-04-22 triage; the LUB-internal technical citations are not yet in this file.
+
+@article{bhattacharyya2025gen_ai_mrm,
+  author   = {Bhattacharyya, Anwesha and Yu, Ye and Yang, Hanyu and Singh, Rahul and Joshi, Tarun and Chen, Jie and Yalavarthy, Kiran},
+  title    = {Model Risk Management for Generative {AI} in Financial Institutions},
+  journal  = {arXiv preprint arXiv:2503.15668},
+  year     = {2025},
+  note     = {Wells Fargo practitioner paper on SR 11-7 controls for GenAI.},
+  url      = {https://arxiv.org/abs/2503.15668}
+}
+
+@inproceedings{chua2025ryt_ai,
+  author    = {Chua, Jing Yang and Tan, Chern Han and Tan, Chen Ming and Poh, Mario and Goh, Wooi Jia and Choong, Jia Weng and Foong, Yi Heng and Yang, Siong Wee and Chan, Wei Siong},
+  title     = {Banking Done Right: Redefining Retail Banking with Language-Centric {AI}},
+  booktitle = {Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing: Industry Track},
+  pages     = {646--658},
+  year      = {2025},
+  publisher = {Association for Computational Linguistics},
+  note      = {Regulator-approved deployment (Bank Negara Malaysia) of Ryt AI / ILMU on retail banking.}
+}
+
+@article{khanvilkar2025regulatory_graphs,
+  author  = {Khanvilkar, Kunal and Kommuru, Kranthi},
+  title   = {Regulatory Graphs and {GenAI} for Real-Time Transaction Monitoring and Compliance Explanation in Banking},
+  journal = {arXiv preprint arXiv:2506.01093},
+  year    = {2025},
+  note    = {Graph-based transaction monitoring with audit-ready generative explanations.},
+  url     = {https://arxiv.org/abs/2506.01093}
+}
+
+@incollection{khanvilkar2026secure_graph_rag,
+  author    = {Khanvilkar, Kunal and Shinde, Varun},
+  title     = {Mitigating Hallucination Risks in {GenAI} Compliance Advisory Systems for the Financial Industry},
+  booktitle = {Software and Data Engineering (SEDE 2025)},
+  editor    = {Rahimi, Shahram and Margapuri, Venkatesh and Golilarz, Noorbakhsh Amiri},
+  series    = {Communications in Computer and Information Science},
+  volume    = {2720},
+  pages     = {302--318},
+  publisher = {Springer},
+  year      = {2026},
+  address   = {New Orleans, LA, USA},
+  note      = {Secure Graph-RAG with trust-score-based refusal.}
+}
+
+@techreport{wicker2025movefast_mrm,
+  author      = {Wicker, Matthew and Szpruch, Lukasz and M{\o}rk, S{\o}ren},
+  title       = {Move Fast Without Breaking the Bank: Model Risk Management of {GenAI} Workflows},
+  institution = {Alan Turing Institute and Imperial College London and Accenture},
+  type        = {SSRN Working Paper},
+  number      = {5682603},
+  year        = {2025},
+  note        = {UK-leaning MRM treatise aligning SR 11-7 and UK SS 1/23 with GenAI.}
+}
+
+% ---------------------------------------------------------------------------
+% LUB-internal technical citations (added 2026-04-26 per item F.2 of
+% WHAT_RAFAEL_NEEDS_TO_DO.md). Each citation matches a method discussed
+% in draft.md Section 3 (estimators) and Section 4 (calibration).
+% Verify against the PDF of record before arXiv submit.
+% ---------------------------------------------------------------------------
+
+@inproceedings{kuhn2023semantic_entropy,
+  author    = {Kuhn, Lorenz and Gal, Yarin and Farquhar, Sebastian},
+  title     = {Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation},
+  booktitle = {The Eleventh International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  url       = {https://openreview.net/forum?id=VD-AYtP0dve},
+  note      = {Bidirectional NLI clustering for semantic-equivalence-class entropy.}
+}
+
+@book{vovk2005algorithmic_learning,
+  author    = {Vovk, Vladimir and Gammerman, Alexander and Shafer, Glenn},
+  title     = {Algorithmic Learning in a Random World},
+  publisher = {Springer},
+  year      = {2005},
+  isbn      = {978-0-387-00152-4},
+  note      = {Foundational text for conformal prediction; finite-sample coverage guarantees.}
+}
+
+@article{angelopoulos2023conformal_intro,
+  author  = {Angelopoulos, Anastasios N. and Bates, Stephen},
+  title   = {A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification},
+  journal = {Foundations and Trends in Machine Learning},
+  volume  = {16},
+  number  = {4},
+  pages   = {494--591},
+  year    = {2023},
+  doi     = {10.1561/2200000101},
+  url     = {https://arxiv.org/abs/2107.07511},
+  note    = {Tutorial reference for split / adaptive / Mondrian conformal variants.}
+}
+
+@inproceedings{gal2016mc_dropout,
+  author    = {Gal, Yarin and Ghahramani, Zoubin},
+  title     = {Dropout as a {Bayesian} Approximation: Representing Model Uncertainty in Deep Learning},
+  booktitle = {Proceedings of the 33rd International Conference on Machine Learning (ICML)},
+  pages     = {1050--1059},
+  year      = {2016},
+  url       = {https://arxiv.org/abs/1506.02142},
+  note      = {Monte Carlo dropout as approximate Bayesian inference.}
+}
+
+@inproceedings{lakshminarayanan2017deep_ensembles,
+  author    = {Lakshminarayanan, Balaji and Pritzel, Alexander and Blundell, Charles},
+  title     = {Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS)},
+  year      = {2017},
+  url       = {https://arxiv.org/abs/1612.01474},
+  note      = {Independently-trained ensembles as a strong UQ baseline.}
+}
+
+@article{kadavath2022p_true,
+  author  = {Kadavath, Saurav and Conerly, Tom and Askell, Amanda and others},
+  title   = {Language Models (Mostly) Know What They Know},
+  journal = {arXiv preprint arXiv:2207.05221},
+  year    = {2022},
+  url     = {https://arxiv.org/abs/2207.05221},
+  note    = {Reflexive p(True) probing -- model self-rates whether its own answer is correct.}
+}
+
+@inproceedings{tian2023verbalized,
+  author    = {Tian, Katherine and Mitchell, Eric and Zhou, Allan and Khazatsky, Andrey and Yao, Aviral and Yao, Jiajun and Manning, Christopher D. and Finn, Chelsea},
+  title     = {Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  pages     = {5433--5442},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2305.14975},
+  note      = {Verbalized one-shot / two-shot self-rating; basis for ``VerbalizedOneShot`` / ``VerbalizedTwoShot``.}
+}
+
+@inproceedings{fadeeva2023lmpolygraph,
+  author    = {Fadeeva, Ekaterina and Vashurin, Roman and Tsvigun, Akim and others},
+  title     = {{LM-Polygraph}: Uncertainty Estimation for Language Models},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing: System Demonstrations},
+  year      = {2023},
+  url       = {https://arxiv.org/abs/2311.07383},
+  note      = {Library implementing eigenscore, claim-level, SAR, and related estimators (gated optional adapter in lub).}
+}
+
+@inproceedings{guo2017temperature,
+  author    = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  title     = {On Calibration of Modern Neural Networks},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning (ICML)},
+  pages     = {1321--1330},
+  year      = {2017},
+  url       = {https://arxiv.org/abs/1706.04599},
+  note      = {Temperature scaling and the standard ECE definition used in lub.calibration.metrics.}
+}
+
+@article{angelopoulos2021adaptive_conformal,
+  author  = {Angelopoulos, Anastasios N. and Bates, Stephen and Jordan, Michael and Malik, Jitendra},
+  title   = {Uncertainty Sets for Image Classifiers using Conformal Prediction},
+  journal = {arXiv preprint arXiv:2009.14193},
+  year    = {2021},
+  url     = {https://arxiv.org/abs/2009.14193},
+  note    = {Adaptive Prediction Sets (APS) -- basis for ``adaptive_conformal``.}
+}
+
+% -----------------------------------------------------------------------------
+% LUB-internal technical citations — added 2026-04-26 per WHAT_RAFAEL_NEEDS_TO_DO.md §F2.
+% Verify each entry against the PDF of record before arXiv submission.
+% Each entry below corresponds to a method cited in draft.md Section 3.
+% -----------------------------------------------------------------------------
+
+@inproceedings{kuhn2023semantic_entropy,
+  author    = {Kuhn, Lorenz and Gal, Yarin and Farquhar, Sebastian},
+  title     = {Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation},
+  booktitle = {The Eleventh International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  url       = {https://openreview.net/forum?id=VD-AYtP0dve},
+  note      = {Original semantic-entropy estimator. Cited as the source of LUB's SemanticEntropyEstimator.}
+}
+
+@book{vovk2005algorithmic_learning,
+  author    = {Vovk, Vladimir and Gammerman, Alexander and Shafer, Glenn},
+  title     = {Algorithmic Learning in a Random World},
+  publisher = {Springer},
+  year      = {2005},
+  doi       = {10.1007/b106715},
+  note      = {Foundational text on conformal prediction; underlies LUB's ConformalEstimator family.}
+}
+
+@article{angelopoulos2023conformal_tutorial,
+  author  = {Angelopoulos, Anastasios N. and Bates, Stephen},
+  title   = {A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification},
+  journal = {Foundations and Trends in Machine Learning},
+  volume  = {16},
+  number  = {4},
+  pages   = {494--591},
+  year    = {2023},
+  doi     = {10.1561/2200000101},
+  note    = {Modern tutorial; cite alongside Vovk 2005 for the conformal-prediction background section.}
+}
+
+@inproceedings{gal2016mc_dropout,
+  author    = {Gal, Yarin and Ghahramani, Zoubin},
+  title     = {Dropout as a {B}ayesian Approximation: Representing Model Uncertainty in Deep Learning},
+  booktitle = {Proceedings of the 33rd International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {48},
+  pages     = {1050--1059},
+  year      = {2016},
+  publisher = {PMLR},
+  url       = {https://proceedings.mlr.press/v48/gal16.html},
+  note      = {MC dropout as variational Bayesian approximation. Source for LUB's MCDropoutEstimator.}
+}
+
+@inproceedings{lakshminarayanan2017deep_ensembles,
+  author    = {Lakshminarayanan, Balaji and Pritzel, Alexander and Blundell, Charles},
+  title     = {Simple and Scalable Predictive Uncertainty Estimation using Deep Ensembles},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NeurIPS)},
+  year      = {2017},
+  url       = {https://papers.nips.cc/paper/2017/hash/9ef2ed4b7fd2c810847ffa5fa85bce38-Abstract.html},
+  note      = {Deep ensembles as a strong UQ baseline. Source for LUB's EnsembleEstimator.}
+}
+
+@article{kadavath2022p_true,
+  author  = {Kadavath, Saurav and Conerly, Tom and Askell, Amanda and Henighan, Tom and Drain, Dawn and Perez, Ethan and Schiefer, Nicholas and Hatfield-Dodds, Zac and DasSarma, Nova and Tran-Johnson, Eli and Johnston, Scott and El-Showk, Sheer and Jones, Andy and Elhage, Nelson and Hume, Tristan and Chen, Anna and Bai, Yuntao and Bowman, Sam and Fort, Stanislav and Ganguli, Deep and Hernandez, Danny and Jacobson, Josh and Kernion, Jackson and Kravec, Shauna and Lovitt, Liane and Ndousse, Kamal and Olsson, Catherine and Ringer, Sam and Amodei, Dario and Brown, Tom and Clark, Jack and Joseph, Nicholas and Mann, Ben and McCandlish, Sam and Olah, Chris and Kaplan, Jared},
+  title   = {Language Models (Mostly) Know What They Know},
+  journal = {arXiv preprint arXiv:2207.05221},
+  year    = {2022},
+  url     = {https://arxiv.org/abs/2207.05221},
+  note    = {p(True) self-evaluation. Source for LUB's PTrueEstimator.}
+}
+
+@inproceedings{tian2023verbalized,
+  author    = {Tian, Katherine and Mitchell, Eric and Zhou, Allan and Khazatsky, Alexander and Yao, Huaxiu and Manning, Christopher D. and Finn, Chelsea},
+  title     = {Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  year      = {2023},
+  publisher = {Association for Computational Linguistics},
+  url       = {https://aclanthology.org/2023.emnlp-main.330/},
+  note      = {Verbalized confidence (one-shot and two-shot). Source for LUB's VerbalizedEstimator and Verbalized2SEstimator.}
+}
+
+@inproceedings{fadeeva2023lm_polygraph,
+  author    = {Fadeeva, Ekaterina and Vashurin, Roman and Tsvigun, Akim and Vazhentsev, Artem and Petrakov, Sergey and Fedyanin, Kirill and Vasilev, Daniil and Goncharova, Elizaveta and Panchenko, Alexander and Panov, Maxim and Baldwin, Timothy and Shelmanov, Artem},
+  title     = {{LM-Polygraph}: Uncertainty Estimation for Language Models},
+  booktitle = {Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing: System Demonstrations},
+  year      = {2023},
+  publisher = {Association for Computational Linguistics},
+  url       = {https://aclanthology.org/2023.emnlp-demo.41/},
+  note      = {Reference implementation of multiple UQ estimators. LUB's LMPolygraphEstimator wraps this; binned\_pcc normalizer naming follows their suite.}
+}
+
+@inproceedings{guo2017temperature_scaling,
+  author    = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  title     = {On Calibration of Modern Neural Networks},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {70},
+  pages     = {1321--1330},
+  year      = {2017},
+  publisher = {PMLR},
+  url       = {https://proceedings.mlr.press/v70/guo17a.html},
+  note      = {Temperature scaling and ECE definition. Source for LUB's expected\_calibration\_error metric and the calibration discussion in tech-report Section 4.}
+}

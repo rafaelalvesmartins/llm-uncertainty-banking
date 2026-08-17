@@ -1,0 +1,9 @@
+# Track D (scale) optional dependencies — install ONLY when running the
+# externalized-state adapters (Redis cache/limiter, Postgres audit, Prometheus
+# metrics). The demo (single-node, in-process state) does NOT need these.
+#   pip install -r requirements.txt -r requirements-scale.txt
+redis>=5.0
+psycopg[binary]>=3.1
+prometheus-client>=0.20
+# test-only
+fakeredis>=2.20

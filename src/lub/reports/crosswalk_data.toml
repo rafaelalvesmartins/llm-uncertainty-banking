@@ -1,0 +1,453 @@
+# Multi-regime regulatory crosswalk for LUB metrics.
+#
+# Canonical crosswalk (2026-04-22 onward): 6 regimes -- NIST AI 600-1
+# (GenAI Profile of AI RMF 1.0), EU AI Act (2024/1689), BCBS 239,
+# BCB Resolucao 4.893/2021, ISO/IEC 23894:2023, and ISO/IEC 42001:2023.
+# SR 11-7 / OCC 2011-12 is cross-mapped via the three-pillar table in
+# the library README rather than as a separate Regime enum.
+#
+# This file is the single source of truth for control definitions and
+# metric-to-control mappings.  The Python module crosswalk.py loads and
+# validates this data at import time.
+#
+# Auditors: review this file directly -- no Python knowledge required.
+
+
+# =========================================================================
+# CONTROL DEFINITIONS
+# =========================================================================
+# Each control has a unique key, a regulatory control_id, a short title,
+# and a prose description of what evidence it requires.
+
+# --- NIST AI 600-1 (GenAI Profile, July 2024) ---
+
+[controls.NIST_GENAI_MS_2_3]
+control_id = "MS-2.3-001"
+control_title = "GenAI System Performance"
+description = "MS-2.3: Assess AI system performance including accuracy on domain-specific evaluation sets, with documentation of methods, metrics, and results (NIST AI 600-1 SS MS-2.3)."
+
+[controls.NIST_GENAI_MS_2_5]
+control_id = "MS-2.5-001"
+control_title = "GenAI Uncertainty and Confidence"
+description = "MS-2.5: Quantify and report prediction confidence and uncertainty bounds for generative AI outputs, ensuring that uncertainty information is available for downstream decisions (NIST AI 600-1 SS MS-2.5)."
+
+[controls.NIST_GENAI_MS_2_6]
+control_id = "MS-2.6-001"
+control_title = "GenAI Calibration and Reliability"
+description = "MS-2.6: Evaluate calibration of confidence estimates against observed outcomes; report ECE, reliability curves, and scoring rules (NIST AI 600-1 SS MS-2.6)."
+
+[controls.NIST_GENAI_MS_2_7]
+control_id = "MS-2.7-001"
+control_title = "GenAI Safety and Refusal"
+description = "MS-2.7: Measure the AI system's ability to safely abstain or refuse when confidence is insufficient, using refusal AUROC and selective-prediction metrics (NIST AI 600-1 SS MS-2.7)."
+
+[controls.NIST_GENAI_MS_2_8]
+control_id = "MS-2.8-001"
+control_title = "GenAI Transparency and Provenance"
+description = "MS-2.8: Maintain provenance records for datasets, model versions, and evaluation configurations to support reproducibility (NIST AI 600-1 SS MS-2.8)."
+
+[controls.NIST_GENAI_MS_2_9]
+control_id = "MS-2.9-001"
+control_title = "GenAI Robustness Under Shift"
+description = "MS-2.9: Evaluate robustness of AI outputs under distribution shift, including adaptive conformal coverage and temporal calibration stability (NIST AI 600-1 SS MS-2.9)."
+
+[controls.NIST_GENAI_MG_4_1]
+control_id = "MG-4.1-001"
+control_title = "GenAI Change Management"
+description = "MG-4.1: Maintain change-management records -- code revisions, dependency versions, configuration drift -- for GenAI systems (NIST AI 600-1 SS MG-4.1)."
+
+[controls.NIST_GENAI_MS_2_11]
+control_id = "MS-2.11-001"
+control_title = "GenAI Fairness and Group Coverage"
+description = "MS-2.11: Evaluate group-conditional performance and coverage guarantees (e.g. Mondrian conformal) to detect disparate impact in GenAI outputs (NIST AI 600-1 SS MS-2.11)."
+
+# --- EU AI Act (Regulation 2024/1689) ---
+
+[controls.EU_ART_9]
+control_id = "EU-AIA-Art9"
+control_title = "Risk Management System"
+description = "Art. 9: Establish, implement, document and maintain a risk management system throughout the AI system's lifecycle. LUB metrics (ECE, AURC, PRR) provide the quantitative risk evidence required by Art. 9(2)(a)."
+
+[controls.EU_ART_10]
+control_id = "EU-AIA-Art10"
+control_title = "Data and Data Governance"
+description = "Art. 10: Ensure training, validation and testing data are relevant, representative, and free of errors. Dataset provenance, hashing, and adversarial-group-calibration metrics address Art. 10(2)(f) on bias examination."
+
+[controls.EU_ART_13]
+control_id = "EU-AIA-Art13"
+control_title = "Transparency"
+description = "Art. 13: Ensure AI systems are transparent enough for deployers to interpret outputs. Uncertainty reporting, confidence bounds, and reliability diagrams satisfy Art. 13(3)(b)(ii) disclosure."
+
+[controls.EU_ART_14]
+control_id = "EU-AIA-Art14"
+control_title = "Human Oversight"
+description = "Art. 14: Enable human oversight of the AI system. Refusal AUROC, abstention rates, and gated tool-call policies (UALA) implement Art. 14(4)(a) real-time intervention capability."
+
+[controls.EU_ART_15_ACC]
+control_id = "EU-AIA-Art15-accuracy"
+control_title = "Accuracy Requirements"
+description = "Art. 15(1): Achieve appropriate levels of accuracy for the intended purpose. Task accuracy, Brier scores, and proper scoring rules provide evidence."
+
+[controls.EU_ART_15_ROB]
+control_id = "EU-AIA-Art15-robustness"
+control_title = "Robustness Requirements"
+description = "Art. 15(4): Be resilient to errors, faults, and inconsistencies in input data. Adaptive conformal coverage, miscalibration area, and AURC under shift measure robustness."
+
+# --- BCBS guidance regime ---
+# Renamed 2026-04-26 (item H of WHAT_RAFAEL_NEEDS_TO_DO):
+# the regime references **BCBS 239 — Principles for effective risk data
+# aggregation and risk reporting** (Jan 2013), the canonical Basel
+# guidance on data quality / model risk in banking. The previous label
+# "BCBS_d475" was wrong (BCBS d475 / BIS July 2019 is about derivatives
+# margining, not banking AI/ML). The legacy string is honored as a
+# read-only alias by ``crosswalk.coerce_legacy_regime`` for callers
+# that still hold persisted JSON / OSCAL artifacts written before
+# 2026-04-26.
+
+[controls.BCBS_P1]
+control_id = "BCBS-239-P1"
+control_title = "Model Development and Implementation"
+description = "Principle 1: Develop models based on sound theory and appropriate data. Evaluation-set metrics, dataset provenance, and calibration evidence satisfy P1 documentation requirements."
+
+[controls.BCBS_P3]
+control_id = "BCBS-239-P3"
+control_title = "Model Validation"
+description = "Principle 3: Conduct effective model validation using independent quantitative testing. ECE, Brier, AURC, and adversarial-group-calibration are P3 validation tests."
+
+[controls.BCBS_P5]
+control_id = "BCBS-239-P5"
+control_title = "Ongoing Monitoring"
+description = "Principle 5: Monitor model performance on an ongoing basis. Adaptive conformal coverage, PRR trending, and ensemble disagreement provide continuous-monitoring evidence."
+
+[controls.BCBS_P5_GENAI]
+control_id = "BCBS-239-P5-GenAI"
+control_title = "GenAI-Specific Monitoring"
+description = "Principle 5 (2024 GenAI extension): Monitor hallucination rates, epistemic/aleatoric decomposition, and semantic diversity of GenAI outputs as part of ongoing validation."
+
+# --- BCB (Banco Central do Brasil, legacy, retained for test compat) ---
+
+[controls.BCB_RES4893_ART5]
+control_id = "BCB-Res4893-Art5"
+control_title = "Gestao de Risco de Tecnologia"
+description = "Art. 5: Instituicoes devem implementar e manter politica de gestao de riscos de tecnologia proporcional ao porte e complexidade das operacoes. Metricas de incerteza (ECE, AUROC de recusa) evidenciam avaliacao continua de risco."
+
+[controls.BCB_RES4893_ART7]
+control_id = "BCB-Res4893-Art7"
+control_title = "Monitoramento Continuo"
+description = "Art. 7: Monitorar continuamente os riscos de tecnologia e tomar acoes corretivas tempestivas. Cobertura conformal adaptativa e PRR fornecem monitoramento quantificado."
+
+[controls.BCB_CIRC3978_ART3]
+control_id = "BCB-Circ3978-Art3"
+control_title = "Governanca de Dados"
+description = "Circular 3.978, Art. 3: Assegurar qualidade, integridade e rastreabilidade dos dados. Proveniencia de dataset (hash, versao) e calibracao por grupo demografico atendem este artigo."
+
+# --- ISO/IEC 23894:2023 ---
+
+[controls.ISO_6_3]
+control_id = "ISO23894-6.3"
+control_title = "Risk Assessment"
+description = "SS 6.3: Perform AI risk assessment including identification, analysis, and evaluation. ECE, Brier, miscalibration area, and adversarial-group-calibration implement risk analysis."
+
+[controls.ISO_6_4]
+control_id = "ISO23894-6.4"
+control_title = "Risk Treatment"
+description = "SS 6.4: Implement risk treatment controls. Refusal policies (UALA gated tool call), abstention thresholds, and conformal prediction sets implement treatment strategies."
+
+[controls.ISO_6_5]
+control_id = "ISO23894-6.5"
+control_title = "Recording and Reporting"
+description = "SS 6.5: Record and report risk management activities. OSCAL Component Definitions and Assessment Results provide machine-readable reporting artifacts."
+
+[controls.ISO_6_6]
+control_id = "ISO23894-6.6"
+control_title = "Monitoring and Review"
+description = "SS 6.6: Monitor and review the AI risk management framework. Adaptive conformal coverage, temporal PRR, and UCC/AUUCC provide ongoing monitoring evidence."
+
+# --- ISO/IEC 42001:2023 (Annex A controls) ---
+
+[controls.ISO42001_A5_4]
+control_id = "ISO42001-A.5.4"
+control_title = "AI Data Management"
+description = "A.5.4: Manage data used in AI systems to ensure quality, integrity, and traceability. Dataset provenance (hash, version) and adversarial-group-calibration provide evidence."
+
+[controls.ISO42001_A6_2_4]
+control_id = "ISO42001-A.6.2.4"
+control_title = "AI System Lifecycle Processes"
+description = "A.6.2.4: Define and implement lifecycle processes for AI systems including version control, dependency management, and change tracking. Git SHA and package versions provide evidence."
+
+[controls.ISO42001_A6_2_6]
+control_id = "ISO42001-A.6.2.6"
+control_title = "AI System Performance Evaluation"
+description = "A.6.2.6: Evaluate and document AI system performance including accuracy, calibration, and scoring-rule metrics on representative evaluation sets."
+
+[controls.ISO42001_A7_3]
+control_id = "ISO42001-A.7.3"
+control_title = "AI System Operation Controls"
+description = "A.7.3: Implement operational controls for AI systems including refusal mechanisms, selective prediction, and continuous monitoring of performance under production conditions."
+
+[controls.ISO42001_8_2]
+control_id = "ISO42001-8.2"
+control_title = "AI System Lifecycle Management"
+description = "SS 8.2: Manage the AI system lifecycle -- design, development, deployment, monitoring, and retirement -- with documented evidence at each stage."
+
+[controls.ISO42001_8_4]
+control_id = "ISO42001-8.4"
+control_title = "AI System Operation"
+description = "SS 8.4: Operate AI systems with appropriate monitoring, incident response, and performance tracking. Adaptive conformal coverage and PRR provide operational evidence."
+
+[controls.ISO42001_9_1]
+control_id = "ISO42001-9.1"
+control_title = "Monitoring, Measurement, Analysis and Evaluation"
+description = "SS 9.1: Monitor, measure, analyse and evaluate the AI management system and AI system performance. ECE, Brier, AURC, and calibration metrics implement this clause."
+
+# --- Federal Reserve SR 11-7 / OCC Bulletin 2011-12 ---
+# SR 11-7 is supervisory guidance for traditional model risk, not an
+# AI-specific regulatory regime, so it is *cross-referenced* rather than
+# represented as a Regime enum value (see crosswalk.py Regime). Controls
+# below are exposed through lub.compliance.frameworks.sr_11_7.get_controls
+# and grouped by pillar via lub.compliance.frameworks.sr_11_7.get_pillar_controls.
+
+[controls.SR_11_7_V_A]
+control_id = "SR-11-7-V.A"
+control_title = "Conceptual Soundness"
+description = "Section V.A: Evaluate the design and theoretical foundation of the model. Reviewers expect quantitative evidence that predicted probabilities match observed outcomes -- ECE, RMSCE, ENCE, Brier, miscalibration area, sharpness, Spearman/Kendall rank correlation, and adversarial-group calibration all provide this evidence."
+
+[controls.SR_11_7_V_B]
+control_id = "SR-11-7-V.B"
+control_title = "Outcome Analysis"
+description = "Section V.B: Evaluate the model's performance against its intended outcomes including task accuracy and the model's ability to identify its own failures. Accuracy, Matthews correlation, refusal AUROC, PRR, reversed-pairs proportion, AURC, and AUUCC provide outcome-analysis evidence."
+
+[controls.SR_11_7_VI_A]
+control_id = "SR-11-7-VI.A"
+control_title = "Documentation and Change Management"
+description = "Section VI.A: Document the model lifecycle so an independent reviewer can reproduce results -- dataset provenance, code revisions, dependency versions. dataset_hash, dataset_version, git_sha, and package_versions provide reproducible documentation. Auto-bot commits in regulated code paths must remain attributable (see MODEL_INVENTORY.md in n8n_scripts/)."
+
+[controls.SR_11_7_VI_B]
+control_id = "SR-11-7-VI.B"
+control_title = "Ongoing Monitoring"
+description = "Section VI.B: Monitor model performance on an ongoing basis -- abstention rates, drift detection, dependency fingerprinting. missing_ratio and adaptive conformal coverage provide ongoing-monitoring evidence. Production deployments wire these into the Bridge AuditTrail (lub.connectors.bridge.audit)."
+
+[controls.SR_11_7_VI_C]
+control_id = "SR-11-7-VI.C"
+control_title = "Internal Audit and Effective Challenge"
+description = "Section VI.C: Independent review of model development by parties not involved in the development. Git history with auto-bot vs human attribution (.mailmap), append-only audit ledger of every customer-facing AI output (lub.connectors.bridge.audit), and quality gates (mypy / bandit / pytest / coverage) on every auto-bot commit provide audit-defensible records."
+
+
+# =========================================================================
+# SR 11-7 PILLAR -> CONTROL / METRIC MAPPING
+# =========================================================================
+# SR 11-7 is cross-referenced rather than a Regime enum; the three-pillar
+# table below is the source of truth previously kept in the library README.
+# Loaded by lub.compliance.frameworks.sr_11_7 via tomllib at import time.
+# Auditors: review this section to see which lub metrics evidence each
+# pillar of the Federal Reserve / OCC model risk management guidance.
+
+[sr_11_7.pillars."Conceptual Soundness"]
+controls = ["SR_11_7_V_A"]
+metrics = ["ece", "rmsce", "ence", "brier", "miscalibration_area", "sharpness", "spearman", "kendall_tau", "adversarial_group_calibration"]
+
+[sr_11_7.pillars."Outcome Analysis"]
+controls = ["SR_11_7_V_B"]
+metrics = ["accuracy", "matthews_correlation", "refusal_auroc", "prr", "reversed_pairs_proportion", "aurc", "auucc"]
+
+[sr_11_7.pillars."Ongoing Monitoring"]
+controls = ["SR_11_7_VI_A", "SR_11_7_VI_B", "SR_11_7_VI_C"]
+metrics = ["dataset_hash", "dataset_version", "missing_ratio", "git_sha", "package_versions"]
+
+
+# =========================================================================
+# METRIC-TO-CONTROL MAPPINGS
+# =========================================================================
+# Each metric lists the control keys it provides evidence for, grouped by
+# regime.  The loader resolves control keys to ControlMapping dicts.
+
+[metrics.accuracy]
+trust_dimension = "Efficacy"
+NIST_GENAI = ["NIST_GENAI_MS_2_3"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P1", "BCBS_P3"]
+BCB = ["BCB_RES4893_ART5"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.ece]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ACC", "EU_ART_9"]
+BCBS = ["BCBS_P3"]
+BCB = ["BCB_RES4893_ART5"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.brier]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.refusal_auroc]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_7"]
+EU_AI_ACT = ["EU_ART_14"]
+BCBS = ["BCBS_P5"]
+BCB = ["BCB_RES4893_ART7"]
+ISO_23894 = ["ISO_6_4"]
+ISO_42001 = ["ISO42001_8_4", "ISO42001_A7_3"]
+
+[metrics.miscalibration_area]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ROB"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.sharpness]
+trust_dimension = "Efficacy"
+NIST_GENAI = ["NIST_GENAI_MS_2_5"]
+EU_AI_ACT = ["EU_ART_13"]
+ISO_23894 = ["ISO_6_5"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.missing_ratio]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_7"]
+EU_AI_ACT = ["EU_ART_14"]
+BCBS = ["BCBS_P5"]
+BCB = ["BCB_RES4893_ART7"]
+ISO_23894 = ["ISO_6_4"]
+ISO_42001 = ["ISO42001_8_4", "ISO42001_A7_3"]
+
+[metrics.prr]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_7"]
+EU_AI_ACT = ["EU_ART_14", "EU_ART_15_ROB"]
+BCBS = ["BCBS_P5"]
+BCB = ["BCB_RES4893_ART7"]
+ISO_23894 = ["ISO_6_6"]
+ISO_42001 = ["ISO42001_8_4", "ISO42001_A7_3"]
+
+[metrics.spearman]
+trust_dimension = "Efficacy"
+NIST_GENAI = ["NIST_GENAI_MS_2_5"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.kendall_tau]
+trust_dimension = "Efficacy"
+NIST_GENAI = ["NIST_GENAI_MS_2_5"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.adversarial_group_calibration]
+trust_dimension = "Bias"
+NIST_GENAI = ["NIST_GENAI_MS_2_11"]
+EU_AI_ACT = ["EU_ART_10"]
+BCBS = ["BCBS_P3"]
+BCB = ["BCB_CIRC3978_ART3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_A5_4"]
+
+[metrics.reversed_pairs_proportion]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_8_4", "ISO42001_A7_3"]
+
+[metrics.rmsce]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.ence]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ACC", "EU_ART_9"]
+BCBS = ["BCBS_P3"]
+BCB = ["BCB_RES4893_ART5"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.aurc]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_9"]
+EU_AI_ACT = ["EU_ART_15_ROB"]
+BCBS = ["BCBS_P5"]
+ISO_23894 = ["ISO_6_6"]
+ISO_42001 = ["ISO42001_8_4", "ISO42001_A7_3"]
+
+[metrics.auucc]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_7"]
+EU_AI_ACT = ["EU_ART_14", "EU_ART_15_ROB"]
+BCBS = ["BCBS_P5"]
+ISO_23894 = ["ISO_6_6"]
+ISO_42001 = ["ISO42001_8_4", "ISO42001_A7_3"]
+
+[metrics.matthews_correlation]
+trust_dimension = "Efficacy"
+NIST_GENAI = ["NIST_GENAI_MS_2_3"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P1", "BCBS_P3"]
+BCB = ["BCB_RES4893_ART5"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.crps_from_confidence]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+[metrics.negative_log_likelihood]
+trust_dimension = "Robustness"
+NIST_GENAI = ["NIST_GENAI_MS_2_6"]
+EU_AI_ACT = ["EU_ART_15_ACC"]
+BCBS = ["BCBS_P3"]
+ISO_23894 = ["ISO_6_3"]
+ISO_42001 = ["ISO42001_9_1", "ISO42001_A6_2_6"]
+
+# --- Provenance / change-management metrics ---
+
+[metrics.dataset_hash]
+trust_dimension = "Explainability"
+NIST_GENAI = ["NIST_GENAI_MS_2_8"]
+EU_AI_ACT = ["EU_ART_10"]
+BCB = ["BCB_CIRC3978_ART3"]
+ISO_23894 = ["ISO_6_5"]
+ISO_42001 = ["ISO42001_A5_4"]
+
+[metrics.dataset_version]
+trust_dimension = "Explainability"
+NIST_GENAI = ["NIST_GENAI_MS_2_8"]
+EU_AI_ACT = ["EU_ART_10", "EU_ART_13"]
+BCB = ["BCB_CIRC3978_ART3"]
+ISO_23894 = ["ISO_6_5"]
+ISO_42001 = ["ISO42001_A5_4"]
+
+[metrics.git_sha]
+trust_dimension = "Security"
+NIST_GENAI = ["NIST_GENAI_MG_4_1"]
+EU_AI_ACT = ["EU_ART_13"]
+ISO_23894 = ["ISO_6_5"]
+ISO_42001 = ["ISO42001_8_2", "ISO42001_A6_2_4"]
+
+[metrics.package_versions]
+trust_dimension = "Security"
+NIST_GENAI = ["NIST_GENAI_MG_4_1"]
+EU_AI_ACT = ["EU_ART_13"]
+ISO_23894 = ["ISO_6_5"]
+ISO_42001 = ["ISO42001_8_2", "ISO42001_A6_2_4"]

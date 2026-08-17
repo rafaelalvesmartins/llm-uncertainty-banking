@@ -1,0 +1,11 @@
+fastapi>=0.110
+uvicorn[standard]>=0.27
+pydantic>=2.6
+cryptography>=42.0  # EdDSA JWT (routers/auth.py) + Ed25519 evidence signing (routers/evidence.py) — imported directly, do not rely on transitive install
+
+# lub is imported from ../../src via sys.path (server.py), so its runtime deps are
+# NOT auto-installed here — pin the ones its eager import graph needs to boot:
+numpy>=1.26
+structlog>=24
+tenacity>=8
+pydantic-settings>=2

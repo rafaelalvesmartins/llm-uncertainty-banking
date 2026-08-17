@@ -1,0 +1,10 @@
+# Smoke-test config: DummyBackend on BR-Regulatory with token_logprob.
+# Should complete in under 1 second and emit a BenchmarkResult JSON.
+
+model = "dummy-0"
+backend = "dummy"
+estimator = "token_logprob"
+dataset = "br_regulatory"
+limit = 5
+seed = 0
+out = "benchmarks/results"

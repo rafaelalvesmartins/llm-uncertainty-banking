@@ -1,0 +1,114 @@
+================================================================
+INTEGRATION TEST RESULTS - llm-uncertainty-banking
+Date:   2026-04-22  (post test-suite reorganization)
+Python: 3.12.7  (PYTHONPATH=src + py312 site-packages)
+================================================================
+
+Layout: tests/ now split into unit (root) and e2e (integration/).
+Marker: @pytest.mark.integration auto-applied by path hook.
+
+--- Selector counts ---
+  pytest -m "not integration"   ->  718 passed,  32 deselected   (~8s)
+  pytest -m integration         ->   32 passed, 718 deselected   (~3s)
+  pytest (all)                  ->  750 passed                    (~12s)
+
+All integration tests are hermetic (DummyBackend + registry snapshot).
+No network, no real-model inference.
+
+================================================================
+Full pytest output (all 750 tests):
+================================================================
+============================= test session starts ==============================
+platform linux -- Python 3.12.7, pytest-9.0.3, pluggy-1.6.0
+rootdir: /sessions/magical-modest-lovelace/mnt/eb2niw/06_Projeto_GitHub/llm-uncertainty-banking
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0
+collected 750 items
+
+tests/integration/test_e2e_all_reports.py .....                          [  0%]
+tests/integration/test_e2e_answer_benchmark_report.py .                  [  0%]
+tests/integration/test_e2e_cli_chain.py ..                               [  1%]
+tests/integration/test_e2e_conformal.py ..                               [  1%]
+tests/integration/test_e2e_drift.py ...                                  [  1%]
+tests/integration/test_e2e_mlflow_langchain.py ..........                [  3%]
+tests/integration/test_e2e_multi_dataset.py ..                           [  3%]
+tests/integration/test_e2e_multi_estimator.py ...                        [  3%]
+tests/integration/test_e2e_reask.py ....                                 [  4%]
+tests/test_adaptive_conformal.py ........                                [  5%]
+tests/test_api_base.py ........                                          [  6%]
+tests/test_assessment.py ............                                    [  8%]
+tests/test_benchmark_runner.py .........                                 [  9%]
+tests/test_benchmarks.py .......                                         [ 10%]
+tests/test_calibration_metrics.py .....................................  [ 15%]
+tests/test_calibration_plots.py .....                                    [ 15%]
+tests/test_catalog.py .............                                      [ 17%]
+tests/test_ccp.py .....                                                  [ 18%]
+tests/test_ccp_edges.py ....                                             [ 18%]
+tests/test_claim_level.py ...........                                    [ 20%]
+tests/test_cli.py .........................                              [ 23%]
+tests/test_cli_config.py .....                                           [ 24%]
+tests/test_cli_edges.py .........                                        [ 25%]
+tests/test_conformal.py ...........                                      [ 26%]
+tests/test_conformal_persistence.py .......                              [ 27%]
+tests/test_conformal_sampling.py ......                                  [ 28%]
+tests/test_coverage_gaps.py .......................................      [ 33%]
+tests/test_crosswalk.py ............                                     [ 35%]
+tests/test_crosswalk_consistency.py ..............                       [ 37%]
+tests/test_drift.py .................                                    [ 39%]
+tests/test_dummy_backend.py .....                                        [ 40%]
+tests/test_eigenscore.py ....                                            [ 40%]
+tests/test_ensemble.py ......                                            [ 41%]
+tests/test_epistemic_aleatoric.py ......                                 [ 42%]
+tests/test_estimator_base.py ................                            [ 44%]
+tests/test_fetch_flare_script.py ......                                  [ 45%]
+tests/test_findings.py .............                                     [ 46%]
+tests/test_findings_and_oscal.py ..............                          [ 48%]
+tests/test_giskard_report.py ..........                                  [ 50%]
+tests/test_graph_laplacian.py .........                                  [ 51%]
+tests/test_guard.py ...........                                          [ 52%]
+tests/test_guard_raise.py ........                                       [ 53%]
+tests/test_guard_reask.py .......................................        [ 59%]
+tests/test_iso42001.py .......                                           [ 60%]
+tests/test_linguistic.py ....................                            [ 62%]
+tests/test_lmpolygraph.py .......                                        [ 63%]
+tests/test_mahalanobis.py .....                                          [ 64%]
+tests/test_matthews_and_choice_match.py ..............                   [ 66%]
+tests/test_mc_dropout.py ............                                    [ 67%]
+tests/test_mondrian_conformal.py .......                                 [ 68%]
+tests/test_new_benchmarks.py ...............                             [ 70%]
+tests/test_new_calibration_metrics.py ................                   [ 72%]
+tests/test_normalizers.py .............                                  [ 74%]
+tests/test_oscal.py .......                                              [ 75%]
+tests/test_p_true.py ......                                              [ 76%]
+tests/test_perplexity.py ....                                            [ 76%]
+tests/test_pipeline.py .......                                           [ 77%]
+tests/test_policies.py ....                                              [ 78%]
+tests/test_protocols.py ..........                                       [ 79%]
+tests/test_provenance.py ........                                        [ 80%]
+tests/test_rag_axioms.py ...........                                     [ 82%]
+tests/test_rails.py ................                                     [ 84%]
+tests/test_reask_policy.py ...                                           [ 84%]
+tests/test_reports.py .........                                          [ 85%]
+tests/test_sar.py .....                                                  [ 86%]
+tests/test_scoring_rules.py .................                            [ 88%]
+tests/test_selective.py ........                                         [ 89%]
+tests/test_self_certainty.py ......                                      [ 90%]
+tests/test_self_consistency.py ...                                       [ 91%]
+tests/test_semantic_entropy.py ...............                           [ 93%]
+tests/test_sentence_sar.py .........                                     [ 94%]
+tests/test_telemetry.py ........                                         [ 95%]
+tests/test_token_logprob.py ...                                          [ 95%]
+tests/test_types.py ...                                                  [ 96%]
+tests/test_ucc.py ........                                               [ 97%]
+tests/test_verbalized.py ......                                          [ 98%]
+tests/test_wrapper_backends.py ...............                           [100%]
+
+=============================== warnings summary ===============================
+../../../../../../tmp/py312/lib/python3.12/site-packages/_pytest/config/__init__.py:1434
+  /tmp/py312/lib/python3.12/site-packages/_pytest/config/__init__.py:1434: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 750 passed, 1 warning in 8.52s ========================

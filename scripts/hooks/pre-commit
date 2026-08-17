@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# SUPERSEDED — o repo já tem um hook canônico (e melhor) de pre-commit:
+#   09_Projeto_GitHub/.githooks/pre-commit   (path do scanner corrigido em 2026-06-15)
+#
+# Instale o canônico (na raiz do git = eb2niw):
+#   git config core.hooksPath 09_Projeto_GitHub/.githooks
+#
+# Este arquivo fica só como ponteiro — seguro apagar. Se mesmo assim alguém
+# apontar core.hooksPath para cá, ele delega ao hook canônico:
+exec "$(git rev-parse --show-toplevel)/09_Projeto_GitHub/.githooks/pre-commit" "$@"

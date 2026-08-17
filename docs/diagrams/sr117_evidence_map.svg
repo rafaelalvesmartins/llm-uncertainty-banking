@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">SR 11-7 evidence map — one benchmark run</title>
+  <desc id="desc">How a single BenchmarkResult satisfies the three pillars of SR 11-7 / OCC 2011-12, with explicit metric thresholds for each control.</desc>
+
+  <style>
+    .h2 { font-size: 14px; font-weight: 700; fill: #1c1917; }
+    .h3 { font-size: 12px; font-weight: 600; fill: #1c1917; }
+    .body { font-size: 11px; fill: #44403c; }
+    .small { font-size: 10px; fill: #78716c; }
+    .mono { font-family: ui-monospace, Menlo, monospace; font-size: 10px; fill: #44403c; }
+    .run { fill: #dbeafe; stroke: #3b82f6; stroke-width: 1.5; }
+    .res { fill: #cffafe; stroke: #06b6d4; stroke-width: 1; }
+    .p2 { fill: #fae8ff; stroke: #c026d3; stroke-width: 1; }
+    .p3 { fill: #f3f4f6; stroke: #6b7280; stroke-width: 1; }
+    .find { fill: #d1fae5; stroke: #16a34a; stroke-width: 1.5; }
+    .art { fill: #d1fae5; stroke: #16a34a; stroke-width: 1; }
+    .arrow { stroke: #44403c; stroke-width: 1.5; fill: none; }
+    .pass { fill: #16a34a; font-weight: 700; }
+  </style>
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#44403c"/>
+    </marker>
+  </defs>
+
+  <text x="500" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1917">SR 11-7 / OCC 2011-12 evidence map — one benchmark run</text>
+  <text x="500" y="42" text-anchor="middle" class="body">A single `BenchmarkResult` maps directly onto the three SR 11-7 pillars. Values below are an illustrative example — live measured values at /compliance/sr-11-7.</text>
+
+  <rect x="380" y="60" width="240" height="140" rx="8" class="res"/>
+  <text x="500" y="80" text-anchor="middle" class="h2">BenchmarkResult</text>
+  <line x1="395" y1="88" x2="605" y2="88" stroke="#06b6d4" stroke-width="1"/>
+  <text x="395" y="106" class="small">accuracy:</text>
+  <text x="610" y="106" text-anchor="end" class="mono">0.80</text>
+  <text x="395" y="122" class="small">ece:</text>
+  <text x="610" y="122" text-anchor="end" class="mono">0.08</text>
+  <text x="395" y="138" class="small">refusal_auroc:</text>
+  <text x="610" y="138" text-anchor="end" class="mono">0.81</text>
+  <text x="395" y="154" class="small">brier:</text>
+  <text x="610" y="154" text-anchor="end" class="mono">0.12</text>
+  <text x="395" y="170" class="small">prr:</text>
+  <text x="610" y="170" text-anchor="end" class="mono">0.65</text>
+  <text x="395" y="186" class="small">spearman:</text>
+  <text x="610" y="186" text-anchor="end" class="mono">0.72</text>
+
+  <rect x="20" y="240" width="460" height="220" rx="8" class="p2"/>
+  <text x="250" y="262" text-anchor="middle" class="h2">Pillar 2 — Model Validation</text>
+
+  <rect x="38" y="278" width="424" height="48" rx="5" fill="#fff" stroke="#d8b4fe"/>
+  <text x="48" y="296" class="h3">V.A · Conceptual Soundness</text>
+  <text x="48" y="312" class="mono">ece = 0.08 <tspan class="pass">→ PASS</tspan> (&lt; 0.10)</text>
+  <text x="48" y="324" class="mono">brier = 0.12 <tspan class="pass">→ PASS</tspan> (&lt; 0.15)</text>
+
+  <rect x="38" y="332" width="424" height="64" rx="5" fill="#fff" stroke="#d8b4fe"/>
+  <text x="48" y="350" class="h3">V.B · Outcomes Analysis</text>
+  <text x="48" y="366" class="mono">accuracy = 0.80 <tspan class="pass">→ PASS</tspan> (≥ 0.70)</text>
+  <text x="48" y="378" class="mono">auroc = 0.81 <tspan class="pass">→ PASS</tspan> (≥ 0.70)</text>
+  <text x="48" y="390" class="mono">prr = 0.65 <tspan class="pass">→ PASS</tspan> (≥ 0.50)</text>
+
+  <rect x="38" y="402" width="424" height="48" rx="5" fill="#fff" stroke="#d8b4fe"/>
+  <text x="48" y="420" class="h3">V.C · Benchmarking</text>
+  <text x="48" y="436" class="mono">spearman = 0.72 <tspan class="pass">→ PASS</tspan> (≥ 0.30)</text>
+
+  <rect x="520" y="240" width="460" height="220" rx="8" class="p3"/>
+  <text x="750" y="262" text-anchor="middle" class="h2">Pillar 3 — Governance, Policies, Controls</text>
+
+  <rect x="538" y="278" width="424" height="48" rx="5" fill="#fff" stroke="#9ca3af"/>
+  <text x="548" y="296" class="h3">VI.A · Documentation</text>
+  <text x="548" y="312" class="mono">dataset_hash = 9d9a37ba…</text>
+  <text x="548" y="324" class="small" fill="#16a34a">→ reproducible artifact</text>
+
+  <rect x="538" y="332" width="424" height="48" rx="5" fill="#fff" stroke="#9ca3af"/>
+  <text x="548" y="350" class="h3">VI.B · Ongoing Monitoring</text>
+  <text x="548" y="366" class="mono">missing_ratio = 0.10 <tspan class="pass">→ PASS</tspan> (&lt; 0.20)</text>
+  <text x="548" y="378" class="small">drift detector hooked to nightly CI</text>
+
+  <rect x="538" y="392" width="424" height="58" rx="5" fill="#fff" stroke="#9ca3af"/>
+  <text x="548" y="410" class="h3">VI.C · Change Management</text>
+  <text x="548" y="426" class="mono">git_sha = eb5f850</text>
+  <text x="548" y="442" class="small" fill="#16a34a">→ version-controlled, replayable</text>
+
+  <rect x="280" y="500" width="440" height="80" rx="8" class="find"/>
+  <text x="500" y="522" text-anchor="middle" class="h2">OCC 2011-12 Triage Verdict</text>
+  <text x="500" y="544" text-anchor="middle" class="body">FINDINGs: <tspan class="mono">0</tspan>  ·  OBSERVATIONs: <tspan class="mono">0</tspan>  ·  PASSes: <tspan class="mono">9</tspan></text>
+  <text x="500" y="566" text-anchor="middle" class="h3" fill="#57534e">Illustrative verdict — see /compliance/sr-11-7 for the live measured run</text>
+
+  <rect x="20" y="615" width="300" height="56" rx="6" class="art"/>
+  <text x="170" y="635" text-anchor="middle" class="h3">OSCAL Assessment Results</text>
+  <text x="170" y="652" text-anchor="middle" class="mono">JSON · machine-readable</text>
+
+  <rect x="350" y="615" width="300" height="56" rx="6" class="art"/>
+  <text x="500" y="635" text-anchor="middle" class="h3">AI-RMF Report</text>
+  <text x="500" y="652" text-anchor="middle" class="mono">HTML / Markdown</text>
+
+  <rect x="680" y="615" width="300" height="56" rx="6" class="art"/>
+  <text x="830" y="635" text-anchor="middle" class="h3">Reliability Diagram</text>
+  <text x="830" y="652" text-anchor="middle" class="mono">PNG (matplotlib)</text>
+
+  <path d="M 400 200 L 250 240" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 600 200 L 750 240" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 250 460 L 400 500" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 750 460 L 600 500" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 380 580 L 200 615" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 500 580 L 500 615" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 620 580 L 800 615" class="arrow" marker-end="url(#ah)"/>
+
+  <text x="20" y="700" class="small">Generated by `lub report --format html`. The petition's "Substantial Merit" prong shows this exact mapping for one regulator-confirmed benchmark.</text>
+</svg>

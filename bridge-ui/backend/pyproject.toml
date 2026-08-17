@@ -1,0 +1,242 @@
+# bridge-ui/backend — build/quality configuration (A1 of ENGINEERING_HARDENING_PLAN.md)
+#
+# This file creates the architectural FITNESS FUNCTION that was previously
+# convention-only. It encodes the acyclic import graph from DECOUPLING_PLAN.md
+# as import-linter contracts that CI must pass before merge.
+#
+# IMPORTANT: this contract was authored against DECOUPLING_PLAN.md's final
+# architecture graph and the actual import lines in each module. It MUST be
+# validated with a local `lint-imports` run before being treated as green — the
+# authoring sandbox cannot execute it. Run from bridge-ui/backend/:
+#
+#   pip install import-linter
+#   lint-imports
+#
+# If any violation is reported it means either (a) a module imports something it
+# shouldn't — fix the import — or (b) the ignore_imports list below is missing
+# an intentional shim edge — add it with a comment.
+
+# ---------------------------------------------------------------------------
+# [tool.importlinter]
+# ---------------------------------------------------------------------------
+# grimp (the graph builder) requires every root_package to be an importable
+# PACKAGE, not a single-file module — so listing the flat modules server.py /
+# backends.py / models.py directly raises NotATopLevelModule. Instead we use the
+# parent namespace package `backend` (bridge-ui/backend has no __init__.py, so it
+# is a PEP-420 namespace package) and qualify every module as backend.*. This
+# requires running the linter from the bridge-ui/ PARENT dir so `backend` resolves:
+#
+#   cd bridge-ui && lint-imports --config backend/pyproject.toml
+#   # or, PATH-robust:  python -m importlinter.cli lint-imports --config backend/pyproject.toml
+#
+# (The CI job in .github/workflows/bridge-ui.yml runs it this way.)
+[tool.importlinter]
+root_packages = ["backend"]
+
+# ---------------------------------------------------------------------------
+# CONTRACT 1 — Layered architecture (the DECOUPLING_PLAN.md graph, enforced)
+#
+# Layer order top→bottom (higher MAY import lower; never the reverse):
+#
+#   server    ← composition root; wires all modules together
+#   backends  ← LLM backend implementations; depends on core.responses only
+#   models    ← pure pydantic DTOs; no project imports
+#   state     ← mutable stores (audit chain, runtime metrics); stdlib only
+#   core      ← pure domain logic + data (guard, classifier, responses)
+#
+# `routers` is deliberately NOT a layer here: server is the composition root and
+# IMPORTS every router to mount it (server -> routers), while each router also
+# lazily imports server for state (routers -> server). That bidirectional edge
+# cannot be expressed as a strict layer order — the important half of it (the
+# leaf modules must never import up) is enforced by the two forbidden contracts
+# below, which is what actually guarantees the acyclic core.
+# ---------------------------------------------------------------------------
+[[tool.importlinter.contracts]]
+name = "Layered architecture: core < state < models < backends < server"
+type = "layers"
+layers = [
+    "backend.server",
+    "backend.backends",
+    "backend.models",
+    "backend.state",
+    "backend.core",
+]
+# No ignores needed: server importing the lower layers is DOWNWARD (allowed); the
+# only forbidden direction (a leaf importing up) is caught here and by Contracts 2/3.
+
+# ---------------------------------------------------------------------------
+# CONTRACT 2 — Forbidden: core/backends must never import server or routers
+#
+# The circular hazard that DECOUPLING_PLAN.md step 6b solved: backends and core
+# used to reach back into server for _RESPONSES. That was broken by extracting
+# core/responses.py. This contract makes the fix PERMANENT — any future
+# `import server` inside core/* or backends.py fails CI immediately.
+# ---------------------------------------------------------------------------
+[[tool.importlinter.contracts]]
+name = "Acyclic guarantee: core and backends must not import server or routers"
+type = "forbidden"
+source_modules = [
+    "backend.core",
+    "backend.backends",
+]
+forbidden_modules = [
+    "backend.server",
+    "backend.routers",
+]
+# allow_indirect_imports = false (default) — we want to catch transitive pulls too.
+
+# ---------------------------------------------------------------------------
+# CONTRACT 3 — Forbidden: state/models must not import server or routers
+#
+# state/audit.py and state/runtime.py are pure storage modules and models.py is
+# pure DTOs. None may pull in the composition root (server) or any router — doing
+# so would create a cycle back through the proxy layer. This was a live risk
+# during the module-attribute proxy work and must be locked down permanently.
+# ---------------------------------------------------------------------------
+[[tool.importlinter.contracts]]
+name = "Acyclic guarantee: state and models must not import server or routers"
+type = "forbidden"
+source_modules = [
+    "backend.state",
+    "backend.models",
+]
+forbidden_modules = [
+    "backend.server",
+    "backend.routers",
+]
+
+# ---------------------------------------------------------------------------
+# [tool.ruff]
+# Mirrors the rule families used by the repo-root (lub) pyproject.toml:
+#   E/F/I/UP/B/SIM — style, unused imports, isort, pyupgrade, bugbear, simplify.
+# line-length 100 and py3.11 target match the repo standard.
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["."]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+# E501 (line too long) is reported by the length setting but commonly ignored
+# in prose-heavy config files; suppress it here as lub does.
+# SIM105 (try/except/pass -> contextlib.suppress): an explicit try/except/pass is
+# clearer than contextlib.suppress in the best-effort recovery paths of the audit
+# store (db.close, WAL pragma), where it documents intent — left as-is on purpose.
+ignore = ["E501", "SIM105"]
+
+[tool.ruff.lint.per-file-ignores]
+# Test files: B (opinionated bugbear) and SIM (simplify) produce false
+# positives against pytest fixtures and monkeypatching patterns.
+"test_*.py" = ["B", "SIM"]
+"scale/test_*.py" = ["B", "SIM"]
+# server.py is the ~2000-line composition root. B008 (do-not-call-in-default)
+# fires on idiomatic FastAPI Query/Depends defaults. E402 + I001 are flagged by
+# its INTENTIONAL import layout: a sys.path/dual-import bootstrap means several
+# imports are deliberately mid-module and in a fixed (non-isort) order — auto-
+# sorting them would break the re-export shims. Ignored on purpose here.
+"server.py" = ["B008", "E402", "I001"]
+# backends.py imports os/urllib mid-module (after the FakeBackend class, before
+# the Ollama section) by design — same E402 exemption.
+"backends.py" = ["E402"]
+# routers are FastAPI handler files — same B008 concern.
+"routers/*.py" = ["B008"]
+
+# ---------------------------------------------------------------------------
+# [tool.mypy]
+# Strategy: STRICT on the pure/typed leaf modules (core.*, models, state.*,
+# backends) where full annotation coverage is realistic and correctness matters
+# most. LENIENT on the composition root (server.py) and routers initially — the
+# 2010-line server.py uses many dynamic patterns (module-attribute proxy,
+# sys.modules lookup, setattr delegation) that produce wall-of-errors under
+# strict without delivering proportionate safety gain at this stage.
+#
+# TODO (ratchet intent): once server.py and routers are annotated, remove the
+# per-module overrides below and raise the global bar to match lub's --strict.
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.11"
+# Run flat (cd bridge-ui/backend && mypy .). explicit_package_bases + this dir on
+# the mypy_path stops the "Source file found twice" clash between the flat
+# (routers.audit) and package (backend.routers.audit) names that the dual-import
+# shims would otherwise create.
+explicit_package_bases = true
+mypy_path = "."
+# Tests are excluded: the suite leans on dynamic monkeypatching + server-surface
+# attribute access that produce strict-mode noise without catching real bugs.
+# (Ratchet: annotate the test helpers and drop this to type the tests too.)
+exclude = '(^|/)(test_[^/]*|conftest)\.py$'
+# Global baseline — strict enough to catch real bugs in the typed modules.
+strict = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true
+# Third-party stubs are not always available (fastapi-stubs, etc.).
+ignore_missing_imports = true
+
+# Pure typed modules — strict is inherited from the global setting above.
+# Listed here for documentation; no override needed.
+# core/guard.py, core/classifier.py, core/responses.py, models.py,
+# state/audit.py, state/runtime.py, backends.py — all pure logic.
+
+# Lenient overrides for the composition root and routers:
+# The proxy machinery in server.py (__getattr__/__setattr__ on a
+# types.ModuleType subclass) and the lazy sys.modules accessors in routers
+# generate dozens of mypy strict errors that are intentional, not bugs.
+# We suppress errors rather than ignore_errors to preserve any future typed
+# annotations that are already there.
+#
+# TODO: ratchet — as annotations are added to server.py and routers/*.py,
+# progressively remove codes from disable_error_code lists below until the
+# override blocks can be deleted and strict applies everywhere (parity with lub).
+
+[[tool.mypy.overrides]]
+module = ["server", "backend.server"]  # flat run (cd backend) + package mode
+# Module-attribute proxy patterns cause these legitimately:
+#   attr-defined — _ProxyingServerModule.__getattr__ is dynamic by design
+#   no-untyped-def — many inner helpers in the 2010-line file are unannotated
+#   misc — catch-all for setattr/getattr dynamic patterns
+#   no-redef / unused-ignore — the try/except dual-import re-export shims define
+#     the same name twice and carry # type: ignore that only fires in one arm
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+disable_error_code = ["attr-defined", "no-untyped-def", "misc", "return", "no-redef", "unused-ignore", "no-any-return", "no-untyped-call"]
+# TODO: remove this override as server.py gains annotations (ratchet).
+
+[[tool.mypy.overrides]]
+module = ["routers.*", "backend.routers.*"]  # flat run (cd backend) + package mode
+# Routers use the _server() -> ModuleType pattern for lazy state access; every
+# attribute read on the returned ModuleType is dynamically typed (attr-defined /
+# union-attr when _server() is typed ModuleType|None), and the dual-import shims
+# add no-redef / unused-ignore. assignment covers a couple of dynamic re-binds.
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+disable_error_code = ["attr-defined", "no-untyped-def", "misc", "return", "no-redef", "unused-ignore", "union-attr", "assignment", "no-any-return", "no-untyped-call", "index"]
+# TODO: remove this override as routers gain typed server-accessor helpers.
+
+[tool.coverage.run]
+# The CI job runs `pytest --cov=.` from this dir, which otherwise counts the 34
+# test files themselves (100%-covered by definition) and inflates the total —
+# masking the real coverage of server/routers/state/core. Omit tests + conftest
+# so the --cov-fail-under floor measures product code only.
+omit = [
+    "test_*.py",
+    "scale/test_*.py",
+    "conftest.py",
+]
+
+[[tool.mypy.overrides]]
+module = ["scale.cache_redis", "scale.limiter_redis"]
+# Redis-backed adapters: the `redis` client ships no type stubs, so every call
+# into it surfaces no-untyped-call / no-untyped-def noise that is not a real bug.
+# These adapters are opt-in (only active when REDIS_URL is set). Kept lenient until
+# redis type stubs are added (ratchet). NOTE: scale/audit_postgres.py is the
+# SECURITY-CRITICAL hash-chain port and is deliberately NOT listed here — it stays
+# strict, and the metrics_prometheus adapter is already strict-clean.
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+disable_error_code = ["no-untyped-def", "no-untyped-call", "no-any-return", "type-arg", "unused-ignore"]

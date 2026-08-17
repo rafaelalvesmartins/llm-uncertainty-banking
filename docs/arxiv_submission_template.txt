@@ -1,0 +1,139 @@
+
+================================================================================
+                     arXiv SUBMISSION EMAIL TEMPLATE
+================================================================================
+
+Generated: 2026-08-17 08:38:35
+Status: Ready to submit to submit@arxiv.org
+
+IMPORTANT INSTRUCTIONS:
+1. Copy the text below (between the === lines)
+2. Open https://arxiv.org/submit
+3. Follow the arXiv submission wizard (4 steps)
+4. In step 3, paste this email text into the "Comments" field
+5. Review and submit
+
+================================================================================
+
+
+Subject: arXiv submission: "Calibrated LLMs for Regulated Banking"
+
+To: submit@arxiv.org
+
+Dear arXiv Support,
+
+I am submitting a new manuscript titled "Calibrated LLMs for Regulated Banking:
+A Benchmark and NIST AI RMF Reporting Pipeline for Uncertainty Quantification
+in Financial LLM Deployments" for consideration in the Computer Science categories.
+
+**Submission details:**
+
+- **Title:** Calibrated LLMs for Regulated Banking
+- **Authors:** Rafael Martins Alves
+- **Affiliations:** Independent researcher, UNICAMP
+- **Primary category:** cs.CL (Computation and Language)
+- **Secondary categories:** cs.LG (Machine Learning)
+- **Keywords:** uncertainty quantification, LLMs, calibration, regulatory compliance,
+  NIST AI RMF, OSCAL, financial NLP
+
+**Abstract:**
+
+Large language models are increasingly embedded in banking workflows where hallucinations
+carry supervisory and financial-stability consequences. We present llm-uncertainty-banking (LUB),
+an open-source Python framework unifying 22 UQ estimators across seven families, evaluated on
+financial regulatory text in English and Portuguese. We report 14 calibration metrics and
+introduce a multi-regime regulatory crosswalk mapping benchmark outputs to six regimes
+(NIST AI 600-1 GenAI Profile of AI RMF 1.0, EU AI Act 2024/1689, BCBS 239, BCB Res. 4.893,
+ISO/IEC 23894:2023, ISO/IEC 42001:2023; SR 11-7 three-pillar mapping cross-referenced),
+producing OSCAL Component Definitions and auditor-readable reports. We additionally release
+a thin governance layer (input/output rails inspired by NeMo Guardrails, uncertainty-gated
+policies inspired by Guardrails AI) that closes the loop from uncertainty scores to MANAGE-section
+actions in the generated report. Code, datasets, and reproducibility artifacts are released
+under Apache 2.0.
+
+**Key contributions (no existing OSS tool combines these):**
+
+1. First OSS library to emit OSCAL Assessment Results (validated against NIST JSON schema)
+   for LLM evaluations. Prior work: Venturalítica SDK (Cilla Ugarte et al. 2026,
+   arXiv:2604.13767v1) produces OSCAL but explicitly limits scope to tabular and medical
+   imaging; UQLM (CVS Health, JMLR 2026), LM-Polygraph — none ship OSCAL output
+2. First OSS LLM UQ library mapping outputs to SR 11-7 model-validation pillars and NIST
+   AI 600-1 MEASURE 2.3 / 2.7 / 2.9. ValidMind advertises SR 11-7 evidence but is
+   closed-source and not LLM-UQ-native
+3. First OSS library combining conformal prediction for LLMs (5 variants: split, adaptive,
+   Mondrian, sampling, CCP) with calibration reporting in a single auditable artifact
+4. First UQ benchmark targeting financial regulatory text, with 8 datasets including novel
+   Brazilian regulatory QA curated from BCB/CMN public sources
+5. Thin governance layer (no DSL, no async, no bundled jailbreak ML) that feeds uncertainty
+   scores directly into AI RMF MANAGE-section action items
+
+**Evaluation:**
+
+- **Datasets:** FinQA, ConvFinQA, TAT-QA, BR-Regulatory (novel), German Credit, Australian
+  Credit, FPB, FiQA-SA
+- **Metrics:** 14 calibration metrics (ECE, RMSCE, ENCE, Brier, refusal AUROC, etc.),
+  5 proper scoring rules, UCC/AUUCC curves
+- **Backends tested:** HuggingFace (Qwen, Mistral, Llama), OpenAI (GPT-4), Anthropic (Claude)
+- **Results:** Semantic entropy dominates on multi-hop financial QA; conformal methods provide
+  distribution-free coverage guarantees relevant to SR 11-7
+
+**Artifact availability:**
+
+- **Code:** https://github.com/user/llm-uncertainty-banking (Apache 2.0)
+- **Datasets:** Included in repo; BR-Regulatory is newly curated from public BCB/CMN sources
+- **Notebooks:** Reproducibility walkthroughs for all benchmarks
+- **Documentation:** Complete API docs, deployment patterns, governance patterns
+
+**Related concurrent work:**
+
+This work complements recent papers on LLM calibration (Kuhn et al. 2023 on semantic entropy,
+Band et al. 2024 on linguistic calibration) and extends conformal prediction methods to language
+(Quach et al. 2024) by providing a unified benchmarking framework and regulatory compliance
+outputs.
+
+**Author statement:**
+
+I confirm that this work is original, has not been published or submitted elsewhere, and
+represents my own independent research, conducted on my own time and equipment, in academic
+collaboration with UNICAMP.
+
+Best regards,
+Rafael Martins Alves
+Independent researcher / UNICAMP
+rafael@...
+ORCID: TBD
+
+---
+
+**Submission checklist (arXiv):**
+- [x] Manuscript in PDF
+- [x] Supplementary materials (code + datasets)
+- [x] Abstract (150 words)
+- [x] Keywords
+- [x] No conflicts of interest
+- [x] License: Apache 2.0 (open source)
+- [x] Contact information
+
+---
+
+**Note for editors:**
+
+This submission bridges academic uncertainty quantification and regulated financial
+practice. The framework directly addresses Federal Reserve SR 11-7 (Model Risk Management),
+NIST AI RMF governance frameworks, and EU AI Act compliance. The open-source release and
+multi-regime regulatory crosswalk are novel contributions to the intersection of NLP and
+financial regulation.
+
+
+================================================================================
+
+POST-SUBMISSION CHECKLIST:
+- [ ] arXiv ID received (format: YYMM.NNNNN)
+- [ ] Paper appears on arXiv.org after 3–4 hour processing
+- [ ] Update repo: CITATION.cff with arxiv ID
+- [ ] Update repo: README.md with "As featured on arXiv" link
+- [ ] Send announcement to NeurIPS/ICLR mailing list
+- [ ] Archive submission email to 02_Evidencias_Profissionais/GitHub_Project/talks/
+  (this email IS a public artifact, like a conference talk)
+
+================================================================================

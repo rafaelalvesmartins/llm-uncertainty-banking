@@ -1,0 +1,999 @@
+{
+  "component-definition": {
+    "uuid": "fe581954-6cea-4bb7-b8b3-5535f3d9afd3",
+    "metadata": {
+      "title": "LUB \u2014 hf/token_logprob on br_regulatory",
+      "last-modified": "2026-04-17T12:10:56+00:00",
+      "version": "0.0.1",
+      "oscal-version": "1.1.2"
+    },
+    "components": [
+      {
+        "uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+        "type": "software",
+        "title": "hf / token_logprob",
+        "description": "llm-uncertainty-banking pipeline using backend 'hf' with estimator 'token_logprob'. Evaluated on dataset 'br_regulatory' (0.1.0), 20 examples, seed 42.",
+        "props": [
+          {
+            "name": "repo_version",
+            "value": "0.0.1",
+            "ns": null
+          },
+          {
+            "name": "backend",
+            "value": "hf",
+            "ns": null
+          },
+          {
+            "name": "estimator",
+            "value": "token_logprob",
+            "ns": null
+          },
+          {
+            "name": "dataset",
+            "value": "br_regulatory",
+            "ns": null
+          },
+          {
+            "name": "dataset_version",
+            "value": "0.1.0",
+            "ns": null
+          },
+          {
+            "name": "dataset_hash",
+            "value": "9d9a37ba58087d0fcfb981ea10d7e267c96962abb80a60da0c53ad598986b311",
+            "ns": null
+          },
+          {
+            "name": "timestamp",
+            "value": "2026-04-17T12:00:31.541229+00:00",
+            "ns": null
+          },
+          {
+            "name": "n",
+            "value": "20",
+            "ns": null
+          },
+          {
+            "name": "seed",
+            "value": "42",
+            "ns": null
+          },
+          {
+            "name": "git_sha",
+            "value": "5346b1b080216418c6e3b3e0e88e5a0142cddeed",
+            "ns": null
+          }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "5262ee4d-4749-41c1-97b2-98b2aa8b6874",
+            "source": "NIST_AI_RMF_1.0",
+            "description": "NIST AI RMF 1.0 sub-categories satisfied by this component, as evidenced by calibration metrics computed on the evaluation set.",
+            "implemented-requirements": [
+              {
+                "uuid": "48ee16e1-ced5-49e4-b8f8-f59925c5a93f",
+                "control-id": "measure_2_3",
+                "description": "NIST AI RMF 1.0 MEASURE 2.3 \u2014 evidence from 1 metric(s) computed on dataset 'br_regulatory' (20 examples, seed 42, hf/token_logprob).",
+                "props": [],
+                "by-components": [
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "5941b16b-da82-4103-a20a-4bd4fa242676",
+                    "description": "accuracy = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] System performance: task accuracy on the evaluation set.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "accuracy",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Efficacy",
+                        "ns": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "uuid": "a76f22c8-be04-469f-8f93-05fd34557a36",
+                "control-id": "measure_2_5",
+                "description": "NIST AI RMF 1.0 MEASURE 2.5 \u2014 evidence from 2 metric(s) computed on dataset 'br_regulatory' (20 examples, seed 42, hf/token_logprob).",
+                "props": [],
+                "by-components": [
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "289a9121-0ac9-4582-bf09-b8b80bbaed44",
+                    "description": "kendall_tau = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] Discrimination: Kendall tau-b rank correlation between confidence and correctness.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "kendall_tau",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Efficacy",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "987b04ad-57b0-466f-9729-45423ef1e43d",
+                    "description": "spearman = 0.500000 [PASS \u2014 within expected bounds.] Discrimination: Spearman rank correlation between confidence and correctness.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "spearman",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.500000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "pass",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Efficacy",
+                        "ns": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "uuid": "0fec0ed2-c9ca-4b98-b593-3b62d991cc0c",
+                "control-id": "measure_2_7",
+                "description": "NIST AI RMF 1.0 MEASURE 2.7 \u2014 evidence from 6 metric(s) computed on dataset 'br_regulatory' (20 examples, seed 42, hf/token_logprob).",
+                "props": [],
+                "by-components": [
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "af785467-4712-4469-9918-fa6982b0f6da",
+                    "description": "aurc = 0.950000 [FINDING \u2014 material deviation requiring remediation before production approval.] Selective prediction: area under the risk-coverage curve (lower is better).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "aurc",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.950000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "7ce19275-9b88-46c1-99c3-35b988b538e2",
+                    "description": "auucc = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] Selective prediction: area under the uncertainty characteristics curve (higher is better).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "auucc",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "2bfcbaf0-e8d5-4402-a0ff-5a7db9e506bd",
+                    "description": "missing_ratio = 0.000000 [PASS \u2014 within expected bounds.] Safety: fraction of examples the system refused to answer.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "missing_ratio",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "pass",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "af423960-772f-44c8-8f3f-7213da9b1ea9",
+                    "description": "prr = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] Selective prediction: prediction-rejection ratio vs oracle (1.0 = oracle, 0.0 = random).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "prr",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "0d96777c-7ce7-48bf-81df-3f0f2509dd48",
+                    "description": "refusal_auroc = 0.500000 [FINDING \u2014 material deviation requiring remediation before production approval.] Safety and robustness: AUROC of confidence as a refusal signal.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "refusal_auroc",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.500000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "2d049e99-5c8a-4354-862f-fc841a0b8fb0",
+                    "description": "reversed_pairs_proportion = 0.500000 [FINDING \u2014 material deviation requiring remediation before production approval.] Safety: fraction of (correct, incorrect) pairs with reversed confidence ordering.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "reversed_pairs_proportion",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.500000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "uuid": "f92f5fb8-17c4-49bd-a0b6-973a00e6f465",
+                "control-id": "measure_2_9",
+                "description": "NIST AI RMF 1.0 MEASURE 2.9 \u2014 evidence from 7 metric(s) computed on dataset 'br_regulatory' (20 examples, seed 42, hf/token_logprob).",
+                "props": [],
+                "by-components": [
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "99c45a32-b8b9-4851-81a3-b29dd11dd3c9",
+                    "description": "brier = 0.929312 [FINDING \u2014 material deviation requiring remediation before production approval.] Reliability: Brier score (mean squared error of confidence forecasts).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "brier",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.929312",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "587c7d25-28d1-4b7b-b2f7-1df3d84c9e36",
+                    "description": "crps_from_confidence = 0.929312 [FINDING \u2014 material deviation requiring remediation before production approval.] Scoring rule: CRPS for Bernoulli confidence forecasts (equivalent to Brier).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "crps_from_confidence",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.929312",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "1d94ee1b-ee0e-41f6-9e1b-77a3871b52e7",
+                    "description": "ece = 0.963696 [FINDING \u2014 material deviation requiring remediation before production approval.] Reliability: expected calibration error of confidence scores.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "ece",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.963696",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "4f1d0b21-2d5c-4937-b394-3eb1d1f887cd",
+                    "description": "miscalibration_area = 0.999376 [FINDING \u2014 material deviation requiring remediation before production approval.] Reliability: area between reliability curve and identity diagonal.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "miscalibration_area",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.999376",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "fbb50cc9-c41e-417c-be76-375d5f4ee86d",
+                    "description": "negative_log_likelihood = 3.535555 [FINDING \u2014 material deviation requiring remediation before production approval.] Scoring rule: binary NLL (log loss) of confidence forecasts.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "negative_log_likelihood",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "3.535555",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "1c43ce5f-04b2-4044-ac0c-4fabd81ba1b5",
+                    "description": "rmsce = 0.963894 [FINDING \u2014 material deviation requiring remediation before production approval.] Reliability: root-mean-squared calibration error (L2 analogue of ECE).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "rmsce",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.963894",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Robustness",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "fb6cd2af-25e9-489a-8a12-d281c5e8465a",
+                    "description": "sharpness = 0.024558 [OBSERVATION \u2014 non-material note for follow-up; does not block approval.] Reliability: variance of confidence (decisiveness of the estimator).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "sharpness",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.024558",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "observation",
+                        "ns": null
+                      },
+                      {
+                        "name": "trust_dimension",
+                        "value": "Efficacy",
+                        "ns": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "uuid": "c2f11337-7229-4a44-9667-1ccc3124c501",
+            "source": "ISO_IEC_42001_2023",
+            "description": "ISO/IEC 42001:2023 clauses satisfied by this component. EU AI Act Annex IV references ISO 42001; this catalog enables multi-jurisdictional compliance from a single benchmark run.",
+            "implemented-requirements": [
+              {
+                "uuid": "27698fae-d32d-477d-85ca-86f2e77cdc56",
+                "control-id": "iso42001_8_4",
+                "description": "ISO/IEC 42001:2023 Clause 8.4 \u2014 evidence from 6 metric(s) computed on dataset 'br_regulatory' (20 examples, seed 42, hf/token_logprob).",
+                "props": [],
+                "by-components": [
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "5beb29d3-3dbc-4f50-a412-56e43c774a20",
+                    "description": "aurc = 0.950000 [FINDING \u2014 material deviation requiring remediation before production approval.] AI system operation: area under risk-coverage curve (selective prediction quality).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "aurc",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.950000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.7.3",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "8b2bf981-fce5-4c91-a237-1b32a1c4f30f",
+                    "description": "auucc = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] AI system operation: area under uncertainty characteristics curve.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "auucc",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.7.3",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "70363c7f-8b53-45ec-8d4b-ccb7b1ef87f2",
+                    "description": "missing_ratio = 0.000000 [PASS \u2014 within expected bounds.] AI system operation: fraction of examples the system refused to answer.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "missing_ratio",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "pass",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.7.3",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "3fa7485b-8243-4fba-bee3-8d60096a0d7c",
+                    "description": "prr = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] AI system operation: prediction-rejection ratio vs oracle.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "prr",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.7.3",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "39a937ec-bc0a-4df8-bb2d-066bd3aba918",
+                    "description": "refusal_auroc = 0.500000 [FINDING \u2014 material deviation requiring remediation before production approval.] AI system operation: AUROC of confidence as a refusal signal under operational conditions.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "refusal_auroc",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.500000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.7.3",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "eb2a7057-f206-466e-8afc-22dfbaa66cb9",
+                    "description": "reversed_pairs_proportion = 0.500000 [FINDING \u2014 material deviation requiring remediation before production approval.] AI system operation: fraction of (correct, incorrect) pairs with reversed confidence.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "reversed_pairs_proportion",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.500000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.7.3",
+                        "ns": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "uuid": "48229e4e-3acc-4db0-8531-aa14b24fd032",
+                "control-id": "iso42001_9_1",
+                "description": "ISO/IEC 42001:2023 Clause 9.1 \u2014 evidence from 10 metric(s) computed on dataset 'br_regulatory' (20 examples, seed 42, hf/token_logprob).",
+                "props": [],
+                "by-components": [
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "3cebc27e-986f-4b01-b8c6-478b542b92d2",
+                    "description": "accuracy = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: task accuracy on the evaluation set.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "accuracy",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "009ad53a-cedb-4436-994b-f3eaaab6d63a",
+                    "description": "brier = 0.929312 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: Brier score (mean squared error of confidence forecasts).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "brier",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.929312",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "05fc1ea2-1cfb-44ed-adf8-10c3f4562c67",
+                    "description": "crps_from_confidence = 0.929312 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: CRPS for Bernoulli confidence forecasts.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "crps_from_confidence",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.929312",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "41cf78dd-c909-4a08-bf47-511778744195",
+                    "description": "ece = 0.963696 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: expected calibration error of confidence scores.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "ece",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.963696",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "0ae7a077-dc97-4471-8924-2f307b251afc",
+                    "description": "kendall_tau = 0.000000 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: Kendall tau-b rank correlation between confidence and correctness.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "kendall_tau",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.000000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "df3f3bad-4048-4c3e-a545-8e3440b9149f",
+                    "description": "miscalibration_area = 0.999376 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: area between reliability curve and identity diagonal.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "miscalibration_area",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.999376",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "bc4a8e90-8009-4aa1-aa5d-a21fa330dbb6",
+                    "description": "negative_log_likelihood = 3.535555 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: binary NLL (log loss) of confidence forecasts.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "negative_log_likelihood",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "3.535555",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "08201b61-3f2b-4508-a06a-fca31b9d9990",
+                    "description": "rmsce = 0.963894 [FINDING \u2014 material deviation requiring remediation before production approval.] Performance evaluation: root-mean-squared calibration error (L2 analogue of ECE).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "rmsce",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.963894",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "finding",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "a83edda1-6c2c-4f28-9ecc-f92c18d338a3",
+                    "description": "sharpness = 0.024558 [OBSERVATION \u2014 non-material note for follow-up; does not block approval.] Performance evaluation: variance of confidence (estimator decisiveness).",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "sharpness",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.024558",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "observation",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  },
+                  {
+                    "component-uuid": "97c2e154-d7c3-46f7-b4a0-278bbfccea2f",
+                    "uuid": "5d8b9c9f-919d-4841-83aa-da7491401e0f",
+                    "description": "spearman = 0.500000 [PASS \u2014 within expected bounds.] Performance evaluation: Spearman rank correlation between confidence and correctness.",
+                    "props": [
+                      {
+                        "name": "metric",
+                        "value": "spearman",
+                        "ns": null
+                      },
+                      {
+                        "name": "value",
+                        "value": "0.500000",
+                        "ns": null
+                      },
+                      {
+                        "name": "severity",
+                        "value": "pass",
+                        "ns": null
+                      },
+                      {
+                        "name": "iso42001_annex",
+                        "value": "A.6.2.6",
+                        "ns": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

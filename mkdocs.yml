@@ -1,0 +1,70 @@
+site_name: llm-uncertainty-banking
+site_description: Uncertainty quantification and NIST AI RMF reporting for LLMs in regulated banking.
+site_url: https://rafaelmartinsalves.github.io/llm-uncertainty-banking
+repo_url: https://github.com/rafaelmartinsalves/llm-uncertainty-banking
+repo_name: rafaelmartinsalves/llm-uncertainty-banking
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: false
+            docstring_style: google
+            merge_init_into_class: true
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Architecture: architecture.md
+  - Estimators: estimators.md
+  - Benchmarks: benchmarks.md
+  - Evidence Status: evidence-status.md
+  - Governance Layer: governance.md
+  - AI RMF Mapping: airmf-mapping.md
+  - SR 11-7 Mapping: sr-11-7.md
+  - Continuous Effective Challenge: challenge.md
+  - Deployment & Commercial:
+      - Bank Deployment: bank-deployment.md
+      - Regulatory Triggers: regulatory-triggers.md
+      - Integration Tiers: integration_tiers.md
+      - Market Research: MARKET_RESEARCH.md
+  - API Reference: api/index.md
+  - Changelog: changelog.md

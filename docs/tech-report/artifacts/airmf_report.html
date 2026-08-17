@@ -1,0 +1,1156 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>AI RMF Report</title></head><body>
+<h1>AI RMF Report — llm-uncertainty-banking evaluation</h1>
+<p><em>Generated: 2026-04-17T03:11:59.930586+00:00</em></p>
+<h2>Metadata</h2>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Report version</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>Number of runs</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>3.12.3</td>
+</tr>
+<tr>
+<td>Library</td>
+<td>llm-uncertainty-banking 0.0.1</td>
+</tr>
+</tbody>
+</table>
+<h2>Govern</h2>
+<p>This report documents model-risk evidence for LLM-based QA systems evaluated
+under the <code>llm-uncertainty-banking</code> library. Each run below is a reproducible
+<code>BenchmarkResult</code> with a dataset hash and full dependency fingerprint, so that
+reviewers can independently re-run and verify the numbers.</p>
+<ul>
+<li><strong>MANAGE 4.1</strong> — change management: every run records its git SHA and
+<code>package_versions</code> dict, enabling point-in-time reproduction.</li>
+<li><strong>GOVERN 1.2</strong> — accountability: the backend, estimator, and dataset used
+are first-class fields of every benchmark record.</li>
+</ul>
+<h2>Map</h2>
+<ul>
+<li><strong>Intended use:</strong> uncertainty-aware QA for regulated banking workflows
+where answer-level confidence gates downstream automation.</li>
+<li><strong>Operational context:</strong> offline evaluation only; no live customer data
+and no production inference is performed by this report.</li>
+<li><strong>Out of scope:</strong> training, fine-tuning, retrieval-augmented generation
+pipelines, and agentic tool use.</li>
+</ul>
+<h2>Measure</h2>
+<h3>Run 1 — dummy / token_logprob / br_regulatory</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>AI RMF sub-category</th>
+<th>trust dimension</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accuracy</td>
+<td>0.0000</td>
+<td>MEASURE 2.3</td>
+<td>Efficacy</td>
+<td>System performance: task accuracy on the evaluation set.</td>
+</tr>
+<tr>
+<td>ECE</td>
+<td>0.3679</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: expected calibration error of confidence scores.</td>
+</tr>
+<tr>
+<td>Refusal AUROC</td>
+<td>0.5000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety and robustness: AUROC of confidence as a refusal signal.</td>
+</tr>
+<tr>
+<td>Miscalibration Area</td>
+<td>0.3863</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: area between reliability curve and identity diagonal.</td>
+</tr>
+<tr>
+<td>Sharpness</td>
+<td>0.0000</td>
+<td>MEASURE 2.9</td>
+<td>Efficacy</td>
+<td>Reliability: variance of confidence (decisiveness of the estimator).</td>
+</tr>
+<tr>
+<td>Missing Ratio</td>
+<td>1.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety: fraction of examples the system refused to answer.</td>
+</tr>
+<tr>
+<td>PRR</td>
+<td>0.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Selective prediction: prediction-rejection ratio vs oracle (1.0 = oracle, 0.0 = random).</td>
+</tr>
+<tr>
+<td>n</td>
+<td>20</td>
+<td>—</td>
+<td>—</td>
+<td>number of examples scored</td>
+</tr>
+<tr>
+<td>Dataset hash</td>
+<td><code>9d9a37ba58087d0f…</code></td>
+<td>MEASURE 2.8</td>
+<td>Explainability</td>
+<td>Transparency: dataset provenance and reproducibility digest.</td>
+</tr>
+<tr>
+<td>Git SHA</td>
+<td><code>753d82f13a9568bd1c2c80bbfccda9515dab1fb6</code></td>
+<td>MANAGE 4.1</td>
+<td>Security</td>
+<td>Change management: code revision under which results were produced.</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>2026-04-17T03:11:50.618665+00:00</td>
+<td>—</td>
+<td>—</td>
+<td>UTC ISO-8601</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 2 — dummy / perplexity / br_regulatory</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>AI RMF sub-category</th>
+<th>trust dimension</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accuracy</td>
+<td>0.0000</td>
+<td>MEASURE 2.3</td>
+<td>Efficacy</td>
+<td>System performance: task accuracy on the evaluation set.</td>
+</tr>
+<tr>
+<td>ECE</td>
+<td>0.3679</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: expected calibration error of confidence scores.</td>
+</tr>
+<tr>
+<td>Refusal AUROC</td>
+<td>0.5000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety and robustness: AUROC of confidence as a refusal signal.</td>
+</tr>
+<tr>
+<td>Miscalibration Area</td>
+<td>0.3863</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: area between reliability curve and identity diagonal.</td>
+</tr>
+<tr>
+<td>Sharpness</td>
+<td>0.0000</td>
+<td>MEASURE 2.9</td>
+<td>Efficacy</td>
+<td>Reliability: variance of confidence (decisiveness of the estimator).</td>
+</tr>
+<tr>
+<td>Missing Ratio</td>
+<td>1.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety: fraction of examples the system refused to answer.</td>
+</tr>
+<tr>
+<td>PRR</td>
+<td>0.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Selective prediction: prediction-rejection ratio vs oracle (1.0 = oracle, 0.0 = random).</td>
+</tr>
+<tr>
+<td>n</td>
+<td>20</td>
+<td>—</td>
+<td>—</td>
+<td>number of examples scored</td>
+</tr>
+<tr>
+<td>Dataset hash</td>
+<td><code>9d9a37ba58087d0f…</code></td>
+<td>MEASURE 2.8</td>
+<td>Explainability</td>
+<td>Transparency: dataset provenance and reproducibility digest.</td>
+</tr>
+<tr>
+<td>Git SHA</td>
+<td><code>753d82f13a9568bd1c2c80bbfccda9515dab1fb6</code></td>
+<td>MANAGE 4.1</td>
+<td>Security</td>
+<td>Change management: code revision under which results were produced.</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>2026-04-17T03:11:51.314364+00:00</td>
+<td>—</td>
+<td>—</td>
+<td>UTC ISO-8601</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 3 — dummy / self_consistency / br_regulatory</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>AI RMF sub-category</th>
+<th>trust dimension</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accuracy</td>
+<td>0.0000</td>
+<td>MEASURE 2.3</td>
+<td>Efficacy</td>
+<td>System performance: task accuracy on the evaluation set.</td>
+</tr>
+<tr>
+<td>ECE</td>
+<td>0.1000</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: expected calibration error of confidence scores.</td>
+</tr>
+<tr>
+<td>Refusal AUROC</td>
+<td>0.5000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety and robustness: AUROC of confidence as a refusal signal.</td>
+</tr>
+<tr>
+<td>Miscalibration Area</td>
+<td>0.1050</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: area between reliability curve and identity diagonal.</td>
+</tr>
+<tr>
+<td>Sharpness</td>
+<td>0.0000</td>
+<td>MEASURE 2.9</td>
+<td>Efficacy</td>
+<td>Reliability: variance of confidence (decisiveness of the estimator).</td>
+</tr>
+<tr>
+<td>Missing Ratio</td>
+<td>1.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety: fraction of examples the system refused to answer.</td>
+</tr>
+<tr>
+<td>PRR</td>
+<td>0.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Selective prediction: prediction-rejection ratio vs oracle (1.0 = oracle, 0.0 = random).</td>
+</tr>
+<tr>
+<td>n</td>
+<td>20</td>
+<td>—</td>
+<td>—</td>
+<td>number of examples scored</td>
+</tr>
+<tr>
+<td>Dataset hash</td>
+<td><code>9d9a37ba58087d0f…</code></td>
+<td>MEASURE 2.8</td>
+<td>Explainability</td>
+<td>Transparency: dataset provenance and reproducibility digest.</td>
+</tr>
+<tr>
+<td>Git SHA</td>
+<td><code>753d82f13a9568bd1c2c80bbfccda9515dab1fb6</code></td>
+<td>MANAGE 4.1</td>
+<td>Security</td>
+<td>Change management: code revision under which results were produced.</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>2026-04-17T03:11:52.043199+00:00</td>
+<td>—</td>
+<td>—</td>
+<td>UTC ISO-8601</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 4 — dummy / p_true / br_regulatory</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>AI RMF sub-category</th>
+<th>trust dimension</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accuracy</td>
+<td>0.0000</td>
+<td>MEASURE 2.3</td>
+<td>Efficacy</td>
+<td>System performance: task accuracy on the evaluation set.</td>
+</tr>
+<tr>
+<td>ECE</td>
+<td>0.5000</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: expected calibration error of confidence scores.</td>
+</tr>
+<tr>
+<td>Refusal AUROC</td>
+<td>0.5000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety and robustness: AUROC of confidence as a refusal signal.</td>
+</tr>
+<tr>
+<td>Miscalibration Area</td>
+<td>0.5250</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: area between reliability curve and identity diagonal.</td>
+</tr>
+<tr>
+<td>Sharpness</td>
+<td>0.0000</td>
+<td>MEASURE 2.9</td>
+<td>Efficacy</td>
+<td>Reliability: variance of confidence (decisiveness of the estimator).</td>
+</tr>
+<tr>
+<td>Missing Ratio</td>
+<td>0.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety: fraction of examples the system refused to answer.</td>
+</tr>
+<tr>
+<td>PRR</td>
+<td>0.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Selective prediction: prediction-rejection ratio vs oracle (1.0 = oracle, 0.0 = random).</td>
+</tr>
+<tr>
+<td>n</td>
+<td>20</td>
+<td>—</td>
+<td>—</td>
+<td>number of examples scored</td>
+</tr>
+<tr>
+<td>Dataset hash</td>
+<td><code>9d9a37ba58087d0f…</code></td>
+<td>MEASURE 2.8</td>
+<td>Explainability</td>
+<td>Transparency: dataset provenance and reproducibility digest.</td>
+</tr>
+<tr>
+<td>Git SHA</td>
+<td><code>753d82f13a9568bd1c2c80bbfccda9515dab1fb6</code></td>
+<td>MANAGE 4.1</td>
+<td>Security</td>
+<td>Change management: code revision under which results were produced.</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>2026-04-17T03:11:53.468555+00:00</td>
+<td>—</td>
+<td>—</td>
+<td>UTC ISO-8601</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 5 — dummy / token_sar / br_regulatory</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>AI RMF sub-category</th>
+<th>trust dimension</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accuracy</td>
+<td>0.0000</td>
+<td>MEASURE 2.3</td>
+<td>Efficacy</td>
+<td>System performance: task accuracy on the evaluation set.</td>
+</tr>
+<tr>
+<td>ECE</td>
+<td>0.3679</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: expected calibration error of confidence scores.</td>
+</tr>
+<tr>
+<td>Refusal AUROC</td>
+<td>0.5000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety and robustness: AUROC of confidence as a refusal signal.</td>
+</tr>
+<tr>
+<td>Miscalibration Area</td>
+<td>0.3863</td>
+<td>MEASURE 2.9</td>
+<td>Robustness</td>
+<td>Reliability: area between reliability curve and identity diagonal.</td>
+</tr>
+<tr>
+<td>Sharpness</td>
+<td>0.0000</td>
+<td>MEASURE 2.9</td>
+<td>Efficacy</td>
+<td>Reliability: variance of confidence (decisiveness of the estimator).</td>
+</tr>
+<tr>
+<td>Missing Ratio</td>
+<td>1.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Safety: fraction of examples the system refused to answer.</td>
+</tr>
+<tr>
+<td>PRR</td>
+<td>0.0000</td>
+<td>MEASURE 2.7</td>
+<td>Robustness</td>
+<td>Selective prediction: prediction-rejection ratio vs oracle (1.0 = oracle, 0.0 = random).</td>
+</tr>
+<tr>
+<td>n</td>
+<td>20</td>
+<td>—</td>
+<td>—</td>
+<td>number of examples scored</td>
+</tr>
+<tr>
+<td>Dataset hash</td>
+<td><code>9d9a37ba58087d0f…</code></td>
+<td>MEASURE 2.8</td>
+<td>Explainability</td>
+<td>Transparency: dataset provenance and reproducibility digest.</td>
+</tr>
+<tr>
+<td>Git SHA</td>
+<td><code>753d82f13a9568bd1c2c80bbfccda9515dab1fb6</code></td>
+<td>MANAGE 4.1</td>
+<td>Security</td>
+<td>Change management: code revision under which results were produced.</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>2026-04-17T03:11:55.101641+00:00</td>
+<td>—</td>
+<td>—</td>
+<td>UTC ISO-8601</td>
+</tr>
+</tbody>
+</table>
+<h2>Findings Triage (OCC 2011-12 / SR 11-7)</h2>
+<p>For each run, every metric is classified as <strong>FINDING</strong> (material
+deviation requiring remediation), <strong>OBSERVATION</strong> (non-material note),
+or <strong>PASS</strong> (within expected bounds) using configurable thresholds
+derived from common banking model-validation heuristics.</p>
+<h3>Run 1 — severity: FINDING</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>severity</th>
+<th>threshold band</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accuracy</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.5</td>
+</tr>
+<tr>
+<td>aurc</td>
+<td>0.9500</td>
+<td>FINDING</td>
+<td>obs=0.15, find=0.3</td>
+</tr>
+<tr>
+<td>auucc</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.3</td>
+</tr>
+<tr>
+<td>brier</td>
+<td>0.1353</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>crps_from_confidence</td>
+<td>0.1353</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>ece</td>
+<td>0.3679</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.1</td>
+</tr>
+<tr>
+<td>kendall_tau</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.25, find=0.08</td>
+</tr>
+<tr>
+<td>miscalibration_area</td>
+<td>0.3863</td>
+<td>FINDING</td>
+<td>obs=0.08, find=0.15</td>
+</tr>
+<tr>
+<td>missing_ratio</td>
+<td>1.0000</td>
+<td>FINDING</td>
+<td>obs=0.2, find=0.4</td>
+</tr>
+<tr>
+<td>negative_log_likelihood</td>
+<td>0.4587</td>
+<td>PASS</td>
+<td>obs=0.5, find=1.0</td>
+</tr>
+<tr>
+<td>prr</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.2</td>
+</tr>
+<tr>
+<td>refusal_auroc</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.55</td>
+</tr>
+<tr>
+<td>reversed_pairs_proportion</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.3, find=0.45</td>
+</tr>
+<tr>
+<td>rmsce</td>
+<td>0.3679</td>
+<td>FINDING</td>
+<td>obs=0.07, find=0.15</td>
+</tr>
+<tr>
+<td>sharpness</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.01</td>
+</tr>
+<tr>
+<td>spearman</td>
+<td>1.0000</td>
+<td>PASS</td>
+<td>obs=0.3, find=0.1</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 2 — severity: FINDING</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>severity</th>
+<th>threshold band</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accuracy</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.5</td>
+</tr>
+<tr>
+<td>aurc</td>
+<td>0.9500</td>
+<td>FINDING</td>
+<td>obs=0.15, find=0.3</td>
+</tr>
+<tr>
+<td>auucc</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.3</td>
+</tr>
+<tr>
+<td>brier</td>
+<td>0.1353</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>crps_from_confidence</td>
+<td>0.1353</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>ece</td>
+<td>0.3679</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.1</td>
+</tr>
+<tr>
+<td>kendall_tau</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.25, find=0.08</td>
+</tr>
+<tr>
+<td>miscalibration_area</td>
+<td>0.3863</td>
+<td>FINDING</td>
+<td>obs=0.08, find=0.15</td>
+</tr>
+<tr>
+<td>missing_ratio</td>
+<td>1.0000</td>
+<td>FINDING</td>
+<td>obs=0.2, find=0.4</td>
+</tr>
+<tr>
+<td>negative_log_likelihood</td>
+<td>0.4587</td>
+<td>PASS</td>
+<td>obs=0.5, find=1.0</td>
+</tr>
+<tr>
+<td>prr</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.2</td>
+</tr>
+<tr>
+<td>refusal_auroc</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.55</td>
+</tr>
+<tr>
+<td>reversed_pairs_proportion</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.3, find=0.45</td>
+</tr>
+<tr>
+<td>rmsce</td>
+<td>0.3679</td>
+<td>FINDING</td>
+<td>obs=0.07, find=0.15</td>
+</tr>
+<tr>
+<td>sharpness</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.01</td>
+</tr>
+<tr>
+<td>spearman</td>
+<td>1.0000</td>
+<td>PASS</td>
+<td>obs=0.3, find=0.1</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 3 — severity: FINDING</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>severity</th>
+<th>threshold band</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accuracy</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.5</td>
+</tr>
+<tr>
+<td>aurc</td>
+<td>0.9500</td>
+<td>FINDING</td>
+<td>obs=0.15, find=0.3</td>
+</tr>
+<tr>
+<td>auucc</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.3</td>
+</tr>
+<tr>
+<td>brier</td>
+<td>0.0100</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>crps_from_confidence</td>
+<td>0.0100</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>ece</td>
+<td>0.1000</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.1</td>
+</tr>
+<tr>
+<td>kendall_tau</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.25, find=0.08</td>
+</tr>
+<tr>
+<td>miscalibration_area</td>
+<td>0.1050</td>
+<td>OBSERVATION</td>
+<td>obs=0.08, find=0.15</td>
+</tr>
+<tr>
+<td>missing_ratio</td>
+<td>1.0000</td>
+<td>FINDING</td>
+<td>obs=0.2, find=0.4</td>
+</tr>
+<tr>
+<td>negative_log_likelihood</td>
+<td>0.1054</td>
+<td>PASS</td>
+<td>obs=0.5, find=1.0</td>
+</tr>
+<tr>
+<td>prr</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.2</td>
+</tr>
+<tr>
+<td>refusal_auroc</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.55</td>
+</tr>
+<tr>
+<td>reversed_pairs_proportion</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.3, find=0.45</td>
+</tr>
+<tr>
+<td>rmsce</td>
+<td>0.1000</td>
+<td>OBSERVATION</td>
+<td>obs=0.07, find=0.15</td>
+</tr>
+<tr>
+<td>sharpness</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.01</td>
+</tr>
+<tr>
+<td>spearman</td>
+<td>1.0000</td>
+<td>PASS</td>
+<td>obs=0.3, find=0.1</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 4 — severity: FINDING</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>severity</th>
+<th>threshold band</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accuracy</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.5</td>
+</tr>
+<tr>
+<td>aurc</td>
+<td>0.9500</td>
+<td>FINDING</td>
+<td>obs=0.15, find=0.3</td>
+</tr>
+<tr>
+<td>auucc</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.3</td>
+</tr>
+<tr>
+<td>brier</td>
+<td>0.2500</td>
+<td>OBSERVATION</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>crps_from_confidence</td>
+<td>0.2500</td>
+<td>OBSERVATION</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>ece</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.1</td>
+</tr>
+<tr>
+<td>kendall_tau</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.25, find=0.08</td>
+</tr>
+<tr>
+<td>miscalibration_area</td>
+<td>0.5250</td>
+<td>FINDING</td>
+<td>obs=0.08, find=0.15</td>
+</tr>
+<tr>
+<td>missing_ratio</td>
+<td>0.0000</td>
+<td>PASS</td>
+<td>obs=0.2, find=0.4</td>
+</tr>
+<tr>
+<td>negative_log_likelihood</td>
+<td>0.6931</td>
+<td>OBSERVATION</td>
+<td>obs=0.5, find=1.0</td>
+</tr>
+<tr>
+<td>prr</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.2</td>
+</tr>
+<tr>
+<td>refusal_auroc</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.55</td>
+</tr>
+<tr>
+<td>reversed_pairs_proportion</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.3, find=0.45</td>
+</tr>
+<tr>
+<td>rmsce</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.07, find=0.15</td>
+</tr>
+<tr>
+<td>sharpness</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.01</td>
+</tr>
+<tr>
+<td>spearman</td>
+<td>1.0000</td>
+<td>PASS</td>
+<td>obs=0.3, find=0.1</td>
+</tr>
+</tbody>
+</table>
+<h3>Run 5 — severity: FINDING</h3>
+<table>
+<thead>
+<tr>
+<th>metric</th>
+<th>value</th>
+<th>severity</th>
+<th>threshold band</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accuracy</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.5</td>
+</tr>
+<tr>
+<td>aurc</td>
+<td>0.9500</td>
+<td>FINDING</td>
+<td>obs=0.15, find=0.3</td>
+</tr>
+<tr>
+<td>auucc</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.3</td>
+</tr>
+<tr>
+<td>brier</td>
+<td>0.1353</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>crps_from_confidence</td>
+<td>0.1353</td>
+<td>PASS</td>
+<td>obs=0.15, find=0.25</td>
+</tr>
+<tr>
+<td>ece</td>
+<td>0.3679</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.1</td>
+</tr>
+<tr>
+<td>kendall_tau</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.25, find=0.08</td>
+</tr>
+<tr>
+<td>miscalibration_area</td>
+<td>0.3863</td>
+<td>FINDING</td>
+<td>obs=0.08, find=0.15</td>
+</tr>
+<tr>
+<td>missing_ratio</td>
+<td>1.0000</td>
+<td>FINDING</td>
+<td>obs=0.2, find=0.4</td>
+</tr>
+<tr>
+<td>negative_log_likelihood</td>
+<td>0.4587</td>
+<td>PASS</td>
+<td>obs=0.5, find=1.0</td>
+</tr>
+<tr>
+<td>prr</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.5, find=0.2</td>
+</tr>
+<tr>
+<td>refusal_auroc</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.7, find=0.55</td>
+</tr>
+<tr>
+<td>reversed_pairs_proportion</td>
+<td>0.5000</td>
+<td>FINDING</td>
+<td>obs=0.3, find=0.45</td>
+</tr>
+<tr>
+<td>rmsce</td>
+<td>0.3679</td>
+<td>FINDING</td>
+<td>obs=0.07, find=0.15</td>
+</tr>
+<tr>
+<td>sharpness</td>
+<td>0.0000</td>
+<td>FINDING</td>
+<td>obs=0.05, find=0.01</td>
+</tr>
+<tr>
+<td>spearman</td>
+<td>1.0000</td>
+<td>PASS</td>
+<td>obs=0.3, find=0.1</td>
+</tr>
+</tbody>
+</table>
+<h2>Manage</h2>
+<ul>
+<li><strong>Refusal policy.</strong> Answers whose estimator confidence falls below the
+configured refusal threshold are withheld rather than returned. The
+refusal AUROC above measures how well confidence separates correct from
+incorrect answers — values near 0.5 indicate the refusal gate is not
+informative and should not be relied on.</li>
+<li><strong>Change management.</strong> Any change to backend, estimator, refusal
+threshold, or calibration dataset invalidates the evidence in this
+report and requires a fresh run.</li>
+<li><strong>Incident handling.</strong> Material miscalibration (e.g. ECE above an
+institutionally set tolerance) should be triaged as a model-risk
+finding, not a latent feature request.</li>
+</ul>
+<h2>Data Provenance (JSON-LD)</h2>
+<p>Every metric value in this report is tagged with a machine-readable
+identifier linking it to the underlying benchmark run. The JSON-LD
+context below can be embedded in the HTML head or served alongside
+the report so GRC tools can programmatically verify provenance.</p>
+<pre><code class="language-json">{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;Dataset&quot;,
+  &quot;hasPart&quot;: [
+    {
+      &quot;@type&quot;: &quot;DataCatalog&quot;,
+      &quot;about&quot;: {
+        &quot;dataset&quot;: &quot;br_regulatory&quot;,
+        &quot;dataset_version&quot;: &quot;0.1.0&quot;,
+        &quot;estimator&quot;: &quot;token_logprob&quot;,
+        &quot;git_sha&quot;: &quot;753d82f13a9568bd1c2c80bbfccda9515dab1fb6&quot;,
+        &quot;seed&quot;: 42
+      },
+      &quot;creator&quot;: &quot;dummy&quot;,
+      &quot;dateCreated&quot;: &quot;2026-04-17T03:11:50.618665+00:00&quot;,
+      &quot;identifier&quot;: &quot;9d9a37ba58087d0f&quot;,
+      &quot;name&quot;: &quot;run-1&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;DataCatalog&quot;,
+      &quot;about&quot;: {
+        &quot;dataset&quot;: &quot;br_regulatory&quot;,
+        &quot;dataset_version&quot;: &quot;0.1.0&quot;,
+        &quot;estimator&quot;: &quot;perplexity&quot;,
+        &quot;git_sha&quot;: &quot;753d82f13a9568bd1c2c80bbfccda9515dab1fb6&quot;,
+        &quot;seed&quot;: 42
+      },
+      &quot;creator&quot;: &quot;dummy&quot;,
+      &quot;dateCreated&quot;: &quot;2026-04-17T03:11:51.314364+00:00&quot;,
+      &quot;identifier&quot;: &quot;9d9a37ba58087d0f&quot;,
+      &quot;name&quot;: &quot;run-2&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;DataCatalog&quot;,
+      &quot;about&quot;: {
+        &quot;dataset&quot;: &quot;br_regulatory&quot;,
+        &quot;dataset_version&quot;: &quot;0.1.0&quot;,
+        &quot;estimator&quot;: &quot;self_consistency&quot;,
+        &quot;git_sha&quot;: &quot;753d82f13a9568bd1c2c80bbfccda9515dab1fb6&quot;,
+        &quot;seed&quot;: 42
+      },
+      &quot;creator&quot;: &quot;dummy&quot;,
+      &quot;dateCreated&quot;: &quot;2026-04-17T03:11:52.043199+00:00&quot;,
+      &quot;identifier&quot;: &quot;9d9a37ba58087d0f&quot;,
+      &quot;name&quot;: &quot;run-3&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;DataCatalog&quot;,
+      &quot;about&quot;: {
+        &quot;dataset&quot;: &quot;br_regulatory&quot;,
+        &quot;dataset_version&quot;: &quot;0.1.0&quot;,
+        &quot;estimator&quot;: &quot;p_true&quot;,
+        &quot;git_sha&quot;: &quot;753d82f13a9568bd1c2c80bbfccda9515dab1fb6&quot;,
+        &quot;seed&quot;: 42
+      },
+      &quot;creator&quot;: &quot;dummy&quot;,
+      &quot;dateCreated&quot;: &quot;2026-04-17T03:11:53.468555+00:00&quot;,
+      &quot;identifier&quot;: &quot;9d9a37ba58087d0f&quot;,
+      &quot;name&quot;: &quot;run-4&quot;
+    },
+    {
+      &quot;@type&quot;: &quot;DataCatalog&quot;,
+      &quot;about&quot;: {
+        &quot;dataset&quot;: &quot;br_regulatory&quot;,
+        &quot;dataset_version&quot;: &quot;0.1.0&quot;,
+        &quot;estimator&quot;: &quot;token_sar&quot;,
+        &quot;git_sha&quot;: &quot;753d82f13a9568bd1c2c80bbfccda9515dab1fb6&quot;,
+        &quot;seed&quot;: 42
+      },
+      &quot;creator&quot;: &quot;dummy&quot;,
+      &quot;dateCreated&quot;: &quot;2026-04-17T03:11:55.101641+00:00&quot;,
+      &quot;identifier&quot;: &quot;9d9a37ba58087d0f&quot;,
+      &quot;name&quot;: &quot;run-5&quot;
+    }
+  ],
+  &quot;name&quot;: &quot;llm-uncertainty-banking evaluation&quot;
+}
+</code></pre>
+
+</body></html>

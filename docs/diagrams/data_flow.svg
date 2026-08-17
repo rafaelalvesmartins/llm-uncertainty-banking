@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 380" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" role="img" aria-labelledby="title desc">
+  <title id="title">lub data flow — single question end-to-end</title>
+  <desc id="desc">Trace of one question through lub: input rails check, backend.generate, estimator.score, output rails, guard threshold check, GuardResult with policy outcome and AI RMF subcategory.</desc>
+
+  <style>
+    .h2 { font-size: 13px; font-weight: 700; fill: #1c1917; }
+    .h3 { font-size: 11px; font-weight: 600; fill: #1c1917; }
+    .body { font-size: 11px; fill: #44403c; }
+    .small { font-size: 10px; fill: #78716c; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 10px; fill: #44403c; }
+    .question { fill: #dbeafe; stroke: #3b82f6; stroke-width: 1; }
+    .pipeline { fill: #ecfccb; stroke: #84cc16; stroke-width: 1; }
+    .llm { fill: #fae8ff; stroke: #c026d3; stroke-width: 1; }
+    .result { fill: #d1fae5; stroke: #10b981; stroke-width: 1; }
+    .guard { fill: #ffedd5; stroke: #f97316; stroke-width: 1; }
+    .final { fill: #dcfce7; stroke: #16a34a; stroke-width: 1.5; }
+    .arrow { stroke: #44403c; stroke-width: 1.5; fill: none; }
+    .arrow-label { font-size: 9px; fill: #78716c; }
+  </style>
+
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 7 3, 0 6" fill="#44403c"/>
+    </marker>
+  </defs>
+
+  <text x="550" y="24" text-anchor="middle" font-size="16" font-weight="700" fill="#1c1917">lub data flow — single question end-to-end</text>
+  <text x="550" y="42" text-anchor="middle" class="body">A regulated-domain query traced through every layer that touches it.</text>
+
+  <rect x="20" y="120" width="160" height="80" rx="8" class="question"/>
+  <text x="100" y="142" text-anchor="middle" class="h3">Question</text>
+  <text x="100" y="160" text-anchor="middle" class="small">"What is the Basel III</text>
+  <text x="100" y="174" text-anchor="middle" class="small">minimum CET1 ratio?"</text>
+  <text x="100" y="192" text-anchor="middle" class="mono">domain="banking"</text>
+
+  <rect x="200" y="80" width="200" height="160" rx="8" class="pipeline"/>
+  <text x="300" y="100" text-anchor="middle" class="h2">UncertaintyPipeline</text>
+  <line x1="215" y1="108" x2="385" y2="108" stroke="#84cc16" stroke-width="1"/>
+  <rect x="212" y="116" width="176" height="26" rx="4" fill="#fff" stroke="#bef264"/>
+  <text x="220" y="133" class="small">→ Input rails (PII, length)</text>
+  <rect x="212" y="146" width="176" height="26" rx="4" fill="#fff" stroke="#bef264"/>
+  <text x="220" y="163" class="small">→ backend.generate()</text>
+  <rect x="212" y="176" width="176" height="26" rx="4" fill="#fff" stroke="#bef264"/>
+  <text x="220" y="193" class="small">→ estimator.score()</text>
+  <rect x="212" y="206" width="176" height="26" rx="4" fill="#fff" stroke="#bef264"/>
+  <text x="220" y="223" class="small">← Output rails (confidence)</text>
+
+  <rect x="420" y="80" width="200" height="160" rx="8" class="llm"/>
+  <text x="520" y="100" text-anchor="middle" class="h2">LLM Backend</text>
+  <text x="520" y="115" text-anchor="middle" class="small">n_samples=3 · T=0.7</text>
+  <line x1="435" y1="123" x2="605" y2="123" stroke="#c026d3" stroke-width="1"/>
+  <rect x="432" y="130" width="176" height="32" rx="4" fill="#fff" stroke="#d8b4fe"/>
+  <text x="440" y="148" class="small">gen 1: "4.5%"</text>
+  <text x="440" y="160" class="mono">logprob: -0.12</text>
+  <rect x="432" y="166" width="176" height="32" rx="4" fill="#fff" stroke="#d8b4fe"/>
+  <text x="440" y="184" class="small">gen 2: "4.5%"</text>
+  <text x="440" y="196" class="mono">logprob: -0.15</text>
+  <rect x="432" y="202" width="176" height="32" rx="4" fill="#fff" stroke="#d8b4fe"/>
+  <text x="440" y="220" class="small">gen 3: "7%"</text>
+  <text x="440" y="232" class="mono">logprob: -0.89</text>
+
+  <rect x="640" y="80" width="200" height="160" rx="8" class="result"/>
+  <text x="740" y="100" text-anchor="middle" class="h2">UncertaintyResult</text>
+  <text x="740" y="116" text-anchor="middle" class="small">self-consistency fusion</text>
+  <line x1="655" y1="123" x2="825" y2="123" stroke="#10b981" stroke-width="1"/>
+  <text x="650" y="140" class="small">answer:</text>
+  <text x="830" y="140" text-anchor="end" class="mono">"4.5%"</text>
+  <text x="650" y="160" class="small">confidence:</text>
+  <text x="830" y="160" text-anchor="end" class="mono">0.667</text>
+  <text x="650" y="180" class="small">should_refuse:</text>
+  <text x="830" y="180" text-anchor="end" class="mono">False</text>
+  <text x="650" y="200" class="small">raw_scores:</text>
+  <text x="650" y="216" class="mono">{agreement: 0.667,</text>
+  <text x="650" y="230" class="mono"> entropy: 0.92}</text>
+
+  <rect x="860" y="80" width="220" height="80" rx="8" class="guard"/>
+  <text x="970" y="100" text-anchor="middle" class="h2">UncertaintyGuard</text>
+  <line x1="875" y1="108" x2="1065" y2="108" stroke="#f97316" stroke-width="1"/>
+  <text x="870" y="126" class="small">threshold check:</text>
+  <text x="1070" y="126" text-anchor="end" class="mono">0.667 ≥ 0.5</text>
+  <text x="870" y="144" class="small">decision:</text>
+  <text x="1070" y="144" text-anchor="end" class="mono" font-weight="700" fill="#16a34a">PASSTHROUGH</text>
+
+  <rect x="860" y="180" width="220" height="120" rx="8" class="final"/>
+  <text x="970" y="200" text-anchor="middle" class="h2">GuardResult</text>
+  <line x1="875" y1="208" x2="1065" y2="208" stroke="#16a34a" stroke-width="1"/>
+  <text x="870" y="226" class="small">output:</text>
+  <text x="1070" y="226" text-anchor="end" class="mono">"4.5%"</text>
+  <text x="870" y="246" class="small">policy_outcome:</text>
+  <text x="1070" y="246" text-anchor="end" class="mono">PASSTHROUGH</text>
+  <text x="870" y="266" class="small">rmf_subcategory:</text>
+  <text x="1070" y="266" text-anchor="end" class="mono" font-weight="700">GOVERN 3.2</text>
+  <text x="870" y="286" class="small">passed:</text>
+  <text x="1070" y="286" text-anchor="end" class="mono" font-weight="700" fill="#16a34a">True</text>
+
+  <path d="M 180 160 L 200 160" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 400 160 L 420 160" class="arrow" marker-end="url(#ah)"/>
+  <text x="410" y="155" text-anchor="middle" class="arrow-label">prompt</text>
+  <path d="M 420 175 L 400 175" class="arrow" marker-end="url(#ah)"/>
+  <text x="410" y="190" text-anchor="middle" class="arrow-label">3 gens</text>
+  <path d="M 620 160 L 640 160" class="arrow" marker-end="url(#ah)"/>
+  <text x="630" y="155" text-anchor="middle" class="arrow-label">vote</text>
+  <path d="M 840 160 L 860 120" class="arrow" marker-end="url(#ah)"/>
+  <path d="M 970 160 L 970 180" class="arrow" marker-end="url(#ah)"/>
+  <text x="985" y="172" class="arrow-label">passed</text>
+
+  <text x="20" y="340" class="small">Imports flow strictly downward through L1–L5; the `Guard` lives in the trust layer (cannot leak into core layers — enforced by import-linter).</text>
+  <text x="20" y="358" class="small">Every step writes to `lub.ledger` for replay-based calibration audit. Result schema is identical regardless of which estimator (out of 22) was used.</text>
+</svg>

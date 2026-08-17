@@ -1,0 +1,94 @@
+{
+  "name": "@claude-flow/plugin-banking-personas",
+  "version": "0.1.0",
+  "description": "Skeleton banking-personas plugin pack: illustrative calibrated agents for SR 11-7 / NIST AI 600-1 / EU AI Act workflows. Each persona is a CalibratedAgent registered through OrchestratorAgentProtocol so it runs inside any orchestration framework (ruflo / langgraph / crewai / autogen). NOT production — counsel-gated until petition framing locks (see RUFLO_AS_CORE_IMPACT §4.3).",
+  "license": "Apache-2.0",
+  "author": "Rafael Martins Alves",
+  "personas": [
+    {
+      "name": "bcb_compliance_officer",
+      "description": "Brazilian Central Bank (BCB) Resolution 4.658 / 4.893 compliance reviewer. Calibrated with semantic_entropy + p_true threshold gating.",
+      "tags": ["regulatory", "bcb", "br"],
+      "uncertainty": "semantic_entropy",
+      "refusal_threshold": 0.7,
+      "rmf_subcategory": "MEASURE 2.7"
+    },
+    {
+      "name": "mrm_validator",
+      "description": "SR 11-7 model-risk-management validator. Triages findings by conceptual soundness / outcome analysis / ongoing monitoring pillar.",
+      "tags": ["regulatory", "sr-11-7", "us"],
+      "uncertainty": "p_true",
+      "refusal_threshold": 0.65,
+      "rmf_subcategory": "MEASURE 2.9"
+    },
+    {
+      "name": "basel_iii_reporter",
+      "description": "Basel III Pillar 3 disclosure drafter. Calibrated with semantic_entropy; refuses to draft below threshold.",
+      "tags": ["regulatory", "basel-iii"],
+      "uncertainty": "semantic_entropy",
+      "refusal_threshold": 0.7,
+      "rmf_subcategory": "MEASURE 2.8"
+    },
+    {
+      "name": "finqa_analyst",
+      "description": "Multi-hop financial-QA analyst. Uses self_consistency + verbalized confidence; cites paragraph IDs from source 10-K.",
+      "tags": ["analysis", "finqa"],
+      "uncertainty": "self_consistency",
+      "refusal_threshold": 0.6,
+      "rmf_subcategory": "MEASURE 2.3"
+    },
+    {
+      "name": "credit_memo_drafter",
+      "description": "Credit memo first-pass drafter for German / Australian credit datasets. Conformal-prediction gated.",
+      "tags": ["analysis", "credit"],
+      "uncertainty": "conformal",
+      "refusal_threshold": 0.8,
+      "rmf_subcategory": "MEASURE 2.8"
+    },
+    {
+      "name": "kyc_narrative_writer",
+      "description": "Know-Your-Customer narrative drafter. Refuses on low confidence and surfaces the reason for human review.",
+      "tags": ["compliance", "kyc"],
+      "uncertainty": "verbalized",
+      "refusal_threshold": 0.75,
+      "rmf_subcategory": "MANAGE 3.1"
+    },
+    {
+      "name": "aml_summarizer",
+      "description": "Anti-Money-Laundering pattern summarizer. claim_level uncertainty so every sub-claim is gated independently.",
+      "tags": ["compliance", "aml"],
+      "uncertainty": "claim_level",
+      "refusal_threshold": 0.7,
+      "rmf_subcategory": "MANAGE 3.2"
+    },
+    {
+      "name": "regime_crosswalk_agent",
+      "description": "Cross-regime regulatory mapper. Given a metric, returns the controls it satisfies across NIST AI 600-1 / EU AI Act / BCBS 239 / BCB Res. 4.893 / ISO 23894 / ISO 42001.",
+      "tags": ["regulatory", "crosswalk"],
+      "uncertainty": "p_true",
+      "refusal_threshold": 0.6,
+      "rmf_subcategory": "GOVERN 1.4"
+    },
+    {
+      "name": "drift_detector",
+      "description": "Calibration drift watcher. Flags when ECE or PSI crosses a runtime-enforced gate.",
+      "tags": ["monitoring", "drift"],
+      "uncertainty": "ensemble",
+      "refusal_threshold": 0.55,
+      "rmf_subcategory": "MEASURE 2.10"
+    },
+    {
+      "name": "challenge_generator",
+      "description": "Adversarial / challenge-prompt generator. Drives the CEC replay engine.",
+      "tags": ["challenge", "cec"],
+      "uncertainty": "epistemic_aleatoric",
+      "refusal_threshold": 0.5,
+      "rmf_subcategory": "MANAGE 4.1"
+    }
+  ],
+  "notes": [
+    "These manifests are declarative; the actual CalibratedAgent classes live in handlers.py.",
+    "All ten personas are calibrated workers — the orchestration runtime is the user's choice (ruflo / langgraph / crewai / autogen).",
+    "Per RUFLO_VS_LUB_GAP §4.3, full implementation is post-filing v0.4+; this skeleton is the contract surface only."
+  ]
+}

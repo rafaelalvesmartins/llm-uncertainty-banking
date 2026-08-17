@@ -1,0 +1,22 @@
+# REFERENCE artifact — Track D scale deployment (ENGINEERING_HARDENING_PLAN.md §D.5).
+# Mirrors reference/monitoring/prometheus.yml (the lub gateway style).
+#
+# Prerequisite: install the scale deps (prometheus-client) so server.py mounts
+# routers/observability.py at /metrics/prometheus (the mount is guarded — a no-op
+# in the single-node demo). Until then this scrape job returns no data.
+# See SCALE_WIRING.md Step 3.
+
+global:
+  scrape_interval:     15s   # how often Prometheus pulls each target
+  evaluation_interval: 15s   # how often alerting rules are evaluated
+
+scrape_configs:
+  - job_name: "bridge-app"
+    # Docker Compose service name "app" resolves to all replica IPs; Prometheus
+    # will scrape each replica independently, labelling them by instance.
+    static_configs:
+      - targets: ["app:8000"]
+    metrics_path: "/metrics/prometheus"
+    # Increase timeout slightly — if the app is under load the /metrics handler
+    # must still respond within the scrape timeout.
+    scrape_timeout: 10s

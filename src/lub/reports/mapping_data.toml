@@ -1,0 +1,360 @@
+# Metric-to-framework mapping for LUB reports.
+#
+# Three frameworks: NIST AI RMF 1.0, ISO/IEC 42001:2023, SR 11-7.
+# Each metric maps to a sub-category/clause/pillar with a prose description.
+# The Python module mapping.py loads this file at import time.
+
+# =========================================================================
+# NIST AI RMF 1.0
+# =========================================================================
+
+[rmf.accuracy]
+subcategory = "MEASURE 2.3"
+description = "System performance: task accuracy on the evaluation set."
+trust_dimension = "Efficacy"
+
+[rmf.ece]
+subcategory = "MEASURE 2.9"
+description = "Reliability: expected calibration error of confidence scores."
+trust_dimension = "Robustness"
+
+[rmf.refusal_auroc]
+subcategory = "MEASURE 2.7"
+description = "Safety and robustness: AUROC of confidence as a refusal signal."
+trust_dimension = "Robustness"
+
+[rmf.miscalibration_area]
+subcategory = "MEASURE 2.9"
+description = "Reliability: area between reliability curve and identity diagonal."
+trust_dimension = "Robustness"
+
+[rmf.sharpness]
+subcategory = "MEASURE 2.9"
+description = "Reliability: variance of confidence (decisiveness of the estimator)."
+trust_dimension = "Efficacy"
+
+[rmf.missing_ratio]
+subcategory = "MEASURE 2.7"
+description = "Safety: fraction of examples the system refused to answer."
+trust_dimension = "Robustness"
+
+[rmf.prr]
+subcategory = "MEASURE 2.7"
+description = "Selective prediction: prediction-rejection ratio vs oracle (1.0 = oracle, 0.0 = random)."
+trust_dimension = "Robustness"
+
+[rmf.dataset_hash]
+subcategory = "MEASURE 2.8"
+description = "Transparency: dataset provenance and reproducibility digest."
+trust_dimension = "Explainability"
+
+[rmf.dataset_version]
+subcategory = "MEASURE 2.8"
+description = "Transparency: declared dataset version string (drift diagnosis)."
+trust_dimension = "Explainability"
+
+[rmf.git_sha]
+subcategory = "MANAGE 4.1"
+description = "Change management: code revision under which results were produced."
+trust_dimension = "Security"
+
+[rmf.package_versions]
+subcategory = "MANAGE 4.1"
+description = "Change management: full dependency fingerprint for reproducibility."
+trust_dimension = "Security"
+
+[rmf.brier]
+subcategory = "MEASURE 2.9"
+description = "Reliability: Brier score (mean squared error of confidence forecasts)."
+trust_dimension = "Robustness"
+
+[rmf.rmsce]
+subcategory = "MEASURE 2.9"
+description = "Reliability: root-mean-squared calibration error (L2 analogue of ECE)."
+trust_dimension = "Robustness"
+
+[rmf.ence]
+subcategory = "MEASURE 2.9"
+description = "Reliability: expected normalized calibration error -- penalizes low-confidence miscalibration."
+trust_dimension = "Robustness"
+
+[rmf.reversed_pairs_proportion]
+subcategory = "MEASURE 2.7"
+description = "Safety: fraction of (correct, incorrect) pairs with reversed confidence ordering."
+trust_dimension = "Robustness"
+
+[rmf.spearman]
+subcategory = "MEASURE 2.5"
+description = "Discrimination: Spearman rank correlation between confidence and correctness."
+trust_dimension = "Efficacy"
+
+[rmf.kendall_tau]
+subcategory = "MEASURE 2.5"
+description = "Discrimination: Kendall tau-b rank correlation between confidence and correctness."
+trust_dimension = "Efficacy"
+
+[rmf.adversarial_group_calibration]
+subcategory = "MEASURE 2.6"
+description = "Fairness: worst-case ECE across random subgroups (Zhao et al. 2021)."
+trust_dimension = "Bias"
+
+[rmf.aurc]
+subcategory = "MEASURE 2.7"
+description = "Selective prediction: area under the risk-coverage curve (lower is better)."
+trust_dimension = "Robustness"
+
+[rmf.auucc]
+subcategory = "MEASURE 2.7"
+description = "Selective prediction: area under the uncertainty characteristics curve (higher is better)."
+trust_dimension = "Robustness"
+
+[rmf.crps_from_confidence]
+subcategory = "MEASURE 2.9"
+description = "Scoring rule: CRPS for Bernoulli confidence forecasts (equivalent to Brier)."
+trust_dimension = "Robustness"
+
+[rmf.negative_log_likelihood]
+subcategory = "MEASURE 2.9"
+description = "Scoring rule: binary NLL (log loss) of confidence forecasts."
+trust_dimension = "Robustness"
+
+
+# =========================================================================
+# ISO/IEC 42001:2023
+# =========================================================================
+
+[iso42001.accuracy]
+clause = "9.1"
+description = "Performance evaluation: task accuracy on the evaluation set."
+annex = "A.6.2.6"
+
+[iso42001.ece]
+clause = "9.1"
+description = "Performance evaluation: expected calibration error of confidence scores."
+annex = "A.6.2.6"
+
+[iso42001.refusal_auroc]
+clause = "8.4"
+description = "AI system operation: AUROC of confidence as a refusal signal under operational conditions."
+annex = "A.7.3"
+
+[iso42001.miscalibration_area]
+clause = "9.1"
+description = "Performance evaluation: area between reliability curve and identity diagonal."
+annex = "A.6.2.6"
+
+[iso42001.sharpness]
+clause = "9.1"
+description = "Performance evaluation: variance of confidence (estimator decisiveness)."
+annex = "A.6.2.6"
+
+[iso42001.missing_ratio]
+clause = "8.4"
+description = "AI system operation: fraction of examples the system refused to answer."
+annex = "A.7.3"
+
+[iso42001.prr]
+clause = "8.4"
+description = "AI system operation: prediction-rejection ratio vs oracle."
+annex = "A.7.3"
+
+[iso42001.dataset_hash]
+clause = "6.1.2"
+description = "AI risk assessment: dataset provenance and reproducibility digest."
+annex = "A.5.4"
+
+[iso42001.dataset_version]
+clause = "6.1.2"
+description = "AI risk assessment: declared dataset version string for drift diagnosis."
+annex = "A.5.4"
+
+[iso42001.git_sha]
+clause = "8.2"
+description = "AI system lifecycle: code revision under which results were produced."
+annex = "A.6.2.4"
+
+[iso42001.package_versions]
+clause = "8.2"
+description = "AI system lifecycle: full dependency fingerprint for reproducibility."
+annex = "A.6.2.4"
+
+[iso42001.brier]
+clause = "9.1"
+description = "Performance evaluation: Brier score (mean squared error of confidence forecasts)."
+annex = "A.6.2.6"
+
+[iso42001.rmsce]
+clause = "9.1"
+description = "Performance evaluation: root-mean-squared calibration error (L2 analogue of ECE)."
+annex = "A.6.2.6"
+
+[iso42001.ence]
+clause = "9.1"
+description = "Performance evaluation: expected normalized calibration error."
+annex = "A.6.2.6"
+
+[iso42001.reversed_pairs_proportion]
+clause = "8.4"
+description = "AI system operation: fraction of (correct, incorrect) pairs with reversed confidence."
+annex = "A.7.3"
+
+[iso42001.spearman]
+clause = "9.1"
+description = "Performance evaluation: Spearman rank correlation between confidence and correctness."
+annex = "A.6.2.6"
+
+[iso42001.kendall_tau]
+clause = "9.1"
+description = "Performance evaluation: Kendall tau-b rank correlation between confidence and correctness."
+annex = "A.6.2.6"
+
+[iso42001.adversarial_group_calibration]
+clause = "6.1.2"
+description = "AI risk assessment: worst-case ECE across random subgroups (fairness stress test)."
+annex = "A.5.4"
+
+[iso42001.aurc]
+clause = "8.4"
+description = "AI system operation: area under risk-coverage curve (selective prediction quality)."
+annex = "A.7.3"
+
+[iso42001.auucc]
+clause = "8.4"
+description = "AI system operation: area under uncertainty characteristics curve."
+annex = "A.7.3"
+
+[iso42001.crps_from_confidence]
+clause = "9.1"
+description = "Performance evaluation: CRPS for Bernoulli confidence forecasts."
+annex = "A.6.2.6"
+
+[iso42001.negative_log_likelihood]
+clause = "9.1"
+description = "Performance evaluation: binary NLL (log loss) of confidence forecasts."
+annex = "A.6.2.6"
+
+
+# =========================================================================
+# Federal Reserve SR 11-7 / OCC 2011-12
+# =========================================================================
+# Pillar 2 = Model Validation, Pillar 3 = Governance
+
+# -- Pillar 2: Outcomes Analysis --
+
+[sr117.accuracy]
+pillar = "Pillar 2"
+section = "V.A Outcomes Analysis"
+description = "Task accuracy on the evaluation set -- direct evidence for outcomes analysis."
+
+[sr117.refusal_auroc]
+pillar = "Pillar 2"
+section = "V.A Outcomes Analysis"
+description = "AUROC of confidence as a refusal signal -- measures selective prediction quality."
+
+[sr117.prr]
+pillar = "Pillar 2"
+section = "V.A Outcomes Analysis"
+description = "Prediction-rejection ratio vs oracle -- selective prediction effectiveness."
+
+[sr117.aurc]
+pillar = "Pillar 2"
+section = "V.A Outcomes Analysis"
+description = "Area under risk-coverage curve -- selective prediction quality under varying refusal rates."
+
+[sr117.auucc]
+pillar = "Pillar 2"
+section = "V.A Outcomes Analysis"
+description = "Area under uncertainty characteristics curve -- UQ quality metric."
+
+# -- Pillar 2: Conceptual Soundness --
+
+[sr117.ece]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "Expected calibration error -- tests whether confidence scores are meaningful."
+
+[sr117.brier]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "Brier score -- proper scoring rule for calibration quality."
+
+[sr117.rmsce]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "Root-mean-squared calibration error -- L2 analogue of ECE."
+
+[sr117.ence]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "Expected normalized calibration error -- penalizes low-confidence miscalibration."
+
+[sr117.miscalibration_area]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "Area between reliability curve and perfect calibration diagonal."
+
+[sr117.sharpness]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "Variance of confidence scores -- measures estimator decisiveness."
+
+[sr117.crps_from_confidence]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "CRPS for Bernoulli confidence forecasts -- proper scoring rule."
+
+[sr117.negative_log_likelihood]
+pillar = "Pillar 2"
+section = "V.B Conceptual Soundness"
+description = "Binary NLL (log loss) -- proper scoring rule for confidence forecasts."
+
+# -- Pillar 2: Benchmarking --
+
+[sr117.spearman]
+pillar = "Pillar 2"
+section = "V.C Benchmarking"
+description = "Spearman rank correlation -- discriminative power of confidence ranking."
+
+[sr117.kendall_tau]
+pillar = "Pillar 2"
+section = "V.C Benchmarking"
+description = "Kendall tau-b rank correlation -- discriminative power of confidence ranking."
+
+# -- Pillar 2: Effective Challenge --
+
+[sr117.adversarial_group_calibration]
+pillar = "Pillar 2"
+section = "V.D Effective Challenge"
+description = "Worst-case ECE across random subgroups -- fairness stress test."
+
+[sr117.reversed_pairs_proportion]
+pillar = "Pillar 2"
+section = "V.D Effective Challenge"
+description = "Fraction of (correct, incorrect) pairs with reversed confidence -- ranking failure rate."
+
+# -- Pillar 3: Governance --
+
+[sr117.missing_ratio]
+pillar = "Pillar 3"
+section = "VI.B Ongoing Monitoring"
+description = "Fraction of examples the system refused to answer -- refusal rate monitoring."
+
+[sr117.dataset_hash]
+pillar = "Pillar 3"
+section = "VI.A Documentation"
+description = "SHA-256 digest of evaluation dataset -- reproducibility evidence."
+
+[sr117.dataset_version]
+pillar = "Pillar 3"
+section = "VI.A Documentation"
+description = "Declared dataset version string -- provenance for drift diagnosis."
+
+[sr117.git_sha]
+pillar = "Pillar 3"
+section = "VI.C Change Management"
+description = "Code revision hash -- ties results to a specific software version."
+
+[sr117.package_versions]
+pillar = "Pillar 3"
+section = "VI.C Change Management"
+description = "Full dependency fingerprint -- ensures reproducibility across environments."

@@ -1,0 +1,10 @@
+# Smoke-test config: DummyBackend on FinQA with semantic_entropy.
+# Exercises a k-sample diversity estimator against the heaviest dataset
+# loader; still hermetic because DummyBackend has no network.
+
+model = "dummy-0"
+backend = "dummy"
+estimator = "semantic_entropy"
+dataset = "finqa"
+limit = 3
+seed = 0
