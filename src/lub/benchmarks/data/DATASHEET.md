@@ -23,7 +23,7 @@ would ask.
 
 ### Who created it?
 
-**Rafael Martins Alves** (Banco de Brasilia / UNICAMP), as an original
+**Rafael Martins Alves** (independent researcher), as an original
 contribution within the `llm-uncertainty-banking` framework. The dataset
 was hand-crafted by the author based on his professional knowledge of
 banking regulation, with every answer verified against publicly available

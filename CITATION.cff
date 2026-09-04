@@ -5,7 +5,7 @@ type: software
 authors:
   - family-names: "Alves"
     given-names: "Rafael Martins"
-    affiliation: "Banco de Brasília"
+    affiliation: "Independent researcher"
 repository-code: "https://github.com/rafaelalvesmartins/llm-uncertainty-banking"
 url: "https://github.com/rafaelalvesmartins/llm-uncertainty-banking"
 abstract: "An open-source Python framework unifying 22 UQ estimators for uncertainty quantification in financial LLM deployments, with six-regime regulatory compliance reporting (NIST AI 600-1 GenAI Profile of AI RMF 1.0, EU AI Act 2024/1689, BCBS 239, BCB Resolução 4.893/2021, ISO/IEC 23894:2023, and ISO/IEC 42001:2023) and governance layers. SR 11-7 three-pillar mapping cross-referenced separately."

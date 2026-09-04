@@ -81,7 +81,7 @@
 
 - Do not post the paper publicly (GitHub, Twitter, LinkedIn, conference list) before arXiv assigns the ID. Wait for indexing.
 - Do not submit to a journal simultaneously — most ML journals are arXiv-friendly but confirm policy before dual-submitting.
-- Do not list "banking industry experience" in the author bio on arXiv — affiliation line is UNICAMP (research) or "independent researcher." BRB affiliation stays in the code's CITATION.cff only.
+- Do not list "banking industry experience" in the author bio on arXiv — the affiliation line is "independent researcher" everywhere, including the code's `CITATION.cff`. The work was done outside any employment relationship, so no employer affiliation is claimed on the paper, in the citation metadata, or in the dataset datasheet.
 - Do not submit on a Friday — weekend moderator delays can push indexing by 48h.
 
 ---

@@ -2,7 +2,11 @@
 
 **Paper:** "Calibrated LLMs for Regulated Banking: A Benchmark and NIST AI RMF Reporting Pipeline for Uncertainty Quantification in Financial LLM Deployments"
 
-**Authors:** Rafael Martins Alves (Banco de Brasília, UNICAMP)
+**Authors:** Rafael Martins Alves (Independent researcher)
+
+**Affiliation note:** This work was conducted independently, on the author's own
+infrastructure and personal accounts, outside any employment relationship. No
+employer resources, data, or proprietary information were used.
 
 **arXiv ID:** [Pending — will be assigned upon submission]
 
