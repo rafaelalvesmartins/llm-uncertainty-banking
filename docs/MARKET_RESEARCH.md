@@ -12,7 +12,7 @@ industry-wide sweep). It has two parts:
 1. **Competitive landscape** — named products, what they cover, where
    `lub` is differentiated.
 2. **Industry context** — regulatory timeline, job market evidence,
-   cost comparison, and EB-2 NIW mapping.
+   and cost comparison.
 
 ---
 
@@ -143,26 +143,7 @@ bank."**
 - Trigger: regulator exam, internal audit finding, EU AI Act deadline.
 - She needs `lub`. She just does not know it exists yet.
 
-### 2.5 EB-2 NIW petition mapping
-
-| Finding | Prong | Argument |
-|---|---|---|
-| No OSS tool combines LLM UQ + OSCAL + SR 11-7 | Prong 1 | Substantial merit — fills a gap no existing tool addresses |
-| SR 11-7 applied to LLMs by analogy | Prong 1 | National importance — directly serves US federal banking oversight |
-| EU AI Act binding August 2026 | Prong 1 | Urgency — US banks with EU operations need evidence by deadline |
-| Banks spend $200K–$1M/yr on MRM tools | Prong 1 | Economic impact — OSS alternative reduces per-bank build cost |
-| 6+ regulatory frameworks in one artefact | Prong 1 | Cross-jurisdictional — serves US, EU, UK, Canada, Brazil, Basel |
-| "Build internal tools" language in job postings | Prong 2 | Petitioner fills a gap — the role does not reference an existing solution |
-| $163K–$295K salaries for AI Model Risk | Prong 3 | Well-compensated national need |
-| No standard job classification exists | Prong 3 | Labor certification is inadequate — "AI Model Risk + LLM UQ + Regulatory Reporting" is not a defined occupation |
-
-Prong 2 also requires evidence that *Rafael specifically* is
-well-positioned to advance the work — credentials, publications, code
-authorship, and expert endorsements. That evidence belongs in the
-petition narrative (see `15b_EB2_NIW_Petition_Narrative.md`), not in
-this document.
-
-### 2.6 Verification status
+### 2.5 Verification status
 
 Items marked **[VERIFIED]** have been checked against primary sources.
 Items marked **[SECONDARY]** rely on aggregator or third-party
@@ -179,7 +160,7 @@ reporting and must be cross-checked before petition use.
 | ValidMind ~$5K/yr AWS Marketplace | **[SECONDARY]** | AWS listings change; verify current pricing |
 | EU AI Act Art. 15 binding August 2026 | **[VERIFY]** | Confirm the staggered timeline for Annex III high-risk systems |
 
-### 2.7 Sources
+### 2.6 Sources
 
 - UQLM — https://github.com/cvs-health/uqlm (~1k stars, 5 scorer categories)
 - LM-Polygraph — https://github.com/IINemo/lm-polygraph

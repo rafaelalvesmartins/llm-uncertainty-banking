@@ -242,8 +242,9 @@ runtime** that turns the toolkit into an executable spec:
 - `lub.governance.drift` — nightly `enforce_drift(ledger, context)`
   replays reliability buckets from the ledger and raises
   `PolicyViolation` when the measured ECE drifts above the ADR
-  target. Wired into `.github/workflows/nightly-calibration.yml` so a
-  calibration regression fails CI, not production.
+  target. Implemented in `lub.challenge.nightly`, designed to run as a
+  scheduled check so a calibration regression is caught before
+  production.
 - `lub.ledger.metrics` — stdlib-only Prometheus textfile + Grafana
   SimpleJson export of (n_answers, accuracy, abstain rate, per-tier
   counts, per-method ECE). Drops straight into a
@@ -320,7 +321,10 @@ no independent pen-test, single-tenant demonstrator).
 - mypy --strict: 0 type errors; layered imports enforced by `import-linter`
 - 22 estimators, 14 metrics, 5 backends, 6 regulatory regimes, 8 datasets
 - Protocol-based architecture (lazy imports, no tight coupling)
-- Current test counts and coverage: see CI and [TEST_COVERAGE.md](docs/TEST_COVERAGE.md)
+- Test suite versioned under `tests/`; coverage instrumentation configured in `pyproject.toml`
+  (`pytest-cov`). For current counts and coverage, run `pytest --cov=lub --cov-report=term-missing`
+  at the repo root. [TEST_COVERAGE.md](docs/TEST_COVERAGE.md) is a pinned v0.0.1 snapshot, not a
+  live figure.
 - **What is implemented vs. benchmarked on a real model:** [evidence-status.md](docs/evidence-status.md)
   (candor matrix — a non-degenerate real-model accuracy number is still open)
 

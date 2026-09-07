@@ -48,8 +48,10 @@
 
 `lub` itself is a small, strictly layered library. Every import flows
 downward; no module in a lower layer may import from a higher one. The
-contract is enforced at CI time by
-[import-linter](https://import-linter.readthedocs.io/).
+contract is declared in `pyproject.toml` under `[tool.importlinter]`
+and checked by [import-linter](https://import-linter.readthedocs.io/),
+wired as a pre-commit hook — run `lint-imports` at the repo root to
+verify it.
 
 ```
 L5 Reports       lub.reports       (AI RMF Jinja template + renderer)
@@ -290,8 +292,9 @@ shape every other design choice in this library:
 `scripts/check_integrity.py` scans `src/lub` and `tests` for null
 bytes, AST `SyntaxError`, and heuristic truncation cues (last line
 ending in an open delimiter). It is a defensive tool for the
-Windows-on-bash-mount workflow used during development; CI does not
-need it because CI compiles every file. Run before every commit:
+Windows-on-bash-mount workflow used during development; a full test
+run does not need it, because compiling every file surfaces the same
+failures. Run before every commit:
 
 ```bash
 python scripts/check_integrity.py     # exit 0 means clean
