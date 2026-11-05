@@ -48,13 +48,11 @@ The project has been **validator-driven hardened across 11 rounds** (see `bridge
 │   ├── README.md                         # How to run
 │   ├── docs/                             # Documentation index
 │   │   ├── DEMO_SCOPE.md                 # What the demo intentionally does NOT do
-│   │   ├── PETITION_EXHIBIT_GUIDE.md     # Prong-2 claim → evidence map
 │   │   └── VALIDATION_HISTORY.md        # Round-by-round validation log
 │   ├── backend/
 │   │   ├── server.py            (3832 LOC) # FastAPI BFF + 12-stage pipeline + safety classifier
 │   │   ├── test_safety_smoke.py (485 LOC)  # 57 regression cases pinning the safety contract
 │   │   └── scripts/
-│   │       └── generate_petition_exhibit.sh # Reproducible canonical demo session
 │   └── frontend/                         # Next.js 14 (App Router, TypeScript)
 │       ├── app/
 │       │   ├── page.tsx                  # Main dashboard
@@ -333,7 +331,6 @@ bash /c/code/eb2niw/n8n_scripts/bridge-smoke.sh
 
 # 5. Capture the canonical session
 cd 06_Projeto_GitHub/llm-uncertainty-banking
-bash bridge-ui/backend/scripts/generate_petition_exhibit.sh
 
 # 6. Inspect out/canonical_session/audit.json and confirm PII is masked.
 ```

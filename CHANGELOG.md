@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-05
+
+### Changed
+
+- Citation metadata now states the author as an independent researcher. The
+  project is developed outside any employment; the affiliation recorded in
+  v0.1.0 was incorrect.
+- Corrected documentation claims about continuous integration: no CI workflow
+  is configured in this repository, and tests run locally.
+
+### Removed
+
+- Author-specific preparation material that does not belong in a public
+  library (`bridge-ui/PETITION_EXHIBIT_GUIDE.md`, its copy under `docs/`,
+  `generate_petition_exhibit.sh`, and one generated output folder).
+
 ### Added
 
 - `lub challenge-nightly` (`cli/challenge.py`) — the scheduled entry point for

@@ -38,4 +38,3 @@ The operational README (how to run the demo) stays at [`../README.md`](../README
 
 | File | Description |
 |------|-------------|
-| [PETITION_EXHIBIT_GUIDE.md](PETITION_EXHIBIT_GUIDE.md) | Prong-2 claim → evidence map for the EB-2 NIW petition |

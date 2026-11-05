@@ -64,4 +64,3 @@ the two documents above** — do not treat them as the current roadmap.
 | [DEMO_SCOPE.md](DEMO_SCOPE.md) | What the demo intentionally does NOT do — reference, not a plan. |
 | [FRONTEND_TEST_GUIDE.md](FRONTEND_TEST_GUIDE.md) | UI test guide — reference. |
 | [LLM_TEST_CONTEXT.md](LLM_TEST_CONTEXT.md) | Backend/curl test context + endpoint catalogue — reference. |
-| [PETITION_EXHIBIT_GUIDE.md](PETITION_EXHIBIT_GUIDE.md) | Prong-2 claim → evidence map for the EB-2 NIW petition — reference. |
